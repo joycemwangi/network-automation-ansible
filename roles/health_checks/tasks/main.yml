@@ -1,0 +1,15 @@
+- name: Perform automated health checks on routers and switches
+  hosts: routers
+  gather_facts: no
+
+  tasks:
+    - name: Gather router facts
+      ios_facts:
+
+    - name: Display router information
+      debug:
+        msg: |
+          Router: {{ ansible_net_hostname }}
+          OS Version: {{ ansible_net_version }}
+          Model: {{ ansible_net_model }}
+          Serial Number: {{ ansible_net_serialnum }}
