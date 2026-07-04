@@ -1,5 +1,15 @@
 # Network Automation with Ansible
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ansible/ansible/devel/docs/docsite/rst/_static/ansible_logo.png" width="180"/>
+</p>
+
+<p align="center">
+  <b>Automated Network Health Monitoring for Enterprise & ISP Infrastructure</b>
+</p>
+
+---
+
 ## Overview
 Ansible-based automation framework for performing automated health checks on routers and switches across enterprise and ISP network environments.
 
@@ -29,14 +39,14 @@ This project gathers operational data, parses device output, and helps proactive
 ```
 network-automation-ansible/
 │
-├── health_check.yml              # Main playbook
+├── health_check.yml # Main playbook
 ├── roles/
-│   └── health_checks/
-│       ├── tasks/
-│       │   └── main.yml
-│       ├── defaults/
-│       ├── vars/
-│       └── handlers/
+│ └── health_checks/
+│ ├── tasks/
+│ │ └── main.yml
+│ ├── defaults/
+│ ├── vars/
+│ └── handlers/
 ├── inventory (hosts.ini)
 ├── ansible.cfg
 └── README.md
@@ -48,14 +58,14 @@ network-automation-ansible/
 
 Automated health check workflow:
 
-1. Connect to network devices via Ansible
-2. Collect operational state using IOS facts modules
+1. Connect to network devices via Ansible  
+2. Collect operational state using IOS facts modules  
 3. Extract key device information:
    - Hostname
    - OS version
    - Hardware model
-   - Serial number
-4. Display structured output for validation and monitoring
+   - Serial number  
+4. Display structured output for validation and monitoring  
 
 ---
 
@@ -65,7 +75,6 @@ Router: R1-EDGE-01
 OS Version: IOS-XE 17.x
 Model: Cisco ISR 4451-X
 Serial Number: FGL2345ABC
-
 
 ---
 
@@ -101,4 +110,5 @@ Serial Number: FGL2345ABC
 Network & Cloud Infrastructure Engineer  
 GitHub: https://github.com/joycemwangi  
 LinkedIn: https://linkedin.com/in/wanjajoyce
+
 
