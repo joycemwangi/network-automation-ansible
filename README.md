@@ -28,12 +28,15 @@ This project gathers operational data, parses device output, and helps proactive
 ---
 
 ## Key Features
-- Automated network device health checks (routers & switches)
-- Configuration-free operational data collection
-- Structured parsing of device outputs
-- Early detection of network anomalies
-- Multi-vendor ready automation approach
+
+- Automated health checks for Cisco routers and switches
+- Hybrid infrastructure monitoring
+- Multi-cloud observability (AWS, Azure, GCP, OCI, Private Cloud)
+- Connectivity validation and health reporting
+- Threshold-based alerting
+- Structured operational data collection
 - Role-based Ansible architecture
+- Extensible for enterprise and ISP environments
 
 ---
 
