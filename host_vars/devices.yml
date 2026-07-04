@@ -72,6 +72,22 @@ GCP-EUROPE-01:
   importance: "medium"
 
 # =============================
+# ORACLE CLOUD INFRASTRUCTURE
+# =============================
+
+OCI-PHX-01:
+  cloud_provider: "oracle"
+  region: "us-phoenix-1"
+  role: "cloud-instance"
+  importance: "high"
+
+OCI-FRA-01:
+  cloud_provider: "oracle"
+  region: "eu-frankfurt-1"
+  role: "cloud-instance"
+  importance: "high"
+  
+# =============================
 # PRIVATE CLOUD
 # =============================
 
