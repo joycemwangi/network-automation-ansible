@@ -59,7 +59,7 @@ network-automation-ansible/
 ├── .gitattributes             # GitHub language detection
 │
 ├── inventory/
-│   └── hosts.ini              # Network & multi-cloud inventory
+│   └── hosts.ini              # Cisco network & multi-cloud inventory (AWS, Azure, GCP, OCI, Private Cloud)
 ├── group_vars/
 │   └── all.yml                # Global monitoring variables
 ├── host_vars/
