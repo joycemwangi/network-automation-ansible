@@ -1,0 +1,11 @@
+---
+# Global monitoring policy (single source of truth)
+
+cpu_threshold: 80
+memory_threshold: 80
+latency_threshold: 50
+
+enable_cloud_checks: true
+enable_network_checks: true
+enable_alerting: true
+monitoring_mode: "hybrid"
