@@ -39,37 +39,38 @@ This project gathers operational data, parses device output, and helps proactive
 ```
 network-automation-ansible/
 │
-├── health_check.yml              # Main orchestrator playbook (network + multi-cloud)
-├── ansible.cfg                  # Ansible execution configuration
-├── README.md                    # Project documentation
+├── health_check.yml                     # Main orchestrator playbook (hybrid monitoring)
+├── ansible.cfg                          # Ansible configuration
+├── README.md                            # Project documentation
+├── LICENSE                              # MIT License
+├── .gitattributes                       # GitHub language detection
 │
 ├── inventory/
-│   └── hosts.ini                # Multi-cloud + network inventory (4-cloud architecture)
+│   └── hosts.ini                        # Network & multi-cloud inventory
 │
 ├── group_vars/
-│   └── all.yml                  # Global variables (thresholds, defaults)
+│   └── all.yml                          # Global monitoring variables
 │
 ├── host_vars/
-│   └── devices.yml              # Device-specific overrides (optional scaling layer)
+│   └── devices.yml                      # Infrastructure metadata
 │
 ├── roles/
 │   └── health_checks/
 │       ├── tasks/
-│       │   └── main.yml         # Core monitoring logic (Cisco + cloud + alerts)
-│       │
+│       │   └── main.yml                 # Hybrid monitoring logic
 │       ├── defaults/
-│       │   └── main.yml         # Default thresholds + feature toggles
-│       │
+│       │   └── main.yml                 # Default role variables
 │       ├── vars/
-│       │   └── main.yml         # Role-specific configuration (hybrid domains)
-│       │
+│       │   └── main.yml                 # Role-specific variables
 │       └── handlers/
-│           └── main.yml         # Event-driven alert handlers
+│           └── main.yml                 # Alert handlers
 │
-├── logs/
-│   └── ansible.log              # Execution logs (audit trail)
+├── templates/
+│   └── .gitkeep                         # Reserved for future report templates
 │
-└── templates/                   # (future-ready: reports, dashboards, alerts)
+└── logs/
+    ├── .gitignore                       # Ignore generated log files
+    └── .gitkeep                         # Keep logs directory in Git
 ```
 
 ---
