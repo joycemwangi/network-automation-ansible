@@ -39,38 +39,32 @@ This project gathers operational data, parses device output, and helps proactive
 ```
 network-automation-ansible/
 │
-├── health_check.yml                     # Main orchestrator playbook (hybrid monitoring)
-├── ansible.cfg                          # Ansible configuration
-├── README.md                            # Project documentation
-├── LICENSE                              # MIT License
-├── .gitattributes                       # GitHub language detection
+├── health_check.yml           # Main orchestrator playbook (hybrid monitoring)
+├── ansible.cfg                # Ansible configuration
+├── README.md                  # Project documentation
+├── LICENSE                    # MIT License
+├── .gitattributes             # GitHub language detection
 │
 ├── inventory/
-│   └── hosts.ini                        # Network & multi-cloud inventory
-│
+│   └── hosts.ini              # Network & multi-cloud inventory
 ├── group_vars/
-│   └── all.yml                          # Global monitoring variables
-│
+│   └── all.yml                # Global monitoring variables
 ├── host_vars/
-│   └── devices.yml                      # Infrastructure metadata
+│   └── devices.yml            # Infrastructure metadata
 │
 ├── roles/
 │   └── health_checks/
 │       ├── tasks/
-│       │   └── main.yml                 # Hybrid monitoring logic
+│       │   └── main.yml       # Hybrid monitoring logic
 │       ├── defaults/
-│       │   └── main.yml                 # Default role variables
+│       │   └── main.yml       # Default role variables
 │       ├── vars/
-│       │   └── main.yml                 # Role-specific variables
+│       │   └── main.yml       # Role-specific variables
 │       └── handlers/
-│           └── main.yml                 # Alert handlers
+│           └── main.yml       # Event-driven alert handlers
 │
-├── templates/
-│   └── .gitkeep                         # Reserved for future report templates
-│
-└── logs/
-    ├── .gitignore                       # Ignore generated log files
-    └── .gitkeep                         # Keep logs directory in Git
+├── templates/                 # Reserved for future report templates
+└── logs/                      # Runtime logs (.gitkeep, .gitignore)
 ```
 
 ---
