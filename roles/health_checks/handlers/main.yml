@@ -1,0 +1,16 @@
+---
+# =============================
+# ALERT HANDLERS (SIMULATED)
+# =============================
+
+- name: trigger network alert
+  ansible.builtin.debug:
+    msg: "🚨 HANDLER: Network anomaly detected - escalation triggered"
+
+- name: trigger cloud alert
+  ansible.builtin.debug:
+    msg: "🚨 HANDLER: Cloud anomaly detected - incident workflow started"
+
+- name: generate incident report
+  ansible.builtin.debug:
+    msg: "📄 HANDLER: Incident report generated for auditing"
