@@ -1,16 +1,16 @@
 ---
+# =============================
+# ON-PREM NETWORK (CISCO IOS)
+# =============================
 - name: Gather Cisco IOS device facts
   cisco.ios.ios_facts:
   register: device_facts
 
-# -------------------------
-# DEVICE IDENTITY REPORT
-# -------------------------
-- name: Display device identity information
+- name: Display network device health information
   ansible.builtin.debug:
     msg: |
       ==============================
-      Network Device Health Report
+      NETWORK DEVICE HEALTH REPORT
       ==============================
       Hostname      : {{ ansible_net_hostname }}
       OS Version    : {{ ansible_net_version }}
@@ -18,73 +18,74 @@
       Serial Number : {{ ansible_net_serialnum }}
       Uptime        : {{ ansible_net_uptime | default('N/A') }}
 
-# -------------------------
-# CPU UTILIZATION
-# -------------------------
-- name: Get CPU utilization
-  cisco.ios.ios_command:
-    commands:
-      - show processes cpu | include CPU
-  register: cpu_output
+# =============================
+# CLOUD LAYER (SIMULATED AWS/AZURE METRICS)
+# =============================
 
-- name: Display CPU usage
+- name: Simulate cloud instance health metrics
+  ansible.builtin.set_fact:
+    cloud_metrics:
+      cloud_provider: "AWS/Azure (simulated)"
+      instance_health: "healthy"
+      cpu_utilization: 62
+      memory_utilization: 58
+      network_latency_ms: 12
+
+- name: Display cloud infrastructure metrics
   ansible.builtin.debug:
     msg: |
       ==============================
-      CPU UTILIZATION
+      CLOUD INFRASTRUCTURE METRICS
       ==============================
-      {{ cpu_output.stdout[0] }}
+      Cloud Provider      : {{ cloud_metrics.cloud_provider }}
+      Instance Status     : {{ cloud_metrics.instance_health }}
+      CPU Utilization     : {{ cloud_metrics.cpu_utilization }}%
+      Memory Utilization  : {{ cloud_metrics.memory_utilization }}%
+      Network Latency     : {{ cloud_metrics.network_latency_ms }} ms
 
-# -------------------------
-# MEMORY UTILIZATION
-# -------------------------
-- name: Get memory usage
-  cisco.ios.ios_command:
-    commands:
-      - show memory statistics
-  register: memory_output
+# =============================
+# CLOUD ALERTING LAYER
+# =============================
 
-- name: Display memory usage
+- name: Cloud CPU alert
   ansible.builtin.debug:
-    msg: |
-      ==============================
-      MEMORY UTILIZATION
-      ==============================
-      {{ memory_output.stdout[0] }}
+    msg: "⚠ CLOUD ALERT: High CPU usage detected in cloud instance"
+  when: cloud_metrics.cpu_utilization > 80
 
-# -------------------------
-# INTERFACE STATUS
-# -------------------------
+- name: Cloud memory alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: High memory usage detected in cloud instance"
+  when: cloud_metrics.memory_utilization > 80
+
+- name: Cloud latency alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: High network latency detected"
+  when: cloud_metrics.network_latency_ms > 50
+
+# =============================
+# NETWORK ALERTING (CISCO)
+# =============================
+
 - name: Get interface status
   cisco.ios.ios_command:
     commands:
       - show ip interface brief
   register: interface_output
 
-- name: Display interface status
+- name: Detect interface issues
+  ansible.builtin.debug:
+    msg: "⚠ ALERT: Interface issue detected on {{ inventory_hostname }}"
+  when: interface_output.stdout[0] is search("down")
+
+# =============================
+# HYBRID SUMMARY
+# =============================
+- name: Hybrid monitoring summary
   ansible.builtin.debug:
     msg: |
       ==============================
-      INTERFACE STATUS
+      HYBRID OBSERVABILITY SUMMARY
       ==============================
-      {{ interface_output.stdout[0] }}
-
-# -------------------------
-# HYBRID / CLOUD CONTEXT
-# -------------------------
-- name: Add monitoring context metadata
-  ansible.builtin.set_fact:
-    monitoring_metadata:
-      environment: "hybrid"
-      monitoring_type: "network-infrastructure-observability"
-      data_source: "ios-cli + ansible automation"
-
-- name: Display monitoring metadata
-  ansible.builtin.debug:
-    msg: |
-      ==============================
-      MONITORING CONTEXT
-      ==============================
-      Environment   : {{ monitoring_metadata.environment }}
-      Type          : {{ monitoring_metadata.monitoring_type }}
-      Data Source   : {{ monitoring_metadata.data_source }}
+      Network Domain : Cisco IOS Devices
+      Cloud Domain   : AWS/Azure Metrics (Simulated)
+      Status         : Monitoring Active
