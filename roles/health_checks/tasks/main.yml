@@ -1,11 +1,33 @@
 ---
-- name: Gather router facts
+- name: Gather Cisco IOS device facts
   cisco.ios.ios_facts:
+  register: device_facts
 
-- name: Display router information
+- name: Display network device health information
   ansible.builtin.debug:
     msg: |
-      Router: {{ ansible_net_hostname }}
-      OS Version: {{ ansible_net_version }}
-      Model: {{ ansible_net_model }}
-      Serial Number: {{ ansible_net_serialnum }}
+      ==============================
+      Network Device Health Report
+      ==============================
+      Hostname      : {{ ansible_net_hostname }}
+      OS Version    : {{ ansible_net_version }}
+      Model         : {{ ansible_net_model }}
+      Serial Number : {{ ansible_net_serialnum }}
+      Uptime        : {{ ansible_net_uptime | default('N/A') }}
+
+- name: Simulate cloud telemetry tagging (hybrid infrastructure context)
+  ansible.builtin.set_fact:
+    cloud_context:
+      environment: "hybrid"
+      infrastructure: "on-prem + cloud-ready"
+      monitoring_domain: "network + cloud observability"
+
+- name: Display cloud integration context
+  ansible.builtin.debug:
+    msg: |
+      ==============================
+      Cloud / Hybrid Context
+      ==============================
+      Environment      : {{ cloud_context.environment }}
+      Infrastructure   : {{ cloud_context.infrastructure }}
+      Monitoring Domain: {{ cloud_context.monitoring_domain }}
