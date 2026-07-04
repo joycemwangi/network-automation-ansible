@@ -1,11 +1,21 @@
 # Network Automation with Ansible
 
 <p align="center">
-  <img src="assets/ansible-banner.png" width="500" alt="Ansible Banner">
+  <img src="assets/ansible-banner.png" alt="Network Automation with Ansible">
 </p>
 
 <p align="center">
-  <b>Automated Network Health Monitoring for Enterprise & ISP Infrastructure</b>
+  <strong>Automated Network Health Monitoring for Enterprise & ISP Infrastructure</strong>
+</p>
+
+<p align="center">
+
+![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
+![Cisco IOS](https://img.shields.io/badge/Cisco-IOS-1BA0D7?style=for-the-badge&logo=cisco&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=FF9900)
+![Azure](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
+
 </p>
 ---
 
