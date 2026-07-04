@@ -39,17 +39,37 @@ This project gathers operational data, parses device output, and helps proactive
 ```
 network-automation-ansible/
 │
-├── health_check.yml # Main playbook
+├── health_check.yml              # Main orchestrator playbook (network + multi-cloud)
+├── ansible.cfg                  # Ansible execution configuration
+├── README.md                    # Project documentation
+│
+├── inventory/
+│   └── hosts.ini                # Multi-cloud + network inventory (4-cloud architecture)
+│
+├── group_vars/
+│   └── all.yml                  # Global variables (thresholds, defaults)
+│
+├── host_vars/
+│   └── devices.yml              # Device-specific overrides (optional scaling layer)
+│
 ├── roles/
-│ └── health_checks/
-│ ├── tasks/
-│ │ └── main.yml
-│ ├── defaults/
-│ ├── vars/
-│ └── handlers/
-├── inventory (hosts.ini)
-├── ansible.cfg
-└── README.md
+│   └── health_checks/
+│       ├── tasks/
+│       │   └── main.yml         # Core monitoring logic (Cisco + cloud + alerts)
+│       │
+│       ├── defaults/
+│       │   └── main.yml         # Default thresholds + feature toggles
+│       │
+│       ├── vars/
+│       │   └── main.yml         # Role-specific configuration (hybrid domains)
+│       │
+│       └── handlers/
+│           └── main.yml         # Event-driven alert handlers
+│
+├── logs/
+│   └── ansible.log              # Execution logs (audit trail)
+│
+└── templates/                   # (future-ready: reports, dashboards, alerts)
 ```
 
 ---
