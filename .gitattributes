@@ -1,0 +1,12 @@
+# Treat Ansible YAML files correctly
+*.yml linguist-language=YAML
+*.yaml linguist-language=YAML
+
+# Ensure inventory files are treated as data
+*.ini linguist-detectable=false
+
+# Ignore config files from language stats (optional)
+ansible.cfg linguist-detectable=false
+
+# Keep documentation separate
+*.md linguist-documentation=true
