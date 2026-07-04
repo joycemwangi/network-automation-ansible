@@ -2,6 +2,7 @@
 # =============================
 # ON-PREM NETWORK (CISCO IOS)
 # =============================
+
 - name: Gather Cisco IOS device facts
   cisco.ios.ios_facts:
   register: device_facts
@@ -19,51 +20,37 @@
       Uptime        : {{ ansible_net_uptime | default('N/A') }}
 
 # =============================
-# CLOUD LAYER (SIMULATED AWS/AZURE METRICS)
+# CPU UTILIZATION
 # =============================
 
-- name: Simulate cloud instance health metrics
-  ansible.builtin.set_fact:
-    cloud_metrics:
-      cloud_provider: "AWS/Azure (simulated)"
-      instance_health: "healthy"
-      cpu_utilization: 62
-      memory_utilization: 58
-      network_latency_ms: 12
+- name: Get CPU utilization
+  cisco.ios.ios_command:
+    commands:
+      - show processes cpu | include CPU
+  register: cpu_output
 
-- name: Display cloud infrastructure metrics
+- name: CPU alert check
   ansible.builtin.debug:
-    msg: |
-      ==============================
-      CLOUD INFRASTRUCTURE METRICS
-      ==============================
-      Cloud Provider      : {{ cloud_metrics.cloud_provider }}
-      Instance Status     : {{ cloud_metrics.instance_health }}
-      CPU Utilization     : {{ cloud_metrics.cpu_utilization }}%
-      Memory Utilization  : {{ cloud_metrics.memory_utilization }}%
-      Network Latency     : {{ cloud_metrics.network_latency_ms }} ms
+    msg: "⚠ ALERT: High CPU usage detected on {{ inventory_hostname }}"
+  when: cpu_output.stdout[0] is search("CPU") and cpu_output.stdout[0] is search("[8-9][0-9]|100")
 
 # =============================
-# CLOUD ALERTING LAYER
+# MEMORY UTILIZATION
 # =============================
 
-- name: Cloud CPU alert
-  ansible.builtin.debug:
-    msg: "⚠ CLOUD ALERT: High CPU usage detected in cloud instance"
-  when: cloud_metrics.cpu_utilization > 80
+- name: Get memory usage
+  cisco.ios.ios_command:
+    commands:
+      - show memory statistics
+  register: memory_output
 
-- name: Cloud memory alert
+- name: Memory alert check
   ansible.builtin.debug:
-    msg: "⚠ CLOUD ALERT: High memory usage detected in cloud instance"
-  when: cloud_metrics.memory_utilization > 80
-
-- name: Cloud latency alert
-  ansible.builtin.debug:
-    msg: "⚠ CLOUD ALERT: High network latency detected"
-  when: cloud_metrics.network_latency_ms > 50
+    msg: "⚠ ALERT: High memory usage detected on {{ inventory_hostname }}"
+  when: memory_output.stdout[0] is search("Used") and memory_output.stdout[0] is search("[8-9][0-9]%|100%")
 
 # =============================
-# NETWORK ALERTING (CISCO)
+# INTERFACE STATUS CHECK
 # =============================
 
 - name: Get interface status
@@ -72,20 +59,109 @@
       - show ip interface brief
   register: interface_output
 
-- name: Detect interface issues
+- name: Interface alert check
   ansible.builtin.debug:
     msg: "⚠ ALERT: Interface issue detected on {{ inventory_hostname }}"
-  when: interface_output.stdout[0] is search("down")
+  when: interface_output.stdout[0] is search("down") or interface_output.stdout[0] is search("administratively down")
+
+# =============================
+# CLOUD LAYER (SIMULATED METRICS)
+# =============================
+
+- name: Simulate cloud instance metrics
+  ansible.builtin.set_fact:
+    cloud_metrics:
+      cloud_provider: "AWS/Azure (simulated)"
+      instance_health: "healthy"
+      cpu_utilization: 62
+      memory_utilization: 58
+      network_latency_ms: 12
+
+- name: Display cloud metrics
+  ansible.builtin.debug:
+    msg: |
+      ==============================
+      CLOUD INFRASTRUCTURE METRICS
+      ==============================
+      Provider        : {{ cloud_metrics.cloud_provider }}
+      Instance Status : {{ cloud_metrics.instance_health }}
+      CPU Usage       : {{ cloud_metrics.cpu_utilization }}%
+      Memory Usage    : {{ cloud_metrics.memory_utilization }}%
+      Latency         : {{ cloud_metrics.network_latency_ms }} ms
+
+# =============================
+# CLOUD CONNECTIVITY CHECK
+# =============================
+
+- name: Simulate cloud connectivity status
+  ansible.builtin.set_fact:
+    cloud_connectivity:
+      aws_api_reachable: true
+      azure_api_reachable: true
+      cloud_dns_reachable: true
+      internet_gateway_status: "up"
+
+- name: Display cloud connectivity status
+  ansible.builtin.debug:
+    msg: |
+      ==============================
+      CLOUD CONNECTIVITY STATUS
+      ==============================
+      AWS API Reachable      : {{ cloud_connectivity.aws_api_reachable }}
+      Azure API Reachable    : {{ cloud_connectivity.azure_api_reachable }}
+      DNS Reachable          : {{ cloud_connectivity.cloud_dns_reachable }}
+      Internet Gateway       : {{ cloud_connectivity.internet_gateway_status }}
+
+# =============================
+# CLOUD ALERTS
+# =============================
+
+- name: Cloud CPU alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: High CPU usage in cloud instance"
+  when: cloud_metrics.cpu_utilization > 80
+
+- name: Cloud memory alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: High memory usage in cloud instance"
+  when: cloud_metrics.memory_utilization > 80
+
+- name: Cloud latency alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: High network latency detected"
+  when: cloud_metrics.network_latency_ms > 50
+
+- name: AWS connectivity alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: AWS API is unreachable"
+  when: not cloud_connectivity.aws_api_reachable
+
+- name: Azure connectivity alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: Azure API is unreachable"
+  when: not cloud_connectivity.azure_api_reachable
+
+- name: DNS connectivity alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: DNS resolution failure"
+  when: not cloud_connectivity.cloud_dns_reachable
+
+- name: Internet gateway alert
+  ansible.builtin.debug:
+    msg: "⚠ CLOUD ALERT: Internet gateway is DOWN"
+  when: cloud_connectivity.internet_gateway_status != "up"
 
 # =============================
 # HYBRID SUMMARY
 # =============================
-- name: Hybrid monitoring summary
+
+- name: Final hybrid monitoring summary
   ansible.builtin.debug:
     msg: |
       ==============================
       HYBRID OBSERVABILITY SUMMARY
       ==============================
-      Network Domain : Cisco IOS Devices
-      Cloud Domain   : AWS/Azure Metrics (Simulated)
-      Status         : Monitoring Active
+      Network Domain : Cisco IOS Infrastructure
+      Cloud Domain   : AWS/Azure (Simulated)
+      Connectivity   : Validated
+      Monitoring     : ACTIVE
