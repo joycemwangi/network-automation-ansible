@@ -1,13 +1,12 @@
 # Network Automation with Ansible
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ansible/ansible/devel/docs/docsite/rst/_static/ansible_logo.png" width="180"/>
+  <img src="assets/ansible-banner.png" width="500" alt="Ansible Banner">
 </p>
 
 <p align="center">
   <b>Automated Network Health Monitoring for Enterprise & ISP Infrastructure</b>
 </p>
-
 ---
 
 ## Overview
