@@ -1,0 +1,12 @@
+---
+# Default monitoring thresholds (safe baseline values)
+
+cpu_threshold: 80
+memory_threshold: 80
+latency_threshold: 50
+
+cloud_provider_default: "hybrid-simulated"
+
+enable_cloud_checks: true
+enable_network_checks: true
+enable_alerting: true
