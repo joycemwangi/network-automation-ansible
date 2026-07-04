@@ -1,11 +1,7 @@
 ---
-- name: Perform automated network health checks on routers and switches
-  hosts: routers
+- name: Perform automated hybrid health checks (Network + Multi-Cloud)
+  hosts: all_infrastructure
   gather_facts: false
 
   roles:
-    - role: health_checks
-
-  tags:
-    - health
-    - monitoring
+    - health_checks
