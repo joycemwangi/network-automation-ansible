@@ -1,7 +1,11 @@
 ---
-- name: Perform automated health checks
+- name: Perform automated network health checks on routers and switches
   hosts: routers
   gather_facts: false
 
   roles:
-    - health_checks
+    - role: health_checks
+
+  tags:
+    - health
+    - monitoring
