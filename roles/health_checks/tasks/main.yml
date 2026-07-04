@@ -3,7 +3,10 @@
   cisco.ios.ios_facts:
   register: device_facts
 
-- name: Display network device health information
+# -------------------------
+# DEVICE IDENTITY REPORT
+# -------------------------
+- name: Display device identity information
   ansible.builtin.debug:
     msg: |
       ==============================
@@ -15,19 +18,73 @@
       Serial Number : {{ ansible_net_serialnum }}
       Uptime        : {{ ansible_net_uptime | default('N/A') }}
 
-- name: Simulate cloud telemetry tagging (hybrid infrastructure context)
-  ansible.builtin.set_fact:
-    cloud_context:
-      environment: "hybrid"
-      infrastructure: "on-prem + cloud-ready"
-      monitoring_domain: "network + cloud observability"
+# -------------------------
+# CPU UTILIZATION
+# -------------------------
+- name: Get CPU utilization
+  cisco.ios.ios_command:
+    commands:
+      - show processes cpu | include CPU
+  register: cpu_output
 
-- name: Display cloud integration context
+- name: Display CPU usage
   ansible.builtin.debug:
     msg: |
       ==============================
-      Cloud / Hybrid Context
+      CPU UTILIZATION
       ==============================
-      Environment      : {{ cloud_context.environment }}
-      Infrastructure   : {{ cloud_context.infrastructure }}
-      Monitoring Domain: {{ cloud_context.monitoring_domain }}
+      {{ cpu_output.stdout[0] }}
+
+# -------------------------
+# MEMORY UTILIZATION
+# -------------------------
+- name: Get memory usage
+  cisco.ios.ios_command:
+    commands:
+      - show memory statistics
+  register: memory_output
+
+- name: Display memory usage
+  ansible.builtin.debug:
+    msg: |
+      ==============================
+      MEMORY UTILIZATION
+      ==============================
+      {{ memory_output.stdout[0] }}
+
+# -------------------------
+# INTERFACE STATUS
+# -------------------------
+- name: Get interface status
+  cisco.ios.ios_command:
+    commands:
+      - show ip interface brief
+  register: interface_output
+
+- name: Display interface status
+  ansible.builtin.debug:
+    msg: |
+      ==============================
+      INTERFACE STATUS
+      ==============================
+      {{ interface_output.stdout[0] }}
+
+# -------------------------
+# HYBRID / CLOUD CONTEXT
+# -------------------------
+- name: Add monitoring context metadata
+  ansible.builtin.set_fact:
+    monitoring_metadata:
+      environment: "hybrid"
+      monitoring_type: "network-infrastructure-observability"
+      data_source: "ios-cli + ansible automation"
+
+- name: Display monitoring metadata
+  ansible.builtin.debug:
+    msg: |
+      ==============================
+      MONITORING CONTEXT
+      ==============================
+      Environment   : {{ monitoring_metadata.environment }}
+      Type          : {{ monitoring_metadata.monitoring_type }}
+      Data Source   : {{ monitoring_metadata.data_source }}
