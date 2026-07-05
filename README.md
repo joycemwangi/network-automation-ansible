@@ -59,13 +59,13 @@ network-automation-ansible/
 ├── .gitattributes             # GitHub language detection
 │
 ├── inventory/
-│   └── hosts.ini              # Cisco network & multi-cloud inventory (AWS, Azure, GCP, OCI, Private Cloud)
+│   └── hosts.ini              # Defines hosts and groups
 ├── group_vars/
-│   └── all.yml                # Global monitoring policy (single source of truth)
+│   └── all.yml                # Defines connection methods and monitoring policies
 ├── host_vars/
-│   └── devices.yml            # Infrastructure metadata
+│   └── devices.yml            # Defines metadata for individual devices
 │
-├── roles/
+├── roles/                     # Executes monitoring logic 
 │   └── health_checks/
 │       ├── tasks/
 │       │   └── main.yml       # Hybrid monitoring logic
