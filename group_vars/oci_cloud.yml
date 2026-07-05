@@ -1,0 +1,6 @@
+---
+cloud_provider: oracle
+
+connection_type: simulated
+
+monitoring_enabled: true
