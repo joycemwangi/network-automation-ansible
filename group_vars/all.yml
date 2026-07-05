@@ -1,7 +1,7 @@
 ---
 # Global monitoring policy (single source of truth)
 
-cpu_threshold: 95
+cpu_threshold: 50
 memory_threshold: 80
 latency_threshold: 50
 
