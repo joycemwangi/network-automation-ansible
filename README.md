@@ -61,7 +61,7 @@ network-automation-ansible/
 ├── inventory/
 │   └── hosts.ini              # Cisco network & multi-cloud inventory (AWS, Azure, GCP, OCI, Private Cloud)
 ├── group_vars/
-│   └── all.yml                # Global monitoring variables
+│   └── all.yml                # Global monitoring policy (single source of truth)
 ├── host_vars/
 │   └── devices.yml            # Infrastructure metadata
 │
