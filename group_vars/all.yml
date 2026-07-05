@@ -1,7 +1,7 @@
 ---
 # Global monitoring policy (single source of truth)
 
-cpu_threshold: 80
+cpu_threshold: 95
 memory_threshold: 80
 latency_threshold: 50
 
@@ -12,4 +12,5 @@ monitoring_mode: "hybrid"
 
 # Discord Notifications
 enable_discord_alerts: true
-discord_webhook_url: "YOUR_NEW_WEBHOOK_URL"
+discord_webhook_url: "https://discord.com/api/webhooks/1523466194353520701/48ym2zfbzoBz5dyjU2HKXGa4TBNaUzLBZl3u9R9gmGENHcBfgpyWvfVwvQiAcF_RKOu6
+"
