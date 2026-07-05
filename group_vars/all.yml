@@ -9,3 +9,7 @@ enable_cloud_checks: true
 enable_network_checks: true
 enable_alerting: true
 monitoring_mode: "hybrid"
+
+# Discord Notifications
+enable_discord_alerts: true
+discord_webhook_url: "YOUR_NEW_WEBHOOK_URL"
