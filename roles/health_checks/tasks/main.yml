@@ -34,22 +34,31 @@
   when: "'routers' in group_names or 'switches' in group_names"
 
 # =============================
-# CLOUD SIMULATION METRICS (ALL CLOUDS)
+# CLOUD SIMULATION METRICS
 # =============================
 
 - name: Generate cloud metrics per provider
   ansible.builtin.set_fact:
     cloud_metrics:
-      provider: "{{ 'AWS' if 'aws_cloud' in group_names else
-                   'Azure' if 'azure_cloud' in group_names else
-                   'GCP' if 'gcp_cloud' in group_names else
-                   'Private Cloud' if 'private_cloud' in group_names else
-                   'Unknown' }}"
+      provider: >-
+        {{
+          'AWS' if 'aws_cloud' in group_names else
+          'Azure' if 'azure_cloud' in group_names else
+          'GCP' if 'gcp_cloud' in group_names else
+          'OCI' if 'oci_cloud' in group_names else
+          'Private Cloud' if 'private_cloud' in group_names else
+          'Unknown'
+        }}
       cpu_utilization: 65
       memory_utilization: 55
       network_latency_ms: 15
 
-  when: "'aws_cloud' in group_names or 'azure_cloud' in group_names or 'gcp_cloud' in group_names or 'private_cloud' in group_names"
+  when: >
+    'aws_cloud' in group_names or
+    'azure_cloud' in group_names or
+    'gcp_cloud' in group_names or
+    'oci_cloud' in group_names or
+    'private_cloud' in group_names
 
 - name: Display cloud health metrics
   ansible.builtin.debug:
@@ -87,18 +96,26 @@
   when: cloud_metrics is defined
 
 # =============================
-# ALERTING (CLOUD + NETWORK)
+# ALERTING (EVENT-DRIVEN)
 # =============================
 
-- name: Cloud CPU alert
+- name: Detect high cloud CPU utilization
   ansible.builtin.debug:
-    msg: "⚠ ALERT: High CPU in {{ cloud_metrics.provider }}"
-  when: cloud_metrics is defined and cloud_metrics.cpu_utilization > 80
+    msg: "CPU utilization exceeded threshold on {{ cloud_metrics.provider }}"
+  when:
+    - cloud_metrics is defined
+    - cloud_metrics.cpu_utilization > cpu_threshold
+  changed_when: true
+  notify:
+    - trigger cloud alert
 
-- name: Network interface alert
+- name: Detect network interface issue
   ansible.builtin.debug:
-    msg: "⚠ ALERT: Interface issue detected on {{ inventory_hostname }}"
+    msg: "Interface anomaly detected on {{ inventory_hostname }}"
   when: "'routers' in group_names or 'switches' in group_names"
+  changed_when: true
+  notify:
+    - trigger network alert
 
 # =============================
 # FINAL SUMMARY
@@ -113,3 +130,13 @@
       Node            : {{ inventory_hostname }}
       Infrastructure  : Network + Multi-Cloud
       Status          : Monitoring Active
+  changed_when: true
+  notify:
+    - generate incident report
+
+# =============================
+# EXECUTE HANDLERS IMMEDIATELY
+# =============================
+
+- name: Flush handlers
+  meta: flush_handlers
