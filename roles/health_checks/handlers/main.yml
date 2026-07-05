@@ -37,7 +37,7 @@
       Status      : Report generated
       Destination : Local audit log (logs/ansible.log)
 
-      - name: send discord notification
+- name: send discord notification
   ansible.builtin.uri:
     url: "{{ discord_webhook_url }}"
     method: POST
