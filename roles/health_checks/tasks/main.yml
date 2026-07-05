@@ -101,21 +101,23 @@
 
 - name: Detect high cloud CPU utilization
   ansible.builtin.debug:
-    msg: "CPU utilization exceeded threshold on {{ cloud_metrics.provider }}"
+    msg: "⚠ High CPU utilization detected on {{ cloud_metrics.provider }}"
   when:
     - cloud_metrics is defined
     - cloud_metrics.cpu_utilization > cpu_threshold
   changed_when: true
   notify:
     - trigger cloud alert
+    - send discord notification
 
 - name: Detect network interface issue
   ansible.builtin.debug:
-    msg: "Interface anomaly detected on {{ inventory_hostname }}"
+    msg: "⚠ Interface anomaly detected on {{ inventory_hostname }}"
   when: "'routers' in group_names or 'switches' in group_names"
   changed_when: true
   notify:
     - trigger network alert
+    - send discord notification
 
 # =============================
 # FINAL SUMMARY
