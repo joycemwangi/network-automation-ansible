@@ -1,0 +1,5 @@
+---
+cloud_provider: azure
+connection_type: simulated
+
+monitoring_enabled: true
