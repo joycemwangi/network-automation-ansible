@@ -1,16 +1,38 @@
 ---
 # =============================
-# ALERT HANDLERS (SIMULATED)
+# ALERT HANDLERS
 # =============================
 
 - name: trigger network alert
   ansible.builtin.debug:
-    msg: "🚨 HANDLER: Network anomaly detected - escalation triggered"
+    msg: |
+      ==========================================
+      NETWORK ALERT
+      ==========================================
+      Severity    : Critical
+      Source      : {{ inventory_hostname }}
+      Action      : Network Operations notified
+      Status      : Escalation triggered
 
 - name: trigger cloud alert
   ansible.builtin.debug:
-    msg: "🚨 HANDLER: Cloud anomaly detected - incident workflow started"
+    msg: |
+      ==========================================
+      CLOUD ALERT
+      ==========================================
+      Severity    : Warning
+      Source      : {{ inventory_hostname }}
+      Platform    : {{ cloud_metrics.cloud_provider | default('Unknown') }}
+      Action      : Cloud Operations notified
+      Status      : Incident workflow started
 
 - name: generate incident report
   ansible.builtin.debug:
-    msg: "📄 HANDLER: Incident report generated for auditing"
+    msg: |
+      ==========================================
+      INCIDENT REPORT
+      ==========================================
+      Host        : {{ inventory_hostname }}
+      Time        : {{ ansible_date_time.iso8601 | default('Runtime') }}
+      Status      : Report generated
+      Destination : Local audit log (logs/ansible.log)
