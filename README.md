@@ -52,32 +52,44 @@ This project gathers operational data, parses device output, and helps proactive
 ```
 network-automation-ansible/
 │
-├── health_check.yml           # Main orchestrator playbook (hybrid monitoring)
-├── ansible.cfg                # Ansible configuration
-├── README.md                  # Project documentation
-├── LICENSE                    # MIT License
-├── .gitattributes             # GitHub language detection
+├── health_check.yml                 # Main orchestrator playbook (hybrid monitoring)
+├── ansible.cfg                      # Ansible configuration
+├── README.md                        # Project documentation
+├── LICENSE                          # MIT License
+├── .gitattributes                   # GitHub language detection
+│
+├── assets/
+│   └── ansible-banner.png           # README banner
 │
 ├── inventory/
-│   └── hosts.ini              # Defines hosts and groups
-├── group_vars/
-│   └── all.yml                # Defines connection methods and monitoring policies
-├── host_vars/
-│   └── devices.yml            # Defines metadata for individual devices
+│   └── hosts.ini                    # Infrastructure inventory (hosts & groups)
 │
-├── roles/                     # Executes monitoring logic 
+├── group_vars/
+│   ├── all.yml                      # Global monitoring policy
+│   ├── network.yml                  # Cisco IOS connection settings
+│   ├── aws_cloud.yml                # AWS monitoring configuration
+│   ├── azure_cloud.yml              # Azure monitoring configuration
+│   ├── gcp_cloud.yml                # Google Cloud monitoring configuration
+│   ├── oci_cloud.yml                # Oracle Cloud monitoring configuration
+│   └── private_cloud.yml            # Private cloud monitoring configuration
+│
+├── host_vars/
+│   └── devices.yml                  # Device and cloud instance metadata
+│
+├── roles/
 │   └── health_checks/
 │       ├── tasks/
-│       │   └── main.yml       # Hybrid monitoring logic
+│       │   └── main.yml             # Hybrid monitoring and alerting logic
 │       ├── defaults/
-│       │   └── main.yml       # Default role variables
+│       │   └── main.yml             # Default monitoring thresholds
 │       ├── vars/
-│       │   └── main.yml       # Role-specific variables
+│       │   └── main.yml             # Role-specific variables
 │       └── handlers/
-│           └── main.yml       # Event-driven alert handlers
+│           └── main.yml             # Event-driven alert handlers
 │
-├── templates/                 # Reserved for future report templates
-└── logs/                      # Runtime logs (.gitkeep, .gitignore)
+├── templates/                       # Future report and notification templates
+│
+└── logs/                            # Runtime execution logs (.gitkeep, .gitignore)
 ```
 
 ---
