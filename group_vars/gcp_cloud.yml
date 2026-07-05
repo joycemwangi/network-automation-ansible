@@ -1,0 +1,5 @@
+---
+cloud_provider: gcp
+connection_type: simulated
+
+monitoring_enabled: true
