@@ -11,6 +11,7 @@ import json
 import os
 import re
 import urllib.request
+import urllib.error
 
 WEBHOOK = os.getenv("DISCORD_WEBHOOK_URL")
 
@@ -61,77 +62,54 @@ for line in lines:
 
 total = len(failed) + len(unreachable) + len(successful)
 
-if failed:
-    color = 15158332      # Red
-elif unreachable:
-    color = 16776960      # Yellow
-else:
-    color = 3066993       # Green
+# -------------------------------------------------
+# TEMPORARY DEBUG PAYLOAD
+# -------------------------------------------------
 
-description = []
+message = f"""
+🚨 Infrastructure Monitoring Report
 
-if failed:
-    description.append("## ❌ Failed")
-    description.extend(f"• {h}" for h in failed)
-    description.append("")
+Total Hosts : {total}
+Healthy     : {len(successful)}
+Failed      : {len(failed)}
+Unreachable : {len(unreachable)}
 
-if unreachable:
-    description.append("## ⚠️ Unreachable")
-    description.extend(f"• {h}" for h in unreachable)
-    description.append("")
+Repository:
+{os.getenv('GITHUB_REPOSITORY', 'Local Run')}
 
-if successful:
-    description.append("## ✅ Healthy")
-    description.extend(f"• {h}" for h in successful)
-
-embed = {
-    "title": "Infrastructure Monitoring Report",
-    "description": "\n".join(description),
-    "color": color,
-    "fields": [
-        {
-            "name": "Total Hosts",
-            "value": str(total),
-            "inline": True
-        },
-        {
-            "name": "Healthy",
-            "value": str(len(successful)),
-            "inline": True
-        },
-        {
-            "name": "Failed",
-            "value": str(len(failed)),
-            "inline": True
-        },
-        {
-            "name": "Unreachable",
-            "value": str(len(unreachable)),
-            "inline": True
-        },
-        {
-            "name": "Repository",
-            "value": os.getenv("GITHUB_REPOSITORY", "Local Run"),
-            "inline": False
-        },
-        {
-            "name": "Workflow",
-            "value": os.getenv("GITHUB_WORKFLOW", "Ansible Health Check"),
-            "inline": False
-        }
-    ]
-}
+Workflow:
+{os.getenv('GITHUB_WORKFLOW', 'Ansible Health Monitoring')}
+"""
 
 payload = {
     "username": "Ansible Health Monitor",
-    "embeds": [embed]
+    "content": message
 }
 
 req = urllib.request.Request(
     WEBHOOK,
     data=json.dumps(payload).encode("utf-8"),
-    headers={"Content-Type": "application/json"},
+    headers={
+        "Content-Type": "application/json",
+        "User-Agent": "AnsibleHealthMonitor/1.0"
+    },
+    method="POST"
 )
 
-with urllib.request.urlopen(req) as response:
-    print(f"Discord notification sent ({response.status})")
+try:
+    with urllib.request.urlopen(req) as response:
+        print(f"Discord notification sent ({response.status})")
+
+except urllib.error.HTTPError as e:
+    print("====================================")
+    print("DISCORD HTTP ERROR")
+    print("====================================")
+    print("Status :", e.code)
+    print("Reason :", e.reason)
+
+    try:
+        print(e.read().decode())
+    except Exception:
+        pass
+
+    raise
