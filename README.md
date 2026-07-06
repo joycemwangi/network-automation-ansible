@@ -52,6 +52,9 @@ This project gathers operational data, parses device output, and helps proactive
 ```
 network-automation-ansible/
 │
+├── .github/
+│   └── workflows/
+│       └── ansible-health-check.yml # GitHub Actions CI monitoring workflow
 ├── health_check.yml                 # Main orchestrator playbook (hybrid monitoring)
 ├── ansible.cfg                      # Ansible configuration
 ├── README.md                        # Project documentation
@@ -78,7 +81,7 @@ network-automation-ansible/
 │   └── health_checks/
 │       ├── tasks/
 │       │   ├── main.yml             # Hybrid monitoring and alerting logic
-│       │   └── send_monitoring_alert.yml # real-time monitoring alerts
+│       │   └── send_monitoring_alert.yml # Sends real-time monitoring alerts
 │       ├── defaults/
 │       │   └── main.yml             # Default monitoring thresholds
 │       ├── vars/
@@ -86,7 +89,7 @@ network-automation-ansible/
 │       └── handlers/
 │           └── main.yml             # Event-driven alert handlers
 ├── scripts/
-│   └── send_monitoring_summary.py   # end-of-run monitoring summary
+│   └── send_mon_summary.py          # Sends monitoring execution summary
 ├── templates/                       # Future report and notification templates
 └── logs/                            # Runtime execution logs
     ├── .gitkeep
