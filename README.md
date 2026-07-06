@@ -58,6 +58,8 @@ network-automation-ansible/
 ├── LICENSE                          # MIT License
 ├── .gitattributes                   # GitHub language detection
 │   .gitignore
+├──    .vault
+   └── vault_pass.txt
 ├── assets/
 │   └── ansible-banner.png           # README banner
 │
