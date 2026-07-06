@@ -86,7 +86,7 @@ OCI-FRA-01:
   region: "eu-frankfurt-1"
   role: "cloud-instance"
   importance: "high"
-  
+
 # =============================
 # PRIVATE CLOUD
 # =============================
