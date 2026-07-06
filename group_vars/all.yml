@@ -7,7 +7,7 @@ use_live_cisco_metrics: false
 #enable_live_metrics: true
 
 # Base alert thresholds
-cpu_threshold: 50
+cpu_threshold: 5
 memory_threshold: 80
 latency_threshold: 50
 
