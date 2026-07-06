@@ -57,9 +57,11 @@ network-automation-ansible/
 ├── README.md                        # Project documentation
 ├── LICENSE                          # MIT License
 ├── .gitattributes                   # GitHub language detection
-│   .gitignore
-├──    .vault
-   └── vault_pass.txt
+├── .gitignore                       # Ignore logs, vault password, temporary files
+│
+├── .vault/
+│   └── vault_pass.txt               # Local Ansible Vault password (never commit)
+│
 ├── assets/
 │   └── ansible-banner.png           # README banner
 │
@@ -81,18 +83,23 @@ network-automation-ansible/
 ├── roles/
 │   └── health_checks/
 │       ├── tasks/
-│       │   └── main.yml             # Hybrid monitoring and alerting logic
-            └── send_monitoring_alert.yml 
+│       │   ├── main.yml                     # Hybrid monitoring and alerting logic
+│       │   └── send_monitoring_alert.yml    # Sends monitoring alerts (Discord/Webhooks)
+│       │
 │       ├── defaults/
 │       │   └── main.yml             # Default monitoring thresholds
+│       │
 │       ├── vars/
 │       │   └── main.yml             # Role-specific variables
+│       │
 │       └── handlers/
 │           └── main.yml             # Event-driven alert handlers
 │
 ├── templates/                       # Future report and notification templates
 │
-└── logs/                            # Runtime execution logs (.gitkeep, .gitignore)
+└── logs/                            # Runtime execution logs
+    ├── .gitkeep
+    └── .gitignore
 ```
 
 ---
