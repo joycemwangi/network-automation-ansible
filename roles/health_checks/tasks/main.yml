@@ -16,22 +16,41 @@
 # CISCO NETWORK DEVICES
 # =============================
 
-- name: Gather Cisco IOS facts
-  cisco.ios.ios_facts:
+- name: Monitor Cisco network devices
   when: "'routers' in group_names or 'switches' in group_names"
-  register: device_facts
 
-- name: Display network device health
-  ansible.builtin.debug:
-    msg: |
-      ==============================
-      NETWORK DEVICE HEALTH
-      ==============================
-      Hostname      : {{ ansible_net_hostname }}
-      OS Version    : {{ ansible_net_version }}
-      Model         : {{ ansible_net_model }}
-      Serial Number : {{ ansible_net_serialnum | default('N/A') }}
-  when: "'routers' in group_names or 'switches' in group_names"
+  block:
+
+    - name: Gather Cisco IOS facts
+      cisco.ios.ios_facts:
+      register: device_facts
+
+    - name: Display network device health
+      ansible.builtin.debug:
+        msg: |
+          ==============================
+          NETWORK DEVICE HEALTH
+          ==============================
+          Hostname      : {{ ansible_net_hostname }}
+          OS Version    : {{ ansible_net_version }}
+          Model         : {{ ansible_net_model }}
+          Serial Number : {{ ansible_net_serialnum | default('N/A') }}
+
+  rescue:
+
+    - name: Send Network Failure Alert
+      ansible.builtin.include_tasks: send_discord_alert.yml
+      vars:
+        alert_title: "NETWORK DEVICE UNREACHABLE"
+        alert_severity: "Critical"
+        alert_message: |
+          Unable to connect to device.
+
+          Possible causes:
+          • SSH unreachable
+          • Authentication failure
+          • Device offline
+          • Connection timeout
 
 # =============================
 # CLOUD METRICS
