@@ -143,7 +143,7 @@
             {{
               cpu_utilization
               if use_live_cisco_metrics | default(false)
-              else 65
+              else 95
             }}
 
           memory_utilization: 55
