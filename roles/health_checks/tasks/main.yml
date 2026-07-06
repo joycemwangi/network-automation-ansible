@@ -16,7 +16,7 @@
 # CISCO NETWORK DEVICES
 # =============================
 
-- name: Gather Cisco IOS facts (Network devices only)
+- name: Gather Cisco IOS facts
   cisco.ios.ios_facts:
   when: "'routers' in group_names or 'switches' in group_names"
   register: device_facts
@@ -34,10 +34,10 @@
   when: "'routers' in group_names or 'switches' in group_names"
 
 # =============================
-# CLOUD SIMULATION METRICS
+# CLOUD METRICS
 # =============================
 
-- name: Generate cloud metrics per provider
+- name: Generate cloud metrics
   ansible.builtin.set_fact:
     cloud_metrics:
       provider: >-
@@ -60,48 +60,48 @@
     'oci_cloud' in group_names or
     'private_cloud' in group_names
 
-- name: Display cloud health metrics
+- name: Display cloud metrics
   ansible.builtin.debug:
     msg: |
       ==============================
       CLOUD HEALTH REPORT
       ==============================
-      Provider        : {{ cloud_metrics.provider }}
-      CPU Usage       : {{ cloud_metrics.cpu_utilization }}%
-      Memory Usage    : {{ cloud_metrics.memory_utilization }}%
-      Latency         : {{ cloud_metrics.network_latency_ms }} ms
+      Provider : {{ cloud_metrics.provider }}
+      CPU      : {{ cloud_metrics.cpu_utilization }}%
+      Memory   : {{ cloud_metrics.memory_utilization }}%
+      Latency  : {{ cloud_metrics.network_latency_ms }} ms
   when: cloud_metrics is defined
 
 # =============================
-# CLOUD CONNECTIVITY CHECK
+# CLOUD CONNECTIVITY
 # =============================
 
-- name: Simulate cloud connectivity validation
+- name: Simulate connectivity
   ansible.builtin.set_fact:
     cloud_connectivity:
       api_reachable: true
       dns_reachable: true
-      internet_gateway: "up"
+      internet_gateway: up
   when: cloud_metrics is defined
 
-- name: Display cloud connectivity status
+- name: Display connectivity
   ansible.builtin.debug:
     msg: |
       ==============================
-      CLOUD CONNECTIVITY STATUS
+      CLOUD CONNECTIVITY
       ==============================
-      API Reachable     : {{ cloud_connectivity.api_reachable }}
-      DNS Reachable     : {{ cloud_connectivity.dns_reachable }}
-      Internet Gateway  : {{ cloud_connectivity.internet_gateway }}
+      API       : {{ cloud_connectivity.api_reachable }}
+      DNS       : {{ cloud_connectivity.dns_reachable }}
+      Gateway   : {{ cloud_connectivity.internet_gateway }}
   when: cloud_metrics is defined
 
 # =============================
-# ALERTING (EVENT-DRIVEN)
+# ALERTING
 # =============================
 
-- name: Detect high cloud CPU utilization
+- name: Detect high CPU
   ansible.builtin.debug:
-    msg: "⚠ High CPU utilization detected on {{ cloud_metrics.provider }}"
+    msg: "High CPU detected on {{ cloud_metrics.provider }}"
   when:
     - cloud_metrics is defined
     - cloud_metrics.cpu_utilization > cpu_threshold
@@ -110,9 +110,9 @@
     - trigger cloud alert
     - send discord notification
 
-- name: Detect network interface issue
+- name: Detect interface issue
   ansible.builtin.debug:
-    msg: "⚠ Interface anomaly detected on {{ inventory_hostname }}"
+    msg: "Interface anomaly detected on {{ inventory_hostname }}"
   when: "'routers' in group_names or 'switches' in group_names"
   changed_when: true
   notify:
@@ -120,7 +120,7 @@
     - send discord notification
 
 # =============================
-# FINAL SUMMARY
+# SUMMARY
 # =============================
 
 - name: Infrastructure monitoring summary
@@ -129,16 +129,11 @@
       ==============================
       HYBRID OBSERVABILITY SUMMARY
       ==============================
-      Node            : {{ inventory_hostname }}
-      Infrastructure  : Network + Multi-Cloud
-      Status          : Monitoring Active
+      Host : {{ inventory_hostname }}
+      Mode : {{ monitoring_mode }}
+      Status : Monitoring Active
   changed_when: true
   notify:
     - generate incident report
 
-# =============================
-# EXECUTE HANDLERS IMMEDIATELY
-# =============================
-
-- name: Flush handlers
-  meta: flush_handlers
+- meta: flush_handlers
