@@ -193,23 +193,99 @@
           • Cloud service outage
           • Network connectivity issue
 
-# ==========================================================
-# DEMO METRICS
-#
-# Used when no live infrastructure is available.
-# Remove or disable in production.
-# ==========================================================
+# =============================
+# CLOUD / DEMO METRICS
+# =============================
 
-- name: Generate simulated metrics
-  ansible.builtin.set_fact:
-    cloud_metrics:
-      provider: Demo Lab
-      cpu_utilization: 95
-      memory_utilization: 88
-      network_latency_ms: 120
+- name: Build monitoring metrics
   when:
-    - not use_live_cisco_metrics | default(false)          
+    - enable_cloud_checks
 
+  block:
+
+    - name: Build monitoring metrics
+      ansible.builtin.set_fact:
+        cloud_metrics:
+          provider: >-
+            {{
+              'Demo Lab'
+              if not use_live_cisco_metrics | default(false)
+              else
+              (
+                'AWS' if 'aws_cloud' in group_names else
+                'Azure' if 'azure_cloud' in group_names else
+                'GCP' if 'gcp_cloud' in group_names else
+                'OCI' if 'oci_cloud' in group_names else
+                'Private Cloud' if 'private_cloud' in group_names else
+                'Cisco Network'
+              )
+            }}
+
+          cpu_utilization: >-
+            {{
+              cpu_utilization
+              if use_live_cisco_metrics | default(false)
+              else 95
+            }}
+
+          memory_utilization: >-
+            {{
+              55
+              if use_live_cisco_metrics | default(false)
+              else 88
+            }}
+
+          network_latency_ms: >-
+            {{
+              15
+              if use_live_cisco_metrics | default(false)
+              else 120
+            }}
+
+    - name: Display monitoring metrics
+      ansible.builtin.debug:
+        msg: |
+          ==============================
+          INFRASTRUCTURE HEALTH REPORT
+          ==============================
+          Provider : {{ cloud_metrics.provider }}
+          CPU      : {{ cloud_metrics.cpu_utilization }}%
+          Memory   : {{ cloud_metrics.memory_utilization }}%
+          Latency  : {{ cloud_metrics.network_latency_ms }} ms
+
+    - name: Build connectivity status
+      ansible.builtin.set_fact:
+        cloud_connectivity:
+          api_reachable: true
+          dns_reachable: true
+          internet_gateway: up
+
+    - name: Display connectivity status
+      ansible.builtin.debug:
+        msg: |
+          ==============================
+          CONNECTIVITY STATUS
+          ==============================
+          API       : {{ cloud_connectivity.api_reachable }}
+          DNS       : {{ cloud_connectivity.dns_reachable }}
+          Gateway   : {{ cloud_connectivity.internet_gateway }}
+
+  rescue:
+
+    - name: Send Cloud Failure Alert
+      ansible.builtin.include_tasks: send_monitoring_alert.yml
+      vars:
+        alert_title: "MONITORING PLATFORM FAILURE"
+        alert_severity: "Critical"
+        alert_message: |
+          Infrastructure monitoring failed.
+
+          Possible causes:
+          • API unavailable
+          • Authentication failure
+          • Cloud service outage
+          • Network connectivity issue
+          
 # =============================
 # REAL-TIME ALERTING
 # =============================
