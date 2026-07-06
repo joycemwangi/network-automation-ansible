@@ -43,19 +43,6 @@ jobs:
           name: ansible-output
           path: ansible-output.txt
 
-      - name: Verify Discord Secret
-        if: always()
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: |
-          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
-            echo "❌ Webhook secret is EMPTY"
-            exit 1
-          else
-            echo "✅ Webhook secret exists"
-            echo "Length: ${#DISCORD_WEBHOOK_URL}"
-          fi
-
       - name: Send Monitoring Summary to Discord
         if: always()
         env:
