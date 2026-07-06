@@ -1,0 +1,43 @@
+---
+# ==========================================
+# SEND REAL-TIME DISCORD ALERT
+# ==========================================
+
+- name: Send Discord notification
+  ansible.builtin.uri:
+    url: "{{ discord_webhook_url }}"
+    method: POST
+    body_format: json
+    status_code: 204
+
+    body:
+
+      username: "Ansible Health Monitor"
+
+      content: |
+
+        🚨 {{ alert_title }}
+
+        ----------------------------------------
+
+        Host
+        {{ inventory_hostname }}
+
+        Environment
+        {{ group_names | join(', ') }}
+
+        Severity
+        {{ alert_severity }}
+
+        Details
+        {{ alert_message }}
+
+        Monitoring Mode
+        {{ monitoring_mode }}
+
+        Time
+        {{ lookup('pipe', 'date -u +"%Y-%m-%d %H:%M:%S UTC"') }}
+
+  when:
+    - enable_discord_alerts
+    - enable_alerting
