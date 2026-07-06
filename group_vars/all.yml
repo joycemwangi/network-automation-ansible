@@ -12,5 +12,4 @@ monitoring_mode: "hybrid"
 
 # Discord Notifications
 enable_discord_alerts: true
-discord_webhook_url: "https://discord.com/api/webhooks/1523466194353520701/48ym2zfbzoBz5dyjU2HKXGa4TBNaUzLBZl3u9R9gmGENHcBfgpyWvfVwvQiAcF_RKOu6
-"
+discord_webhook_url: "{{ lookup('env', 'DISCORD_WEBHOOK_URL') }}"
