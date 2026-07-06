@@ -59,7 +59,7 @@ network-automation-ansible/
 ├── .gitattributes                   # GitHub language detection
 ├── .gitignore                       # Ignore logs, vault password, temporary files
 ├── .vault/
-│   └── vault_pass.txt               # Local Ansible Vault password (never commit)
+│   └── vault_pass.txt               # Ansible Vault password (gitignored)
 ├── assets/
 │   └── ansible-banner.png           # README banner
 ├── inventory/
