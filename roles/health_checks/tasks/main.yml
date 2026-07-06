@@ -143,7 +143,7 @@
             {{
               cpu_utilization
               if use_live_cisco_metrics | default(false)
-              else 95
+              else 65
             }}
 
           memory_utilization: 55
@@ -192,6 +192,23 @@
           • Authentication failure
           • Cloud service outage
           • Network connectivity issue
+
+# ==========================================================
+# DEMO METRICS
+#
+# Used when no live infrastructure is available.
+# Remove or disable in production.
+# ==========================================================
+
+- name: Generate simulated metrics
+  ansible.builtin.set_fact:
+    cloud_metrics:
+      provider: Demo Lab
+      cpu_utilization: 95
+      memory_utilization: 88
+      network_latency_ms: 120
+  when:
+    - not use_live_cisco_metrics | default(false)          
 
 # =============================
 # REAL-TIME ALERTING
