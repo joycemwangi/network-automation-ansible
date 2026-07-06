@@ -126,6 +126,22 @@ Serial Number: FGL2345ABC
 
 ---
 
+## Security
+
+This project follows infrastructure automation security best practices by supporting **Ansible Vault** for protecting sensitive credentials.
+
+### Protected Configuration
+- Cisco device credentials
+- Enable passwords
+- API tokens
+- Cloud authentication secrets
+
+Sensitive variables can be encrypted using Ansible Vault before deployment:
+
+```bash
+ansible-vault encrypt group_vars/network.yml
+---
+
 ## Use Cases
 - Network health monitoring
 - Pre-incident detection
