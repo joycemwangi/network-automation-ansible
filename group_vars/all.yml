@@ -1,18 +1,34 @@
 ---
-# Global Monitoring Policy
+# ==========================================
+# GLOBAL MONITORING POLICY
+# ==========================================
 
+# Base alert thresholds
 cpu_threshold: 50
 memory_threshold: 80
 latency_threshold: 50
 
+# Severity thresholds
+cpu_major_threshold: 70
+cpu_critical_threshold: 90
+
+memory_major_threshold: 90
+memory_critical_threshold: 95
+
+latency_major_threshold: 100
+latency_critical_threshold: 200
+
+# Monitoring configuration
 enable_cloud_checks: true
 enable_network_checks: true
 enable_alerting: true
 
 monitoring_mode: hybrid
 
-# Discord
+# ==========================================
+# DISCORD NOTIFICATIONS
+# ==========================================
 
 enable_discord_alerts: true
 
-discord_webhook_url: "{{ lookup('env','DISCORD_WEBHOOK_URL') }}"
+discord_webhook_url: "{{ lookup('env', 'DISCORD_WEBHOOK_URL') }}"
