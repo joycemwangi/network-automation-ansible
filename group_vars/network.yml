@@ -5,7 +5,7 @@ ansible_connection: network_cli
 ansible_network_os: ios
 
 ansible_user: admin
-ansible_password: <CHANGE_ME>
+ansible_password: <vault-encrypted-in-production>
 
 ansible_become: true
 ansible_become_method: enable
