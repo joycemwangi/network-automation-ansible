@@ -62,23 +62,48 @@ for line in lines:
 
 total = len(failed) + len(unreachable) + len(successful)
 
-# -------------------------------------------------
-# TEMPORARY DEBUG PAYLOAD
-# -------------------------------------------------
+repo = os.getenv("GITHUB_REPOSITORY", "Local Run")
+workflow = os.getenv("GITHUB_WORKFLOW", "Ansible Health Monitoring")
+run_id = os.getenv("GITHUB_RUN_ID")
 
-message = f"""
-🚨 Infrastructure Monitoring Report
+if run_id:
+    workflow_url = f"https://github.com/{repo}/actions/runs/{run_id}"
+else:
+    workflow_url = "Local Execution"
 
-Total Hosts : {total}
-Healthy     : {len(successful)}
-Failed      : {len(failed)}
-Unreachable : {len(unreachable)}
+message = f"""🚨 **INFRASTRUCTURE MONITORING REPORT**
 
-Repository:
-{os.getenv('GITHUB_REPOSITORY', 'Local Run')}
+**Repository**
+{repo}
 
-Workflow:
-{os.getenv('GITHUB_WORKFLOW', 'Ansible Health Monitoring')}
+**Workflow**
+{workflow}
+
+----------------------------------------
+
+**Total Hosts:** {total}
+✅ Healthy: {len(successful)}
+❌ Failed: {len(failed)}
+⚠️ Unreachable: {len(unreachable)}
+
+"""
+
+if failed:
+    message += "**❌ Failed Hosts**\n"
+    for host in failed:
+        message += f"• {host}\n"
+    message += "\n"
+
+if unreachable:
+    message += "**⚠️ Unreachable Hosts**\n"
+    for host in unreachable:
+        message += f"• {host}\n"
+    message += "\n"
+
+message += f"""----------------------------------------
+
+🔗 Workflow Run
+{workflow_url}
 """
 
 payload = {
@@ -101,15 +126,6 @@ try:
         print(f"Discord notification sent ({response.status})")
 
 except urllib.error.HTTPError as e:
-    print("====================================")
-    print("DISCORD HTTP ERROR")
-    print("====================================")
-    print("Status :", e.code)
-    print("Reason :", e.reason)
-
-    try:
-        print(e.read().decode())
-    except Exception:
-        pass
-
+    print("Discord HTTP Error:", e.code)
+    print(e.read().decode())
     raise
