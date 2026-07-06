@@ -3,6 +3,8 @@
 # GLOBAL MONITORING POLICY
 # ==========================================
 
+use_live_cisco_metrics: false
+
 # Base alert thresholds
 cpu_threshold: 50
 memory_threshold: 80
@@ -35,7 +37,7 @@ enable_latency_alerts: true
 enable_network_alerts: true
 
 # ==========================================
-# DISCORD NOTIFICATIONS
+# MONITORING NOTIFICATIONS
 # ==========================================
 
 enable_discord_alerts: true
