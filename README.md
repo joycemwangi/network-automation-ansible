@@ -78,13 +78,15 @@ network-automation-ansible/
 │   └── health_checks/
 │       ├── tasks/
 │       │   ├── main.yml             # Hybrid monitoring and alerting logic
-│       │   └── send_monitoring_alert.yml # Sends monitoring alerts
+│       │   └── send_monitoring_alert.yml # real-time monitoring alerts
 │       ├── defaults/
 │       │   └── main.yml             # Default monitoring thresholds
 │       ├── vars/
 │       │   └── main.yml             # Role-specific variables
 │       └── handlers/
 │           └── main.yml             # Event-driven alert handlers
+├── scripts/
+│   └── send_monitoring_summary.py   # end-of-run monitoring summary
 ├── templates/                       # Future report and notification templates
 └── logs/                            # Runtime execution logs
     ├── .gitkeep
