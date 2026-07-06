@@ -1,12 +1,15 @@
-# Treat Ansible YAML files correctly
+# Ansible playbooks and roles
 *.yml linguist-language=YAML
 *.yaml linguist-language=YAML
 
-# Ensure inventory files are treated as data
+# GitHub Actions workflows
+.github/workflows/*.yml linguist-language=YAML
+
+# Inventory
 *.ini linguist-detectable=false
 
-# Ignore config files from language stats (optional)
+# Ansible config
 ansible.cfg linguist-detectable=false
 
-# Keep documentation separate
+# Documentation
 *.md linguist-documentation=true
