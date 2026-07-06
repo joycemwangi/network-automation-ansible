@@ -1,5 +1,22 @@
+# ==========================================
 # Ansible Vault
+# ==========================================
 .vault/
 
-# Logs
-logs/*.log
+# Environment files
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Ansible retry files
+*.retry
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
