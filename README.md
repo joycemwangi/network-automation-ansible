@@ -58,16 +58,12 @@ network-automation-ansible/
 ├── LICENSE                          # MIT License
 ├── .gitattributes                   # GitHub language detection
 ├── .gitignore                       # Ignore logs, vault password, temporary files
-│
 ├── .vault/
 │   └── vault_pass.txt               # Local Ansible Vault password (never commit)
-│
 ├── assets/
 │   └── ansible-banner.png           # README banner
-│
 ├── inventory/
 │   └── hosts.ini                    # Infrastructure inventory (hosts & groups)
-│
 ├── group_vars/
 │   ├── all.yml                      # Global monitoring policy
 │   ├── network.yml                  # Cisco IOS connection settings
@@ -76,27 +72,20 @@ network-automation-ansible/
 │   ├── gcp_cloud.yml                # Google Cloud monitoring configuration
 │   ├── oci_cloud.yml                # Oracle Cloud monitoring configuration
 │   └── private_cloud.yml            # Private cloud monitoring configuration
-│
 ├── host_vars/
 │   └── devices.yml                  # Device and cloud instance metadata
-│
 ├── roles/
 │   └── health_checks/
 │       ├── tasks/
-│       │   ├── main.yml                     # Hybrid monitoring and alerting logic
-│       │   └── send_monitoring_alert.yml    # Sends monitoring alerts (Discord/Webhooks)
-│       │
+│       │   ├── main.yml             # Hybrid monitoring and alerting logic
+│       │   └── send_monitoring_alert.yml # Sends monitoring alerts
 │       ├── defaults/
 │       │   └── main.yml             # Default monitoring thresholds
-│       │
 │       ├── vars/
 │       │   └── main.yml             # Role-specific variables
-│       │
 │       └── handlers/
 │           └── main.yml             # Event-driven alert handlers
-│
 ├── templates/                       # Future report and notification templates
-│
 └── logs/                            # Runtime execution logs
     ├── .gitkeep
     └── .gitignore
