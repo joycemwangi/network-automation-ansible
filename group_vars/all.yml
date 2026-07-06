@@ -4,6 +4,7 @@
 # ==========================================
 
 use_live_cisco_metrics: false
+#enable_live_metrics: true
 
 # Base alert thresholds
 cpu_threshold: 50
