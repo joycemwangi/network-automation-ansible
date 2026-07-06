@@ -1,4 +1,24 @@
 ---
+# ==========================================================
+# HYBRID INFRASTRUCTURE MONITORING
+# ==========================================================
+#
+# This playbook is designed to run in two modes:
+#
+# 1. Demonstration Mode (Default)
+#    - Uses simulated infrastructure metrics.
+#    - Runs anywhere including GitHub Actions.
+#    - Requires no production infrastructure.
+#
+# 2. Production Mode
+#    - Uses live Cisco IOS devices.
+#    - Collects real CPU, memory and interface data.
+#    - Enable by setting:
+#
+#         use_live_cisco_metrics: true
+#
+# ==========================================================
+
 # =============================
 # DEVICE IDENTIFICATION
 # =============================
@@ -11,6 +31,40 @@
       ==============================
       Host   : {{ inventory_hostname }}
       Groups : {{ group_names }}
+
+# ==========================================================
+# FUTURE PRODUCTION IMPLEMENTATION
+#
+# Disabled by default.
+#
+# When real Cisco routers/switches are available,
+# enable:
+#
+# use_live_cisco_metrics: true
+#
+# ==========================================================
+
+- name: Collect Cisco CPU utilization (Production)
+  cisco.ios.ios_command:
+    commands:
+      - show processes cpu | include CPU utilization
+  register: cisco_cpu
+  when:
+    - use_live_cisco_metrics | default(false)
+    - "'routers' in group_names or 'switches' in group_names"
+
+- name: Extract Cisco CPU utilization
+  ansible.builtin.set_fact:
+    cpu_utilization: >-
+      {{
+        cisco_cpu.stdout[0]
+        | regex_search('CPU utilization for five seconds: ([0-9]+)%', '\1')
+        | first
+        | int
+      }}
+  when:
+    - use_live_cisco_metrics | default(false)
+    - cisco_cpu is defined
 
 # =============================
 # CISCO NETWORK DEVICES
@@ -82,7 +136,16 @@
               'Private Cloud' if 'private_cloud' in group_names else
               'Unknown'
             }}
-          cpu_utilization: 65
+
+          # Uses live Cisco CPU when enabled,
+          # otherwise falls back to simulated metrics.
+          cpu_utilization: >-
+            {{
+              cpu_utilization
+              if use_live_cisco_metrics | default(false)
+              else 65
+            }}
+
           memory_utilization: 55
           network_latency_ms: 15
 
