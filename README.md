@@ -140,6 +140,7 @@ Sensitive variables can be encrypted using Ansible Vault before deployment:
 
 ```bash
 ansible-vault encrypt group_vars/network.yml
+```
 ---
 
 ## Use Cases
