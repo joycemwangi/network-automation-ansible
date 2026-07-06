@@ -8,6 +8,7 @@ cloud_domains:
   - aws
   - azure
   - gcp
+  - oci
   - private_cloud
 
 alert_mode: "debug"   # can later become slack/email/webhook
