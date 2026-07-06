@@ -43,9 +43,9 @@ jobs:
           name: ansible-output
           path: ansible-output.txt
 
-      - name: Send Monitoring Summary to Discord
+      - name: Send Monitoring Summary
         if: always()
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          python scripts/send_discord_summary.py
+          python scripts/send_mon_summary.py
