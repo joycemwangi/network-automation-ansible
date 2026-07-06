@@ -57,7 +57,7 @@ network-automation-ansible/
 ├── README.md                        # Project documentation
 ├── LICENSE                          # MIT License
 ├── .gitattributes                   # GitHub language detection
-│
+│   .gitignore
 ├── assets/
 │   └── ansible-banner.png           # README banner
 │
