@@ -108,31 +108,6 @@
           • Device offline
           • Connection timeout
 
-          ==============================
-          CLOUD HEALTH REPORT
-          ==============================
-          Provider : {{ cloud_metrics.provider }}
-          CPU      : {{ cloud_metrics.cpu_utilization }}%
-          Memory   : {{ cloud_metrics.memory_utilization }}%
-          Latency  : {{ cloud_metrics.network_latency_ms }} ms
-
-    - name: Simulate cloud connectivity
-      ansible.builtin.set_fact:
-        cloud_connectivity:
-          api_reachable: true
-          dns_reachable: true
-          internet_gateway: up
-
-    - name: Display cloud connectivity
-      ansible.builtin.debug:
-        msg: |
-          ==============================
-          CLOUD CONNECTIVITY
-          ==============================
-          API       : {{ cloud_connectivity.api_reachable }}
-          DNS       : {{ cloud_connectivity.dns_reachable }}
-          Gateway   : {{ cloud_connectivity.internet_gateway }}
-
   rescue:
 
     - name: Send Cloud Failure Alert
