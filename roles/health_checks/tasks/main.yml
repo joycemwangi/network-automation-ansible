@@ -108,50 +108,6 @@
           • Device offline
           • Connection timeout
 
-# =============================
-# CLOUD MONITORING
-# =============================
-
-- name: Monitor cloud infrastructure
-  when:
-    - enable_cloud_checks
-    - >
-      'aws_cloud' in group_names or
-      'azure_cloud' in group_names or
-      'gcp_cloud' in group_names or
-      'oci_cloud' in group_names or
-      'private_cloud' in group_names
-
-  block:
-
-    - name: Generate cloud metrics
-      ansible.builtin.set_fact:
-        cloud_metrics:
-          provider: >-
-            {{
-              'AWS' if 'aws_cloud' in group_names else
-              'Azure' if 'azure_cloud' in group_names else
-              'GCP' if 'gcp_cloud' in group_names else
-              'OCI' if 'oci_cloud' in group_names else
-              'Private Cloud' if 'private_cloud' in group_names else
-              'Unknown'
-            }}
-
-          # Uses live Cisco CPU when enabled,
-          # otherwise falls back to simulated metrics.
-          cpu_utilization: >-
-            {{
-              cpu_utilization
-              if use_live_cisco_metrics | default(false)
-              else 65
-            }}
-
-          memory_utilization: 55
-          network_latency_ms: 15
-
-    - name: Display cloud metrics
-      ansible.builtin.debug:
-        msg: |
           ==============================
           CLOUD HEALTH REPORT
           ==============================
