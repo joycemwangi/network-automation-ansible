@@ -1,5 +1,5 @@
 ---
-# Global monitoring policy (single source of truth)
+# Global Monitoring Policy
 
 cpu_threshold: 50
 memory_threshold: 80
@@ -8,8 +8,11 @@ latency_threshold: 50
 enable_cloud_checks: true
 enable_network_checks: true
 enable_alerting: true
-monitoring_mode: "hybrid"
 
-# Discord Notifications
+monitoring_mode: hybrid
+
+# Discord
+
 enable_discord_alerts: true
-discord_webhook_url: "{{ lookup('env', 'DISCORD_WEBHOOK_URL') }}"
+
+discord_webhook_url: "{{ lookup('env','DISCORD_WEBHOOK_URL') }}"
