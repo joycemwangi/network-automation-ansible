@@ -21,7 +21,7 @@
     - cloud_metrics.cpu_utilization > cpu_threshold
 
 - name: Send High CPU Alert
-  ansible.builtin.include_tasks: send_discord_alert.yml
+  ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
     alert_title: "HIGH CPU UTILIZATION"
     alert_severity: "{{ cpu_alert_severity | trim }}"
@@ -53,7 +53,7 @@
     - cloud_metrics.memory_utilization > memory_threshold
 
 - name: Send High Memory Alert
-  ansible.builtin.include_tasks: send_discord_alert.yml
+  ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
     alert_title: "HIGH MEMORY UTILIZATION"
     alert_severity: "{{ memory_alert_severity | trim }}"
@@ -85,7 +85,7 @@
     - cloud_metrics.network_latency_ms > latency_threshold
 
 - name: Send High Latency Alert
-  ansible.builtin.include_tasks: send_discord_alert.yml
+  ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
     alert_title: "HIGH NETWORK LATENCY"
     alert_severity: "{{ latency_alert_severity | trim }}"
@@ -103,7 +103,7 @@
 # -----------------------------
 
 - name: Send Network Device Alert
-  ansible.builtin.include_tasks: send_discord_alert.yml
+  ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
     alert_title: "NETWORK DEVICE ALERT"
     alert_severity: "Critical"
