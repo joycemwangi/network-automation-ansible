@@ -108,22 +108,6 @@
           • Device offline
           • Connection timeout
 
-  rescue:
-
-    - name: Send Cloud Failure Alert
-      ansible.builtin.include_tasks: send_monitoring_alert.yml
-      vars:
-        alert_title: "CLOUD PLATFORM UNREACHABLE"
-        alert_severity: "Critical"
-        alert_message: |
-          Cloud monitoring failed.
-
-          Possible causes:
-          • API unavailable
-          • Authentication failure
-          • Cloud service outage
-          • Network connectivity issue
-
 # =============================
 # CLOUD / DEMO METRICS
 # =============================
