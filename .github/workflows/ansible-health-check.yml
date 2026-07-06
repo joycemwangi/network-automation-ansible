@@ -34,4 +34,18 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          ansible-playbook health_check.yml
+          ansible-playbook health_check.yml | tee ansible-output.txt
+
+      - name: Upload Ansible Output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ansible-output
+          path: ansible-output.txt
+
+      - name: Send Monitoring Summary to Discord
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          python scripts/send_discord_summary.py
