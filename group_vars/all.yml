@@ -26,6 +26,15 @@ enable_alerting: true
 monitoring_mode: hybrid
 
 # ==========================================
+# ALERT CONTROLS
+# ==========================================
+
+enable_cpu_alerts: true
+enable_memory_alerts: true
+enable_latency_alerts: true
+enable_network_alerts: true
+
+# ==========================================
 # DISCORD NOTIFICATIONS
 # ==========================================
 
