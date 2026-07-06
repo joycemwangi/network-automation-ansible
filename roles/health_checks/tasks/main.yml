@@ -1,77 +1,8 @@
----
 # =============================
-# DEVICE IDENTIFICATION (ALL NODES)
-# =============================
-
-- name: Identify infrastructure node
-  ansible.builtin.debug:
-    msg: |
-      ==============================
-      NODE IDENTIFICATION
-      ==============================
-      Host: {{ inventory_hostname }}
-      Groups: {{ group_names }}
-
-# =============================
-# CISCO NETWORK DEVICES
+# CLOUD MONITORING
 # =============================
 
-- name: Monitor Cisco network devices
-  when: "'routers' in group_names or 'switches' in group_names"
-
-  block:
-
-    - name: Gather Cisco IOS facts
-      cisco.ios.ios_facts:
-      register: device_facts
-
-    - name: Display network device health
-      ansible.builtin.debug:
-        msg: |
-          ==============================
-          NETWORK DEVICE HEALTH
-          ==============================
-          Hostname      : {{ ansible_net_hostname }}
-          OS Version    : {{ ansible_net_version }}
-          Model         : {{ ansible_net_model }}
-          Serial Number : {{ ansible_net_serialnum | default('N/A') }}
-
-  rescue:
-
-    - name: Send Network Failure Alert
-      ansible.builtin.include_tasks: send_discord_alert.yml
-      vars:
-        alert_title: "NETWORK DEVICE UNREACHABLE"
-        alert_severity: "Critical"
-        alert_message: |
-          Unable to connect to device.
-
-          Possible causes:
-          • SSH unreachable
-          • Authentication failure
-          • Device offline
-          • Connection timeout
-
-# =============================
-# CLOUD METRICS
-# =============================
-
-- name: Generate cloud metrics
-  ansible.builtin.set_fact:
-    cloud_metrics:
-      provider: >-
-        {{
-          'AWS' if 'aws_cloud' in group_names else
-          'Azure' if 'azure_cloud' in group_names else
-          'GCP' if 'gcp_cloud' in group_names else
-          'OCI' if 'oci_cloud' in group_names else
-          'Private Cloud' if 'private_cloud' in group_names else
-          'Unknown'
-        }}
-      cpu_utilization: 65
-      memory_utilization: 55
-      network_latency_ms: 15
-
+- name: Monitor cloud infrastructure
   when: >
     'aws_cloud' in group_names or
     'azure_cloud' in group_names or
@@ -79,40 +10,67 @@
     'oci_cloud' in group_names or
     'private_cloud' in group_names
 
-- name: Display cloud metrics
-  ansible.builtin.debug:
-    msg: |
-      ==============================
-      CLOUD HEALTH REPORT
-      ==============================
-      Provider : {{ cloud_metrics.provider }}
-      CPU      : {{ cloud_metrics.cpu_utilization }}%
-      Memory   : {{ cloud_metrics.memory_utilization }}%
-      Latency  : {{ cloud_metrics.network_latency_ms }} ms
-  when: cloud_metrics is defined
+  block:
 
-# =============================
-# CLOUD CONNECTIVITY
-# =============================
+    - name: Generate cloud metrics
+      ansible.builtin.set_fact:
+        cloud_metrics:
+          provider: >-
+            {{
+              'AWS' if 'aws_cloud' in group_names else
+              'Azure' if 'azure_cloud' in group_names else
+              'GCP' if 'gcp_cloud' in group_names else
+              'OCI' if 'oci_cloud' in group_names else
+              'Private Cloud' if 'private_cloud' in group_names else
+              'Unknown'
+            }}
+          cpu_utilization: 65
+          memory_utilization: 55
+          network_latency_ms: 15
 
-- name: Simulate connectivity
-  ansible.builtin.set_fact:
-    cloud_connectivity:
-      api_reachable: true
-      dns_reachable: true
-      internet_gateway: up
-  when: cloud_metrics is defined
+    - name: Display cloud metrics
+      ansible.builtin.debug:
+        msg: |
+          ==============================
+          CLOUD HEALTH REPORT
+          ==============================
+          Provider : {{ cloud_metrics.provider }}
+          CPU      : {{ cloud_metrics.cpu_utilization }}%
+          Memory   : {{ cloud_metrics.memory_utilization }}%
+          Latency  : {{ cloud_metrics.network_latency_ms }} ms
 
-- name: Display connectivity
-  ansible.builtin.debug:
-    msg: |
-      ==============================
-      CLOUD CONNECTIVITY
-      ==============================
-      API       : {{ cloud_connectivity.api_reachable }}
-      DNS       : {{ cloud_connectivity.dns_reachable }}
-      Gateway   : {{ cloud_connectivity.internet_gateway }}
-  when: cloud_metrics is defined
+    - name: Simulate cloud connectivity
+      ansible.builtin.set_fact:
+        cloud_connectivity:
+          api_reachable: true
+          dns_reachable: true
+          internet_gateway: up
+
+    - name: Display cloud connectivity
+      ansible.builtin.debug:
+        msg: |
+          ==============================
+          CLOUD CONNECTIVITY
+          ==============================
+          API       : {{ cloud_connectivity.api_reachable }}
+          DNS       : {{ cloud_connectivity.dns_reachable }}
+          Gateway   : {{ cloud_connectivity.internet_gateway }}
+
+  rescue:
+
+    - name: Send Cloud Failure Alert
+      ansible.builtin.include_tasks: send_discord_alert.yml
+      vars:
+        alert_title: "CLOUD PLATFORM UNREACHABLE"
+        alert_severity: "Critical"
+        alert_message: |
+          Cloud monitoring failed.
+
+          Possible causes:
+          • API unavailable
+          • Authentication failure
+          • Cloud service outage
+          • Network connectivity issue
 
 # =============================
 # REAL-TIME ALERTING
@@ -190,24 +148,6 @@
     alert_severity: "Critical"
     alert_message: |
       Interface anomaly detected.
+
       Device : {{ inventory_hostname }}
   when: "'routers' in group_names or 'switches' in group_names"
-
-# =============================
-# SUMMARY
-# =============================
-
-- name: Infrastructure monitoring summary
-  ansible.builtin.debug:
-    msg: |
-      ==============================
-      HYBRID OBSERVABILITY SUMMARY
-      ==============================
-      Host   : {{ inventory_hostname }}
-      Mode   : {{ monitoring_mode }}
-      Status : Monitoring Active
-  changed_when: true
-  notify:
-    - generate incident report
-
-- meta: flush_handlers
