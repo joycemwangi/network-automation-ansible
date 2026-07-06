@@ -3,6 +3,17 @@
 # SEND DISCORD ALERT
 # ==========================================
 
+- name: Select alert icon
+  ansible.builtin.set_fact:
+    alert_icon: >-
+      {% if alert_severity == 'Critical' %}
+      🔴
+      {% elif alert_severity == 'Major' %}
+      🟠
+      {% else %}
+      🟡
+      {% endif %}
+
 - name: Send Discord notification
   ansible.builtin.uri:
     url: "{{ discord_webhook_url }}"
@@ -14,23 +25,25 @@
       username: "Ansible Health Monitor"
 
       content: |
-        🚨 {{ alert_title }}
+        {{ alert_icon | trim }} **{{ alert_title }}**
 
-        Host
+        **Host**
         {{ inventory_hostname }}
 
-        Environment
+        **Environment**
         {{ group_names | join(', ') }}
 
-        Severity
+        **Severity**
         {{ alert_severity }}
 
-        Details
+        **Details**
         {{ alert_message }}
 
-        Time
+        **Time**
         {{ lookup('pipe', 'date -u +"%Y-%m-%d %H:%M:%S UTC"') }}
 
     status_code: 204
 
-  when: enable_discord_alerts
+  when:
+    - enable_discord_alerts
+    - discord_webhook_url | length > 0
