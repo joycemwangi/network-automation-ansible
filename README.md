@@ -80,6 +80,7 @@ network-automation-ansible/
 │   └── health_checks/
 │       ├── tasks/
 │       │   └── main.yml             # Hybrid monitoring and alerting logic
+            └── send_monitoring_alert.yml 
 │       ├── defaults/
 │       │   └── main.yml             # Default monitoring thresholds
 │       ├── vars/
