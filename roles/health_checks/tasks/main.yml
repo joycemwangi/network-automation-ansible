@@ -96,7 +96,7 @@
   when: cloud_metrics is defined
 
 # =============================
-# ALERTING
+# REAL-TIME ALERTING
 # =============================
 
 - name: Detect high CPU
@@ -105,19 +105,74 @@
   when:
     - cloud_metrics is defined
     - cloud_metrics.cpu_utilization > cpu_threshold
-  changed_when: true
-  notify:
-    - trigger cloud alert
-    - send discord notification
 
-- name: Detect interface issue
+- name: Send CPU alert to Discord
+  ansible.builtin.include_tasks: send_discord_alert.yml
+  vars:
+    alert_title: "HIGH CPU UTILIZATION"
+    alert_severity: "Warning"
+    alert_message: |
+      Provider : {{ cloud_metrics.provider }}
+      CPU      : {{ cloud_metrics.cpu_utilization }}%
+      Threshold: {{ cpu_threshold }}%
+  when:
+    - cloud_metrics is defined
+    - cloud_metrics.cpu_utilization > cpu_threshold
+
+- name: Detect high Memory
+  ansible.builtin.debug:
+    msg: "High Memory detected on {{ cloud_metrics.provider }}"
+  when:
+    - cloud_metrics is defined
+    - cloud_metrics.memory_utilization > memory_threshold
+
+- name: Send Memory alert to Discord
+  ansible.builtin.include_tasks: send_discord_alert.yml
+  vars:
+    alert_title: "HIGH MEMORY UTILIZATION"
+    alert_severity: "Critical"
+    alert_message: |
+      Provider : {{ cloud_metrics.provider }}
+      Memory   : {{ cloud_metrics.memory_utilization }}%
+      Threshold: {{ memory_threshold }}%
+  when:
+    - cloud_metrics is defined
+    - cloud_metrics.memory_utilization > memory_threshold
+
+- name: Detect high Latency
+  ansible.builtin.debug:
+    msg: "High latency detected on {{ cloud_metrics.provider }}"
+  when:
+    - cloud_metrics is defined
+    - cloud_metrics.network_latency_ms > latency_threshold
+
+- name: Send Latency alert to Discord
+  ansible.builtin.include_tasks: send_discord_alert.yml
+  vars:
+    alert_title: "HIGH NETWORK LATENCY"
+    alert_severity: "Warning"
+    alert_message: |
+      Provider : {{ cloud_metrics.provider }}
+      Latency  : {{ cloud_metrics.network_latency_ms }} ms
+      Threshold: {{ latency_threshold }} ms
+  when:
+    - cloud_metrics is defined
+    - cloud_metrics.network_latency_ms > latency_threshold
+
+- name: Detect network interface issue
   ansible.builtin.debug:
     msg: "Interface anomaly detected on {{ inventory_hostname }}"
   when: "'routers' in group_names or 'switches' in group_names"
-  changed_when: true
-  notify:
-    - trigger network alert
-    - send discord notification
+
+- name: Send Network alert to Discord
+  ansible.builtin.include_tasks: send_discord_alert.yml
+  vars:
+    alert_title: "NETWORK DEVICE ALERT"
+    alert_severity: "Critical"
+    alert_message: |
+      Interface anomaly detected.
+      Device : {{ inventory_hostname }}
+  when: "'routers' in group_names or 'switches' in group_names"
 
 # =============================
 # SUMMARY
@@ -129,8 +184,8 @@
       ==============================
       HYBRID OBSERVABILITY SUMMARY
       ==============================
-      Host : {{ inventory_hostname }}
-      Mode : {{ monitoring_mode }}
+      Host   : {{ inventory_hostname }}
+      Mode   : {{ monitoring_mode }}
       Status : Monitoring Active
   changed_when: true
   notify:
