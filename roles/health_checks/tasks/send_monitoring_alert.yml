@@ -1,9 +1,9 @@
 ---
 # ==========================================
-# SEND REAL-TIME DISCORD ALERT
+# SEND MONITORING ALERT
 # ==========================================
 
-- name: Send Discord notification
+- name: Send Monitoring notification
   ansible.builtin.uri:
     url: "{{ discord_webhook_url }}"
     method: POST
