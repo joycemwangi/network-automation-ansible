@@ -1,6 +1,6 @@
 ---
 # ==========================================
-# SEND MONITORING ALERT
+# SEND REAL-TIME MONITORING ALERT
 # ==========================================
 
 - name: Send Monitoring notification
