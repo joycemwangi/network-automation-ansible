@@ -132,21 +132,21 @@
               'Unknown'
             }}
             
-         cpu_utilization: >-
+        cpu_utilization: >-
             {{
               health_checks_cpu_utilization
               if use_live_cisco_metrics | default(false)
               else 95
             }}
 
-         memory_utilization: >-
+        memory_utilization: >-
             {{
               55
               if use_live_cisco_metrics | default(false)
               else 88
             }}
 
-         network_latency_ms: >-
+        network_latency_ms: >-
             {{
               15
               if use_live_cisco_metrics | default(false)
