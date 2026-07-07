@@ -36,10 +36,12 @@ Designed with a modular role-based architecture, it supports demonstration mode 
 - Hybrid infrastructure monitoring
 - Multi-cloud observability (AWS, Azure, GCP, OCI, Private Cloud)
 - Connectivity validation and health reporting
-- Threshold-based alerting
-- Structured operational data collection
+- Intelligent threshold-based alerting with severity classification
+- Structured operational reporting with actionable remediation guidance
 - Role-based Ansible architecture
 - Extensible for enterprise and ISP environments
+- Enterprise-style observability alerts
+- Production-ready monitoring workflow
 
 ---
 
