@@ -1,10 +1,11 @@
 ---
 # ==========================================
-# MONITORING MODE
+# GLOBAL MONITORING POLICY
 # ==========================================
 
-# false = simulated/demo metrics
-# true  = collect live metrics from supported platforms
+# Monitoring mode
+# false = demonstration mode (simulated metrics)
+# true  = production mode (live metrics)
 
 use_live_monitoring: false
 
@@ -30,19 +31,12 @@ enable_alerting: true
 
 monitoring_mode: hybrid
 
-# ==========================================
-# ALERT CONTROLS
-# ==========================================
-
+# Alert controls
 enable_cpu_alerts: true
 enable_memory_alerts: true
 enable_latency_alerts: true
 enable_network_alerts: true
 
-# ==========================================
-# MONITORING NOTIFICATIONS
-# ==========================================
-
+# Notifications
 enable_discord_alerts: true
-
 discord_webhook_url: "{{ lookup('env', 'DISCORD_WEBHOOK_URL') }}"
