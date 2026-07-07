@@ -82,8 +82,10 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          ansible-playbook health_check.yml | tee ansible-output.txt
-
+          ansible-playbook \
+           --vault-password-file .vault/vault_pass.txt \
+           health_check.yml | tee ansible-output.txt
+      
       - name: Upload Ansible Output
         if: always()
         uses: actions/upload-artifact@v4
