@@ -241,10 +241,11 @@
       Exceeded By: {{ health_checks_cloud_metrics.health_checks_cpu_utilization - cpu_threshold }}%
 
       Recommended Action:
-      • Check running processes
-      • Verify routing protocol stability
-      • Review interface traffic
-      • Investigate recent configuration changes
+      • Review CPU-intensive processes
+      • Verify BGP/OSPF neighbor stability
+      • Check interface utilization, drops and error counters
+      • Verify MTU consistency to avoid fragmentation
+      • Review recent configuration changes or deployments
   when:
     - enable_cpu_alerts
     - health_checks_cloud_metrics is defined
