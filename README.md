@@ -21,9 +21,12 @@
 ---
 
 ## Overview
-Ansible-based automation framework for performing automated health checks on routers and switches across enterprise and ISP network environments.
 
-This project gathers operational data, parses device output, and helps proactively identify network issues before they impact service availability or stability.
+Ansible-based hybrid infrastructure monitoring framework for enterprise and ISP environments.
+
+The project automates health checks across network devices and cloud infrastructure by collecting operational metrics, evaluating configurable thresholds, and generating structured alerts with severity classification, operational impact, possible causes, and recommended remediation actions.
+
+Designed with a modular role-based architecture, it supports demonstration mode for GitHub Actions and production mode for Cisco IOS devices, making it suitable for learning, testing, and real-world network automation.
 
 ---
 
