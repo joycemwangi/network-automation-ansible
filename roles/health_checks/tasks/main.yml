@@ -118,41 +118,41 @@
 
   block:
 
-    - name: Create monitoring metrics
-      ansible.builtin.set_fact:
-        health_checks_monitoring_metrics:
-          provider: >-
-            {{
-              'AWS' if 'aws_cloud' in group_names else
-              'Azure' if 'azure_cloud' in group_names else
-              'GCP' if 'gcp_cloud' in group_names else
-              'OCI' if 'oci_cloud' in group_names else
-              'Private Cloud' if 'private_cloud' in group_names else
-              'Cisco Network' if ('routers' in group_names or 'switches' in group_names) else
-              'Unknown'
-            }}
-            
-        cpu_utilization: >-
-            {{
-              health_checks_cpu_utilization
-              if use_live_monitoring | default(false)
-              else 95
-            }}
+  - name: Create monitoring metrics
+  ansible.builtin.set_fact:
+    health_checks_monitoring_metrics:
+      provider: >-
+        {{
+          'AWS' if 'aws_cloud' in group_names else
+          'Azure' if 'azure_cloud' in group_names else
+          'GCP' if 'gcp_cloud' in group_names else
+          'OCI' if 'oci_cloud' in group_names else
+          'Private Cloud' if 'private_cloud' in group_names else
+          'Cisco Network' if ('routers' in group_names or 'switches' in group_names) else
+          'Unknown'
+        }}
 
-        memory_utilization: >-
-            {{
-              55
-              if use_live_monitoring | default(false)
-              else 88
-            }}
+      cpu_utilization: >-
+        {{
+          health_checks_cpu_utilization
+          if use_live_monitoring | default(false)
+          else 95
+        }}
 
-        network_latency_ms: >-
-            {{
-              15
-              if use_live_monitoring | default(false)
-              else 120
-            }}
+      memory_utilization: >-
+        {{
+          55
+          if use_live_monitoring | default(false)
+          else 88
+        }}
 
+      network_latency_ms: >-
+        {{
+          15
+          if use_live_monitoring | default(false)
+          else 120
+        }}
+        
     - name: Display monitoring metrics
       ansible.builtin.debug:
         msg: |
