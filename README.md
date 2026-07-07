@@ -73,6 +73,22 @@ Provide Operational Guidance
 
 The workflow supports both demonstration mode using simulated metrics and production mode using live Cisco IOS devices.
 
+## Alert Design Philosophy
+
+Alerts are designed to provide actionable operational information rather than simply reporting threshold violations.
+
+Each alert follows a consistent structure that helps network engineers quickly assess and respond to incidents.
+
+| Stage | Purpose |
+|--------|---------|
+| **What happened?** | Identifies the monitored resource and the metric that exceeded its threshold. |
+| **How severe is it?** | Classifies the alert as **Warning**, **Major**, or **Critical** using configurable thresholds. |
+| **What is the impact?** | Explains the potential operational or business impact if the issue persists. |
+| **What might have caused it?** | Lists common causes to assist with initial diagnosis. |
+| **What should the operator do?** | Provides recommended investigation and remediation steps based on operational best practices. |
+
+This approach helps reduce mean time to detect (MTTD) and supports faster incident response by providing actionable context with every alert.
+
 ## Project Structure
 ```
 network-automation-ansible/
