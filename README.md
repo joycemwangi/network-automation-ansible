@@ -51,6 +51,28 @@ Designed with a modular role-based architecture, it supports demonstration mode 
 
 ---
 
+## Monitoring Workflow
+
+The monitoring workflow follows a structured operational pipeline:
+
+```text
+Collect Metrics
+      │
+      ▼
+Evaluate Thresholds
+      │
+      ▼
+Determine Severity
+      │
+      ▼
+Generate Alert
+      │
+      ▼
+Provide Operational Guidance
+```
+
+The workflow supports both demonstration mode using simulated metrics and production mode using live Cisco IOS devices.
+
 ## Project Structure
 ```
 network-automation-ansible/
