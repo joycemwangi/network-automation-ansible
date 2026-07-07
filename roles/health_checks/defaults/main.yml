@@ -1,6 +1,6 @@
 ---
 # Role defaults (fallback only, not duplicated global policy)
 
-cloud_provider_default: "hybrid-simulated"
-alert_mode: "debug"
-log_level: "info"
+health_checks_cloud_provider_default: "hybrid-simulated"
+health_checks_alert_mode: "debug"
+health_checks_log_level: "info"
