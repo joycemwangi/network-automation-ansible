@@ -318,12 +318,26 @@
 - name: Send High Latency Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: "HIGH NETWORK LATENCY"
+    alert_title: "{{ health_checks_latency_alert_severity | upper }} - HIGH NETWORK LATENCY"
     alert_severity: "{{ health_checks_latency_alert_severity | trim }}"
     alert_message: |
-      Provider : {{ health_checks_cloud_metrics.provider }}
-      Latency  : {{ health_checks_cloud_metrics.network_latency_ms }} ms
-      Threshold: {{ latency_threshold }} ms
+      Alert Type : Network Latency
+      Status     : Threshold Exceeded
+      Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
+
+      Provider   : {{ health_checks_cloud_metrics.provider }}
+      Host       : {{ inventory_hostname }}
+
+      Latency    : {{ health_checks_cloud_metrics.network_latency_ms }} ms
+      Threshold  : {{ latency_threshold }} ms
+      Exceeded By: {{ health_checks_cloud_metrics.network_latency_ms - latency_threshold }} ms
+
+      Recommended Action:
+      • Verify WAN and ISP connectivity
+      • Check interface congestion and packet drops
+      • Review routing path changes
+      • Verify QoS policies are operating correctly
+      • Investigate upstream network or cloud service latency
   when:
     - enable_latency_alerts
     - health_checks_cloud_metrics is defined
