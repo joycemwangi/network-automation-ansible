@@ -75,8 +75,6 @@ network-automation-ansible/
 │   ├── gcp_cloud.yml                # Google Cloud monitoring configuration
 │   ├── oci_cloud.yml                # Oracle Cloud monitoring configuration
 │   └── private_cloud.yml            # Private cloud monitoring configuration
-├── host_vars/
-│   └── devices.yml                  # Device and cloud instance metadata
 ├── roles/
 │   └── health_checks/
 │       ├── tasks/
