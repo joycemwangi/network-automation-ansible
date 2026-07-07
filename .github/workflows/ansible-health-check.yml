@@ -39,6 +39,16 @@ jobs:
       - name: Inspect defaults file
         run: |
            cat -A roles/health_checks/defaults/main.yml
+
+      - name: Show yamllint version
+        run: |
+          yamllint --version
+          python --version
+
+      - name: Inspect line endings
+        run: |
+          file roles/health_checks/defaults/main.yml
+          xxd roles/health_checks/defaults/main.yml | head
     
       - name: Run YAML Lint
         run: |
