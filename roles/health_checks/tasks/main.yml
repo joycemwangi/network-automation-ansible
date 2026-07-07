@@ -272,12 +272,26 @@
 - name: Send High Memory Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: "HIGH MEMORY UTILIZATION"
+    alert_title: "{{ health_checks_memory_alert_severity | upper }} - HIGH MEMORY UTILIZATION"
     alert_severity: "{{ health_checks_memory_alert_severity | trim }}"
     alert_message: |
-      Provider : {{ health_checks_cloud_metrics.provider }}
-      Memory Usage: {{ health_checks_cloud_metrics.memory_utilization }}%
-      Threshold: {{ memory_threshold }}%
+      Alert Type : Memory Utilization
+      Status     : Threshold Exceeded
+      Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
+
+      Provider   : {{ health_checks_cloud_metrics.provider }}
+      Host       : {{ inventory_hostname }}
+
+      Memory Usage : {{ health_checks_cloud_metrics.memory_utilization }}%
+      Threshold    : {{ memory_threshold }}%
+      Exceeded By  : {{ health_checks_cloud_metrics.memory_utilization - memory_threshold }}%
+
+      Recommended Action:
+      • Review memory utilization by active processes
+      • Check for memory leaks or abnormal consumption
+      • Verify system buffer and cache utilization
+      • Review recent configuration changes or deployments
+      • Consider capacity expansion if utilization remains high
   when:
     - enable_memory_alerts
     - health_checks_cloud_metrics is defined
