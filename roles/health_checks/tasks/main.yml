@@ -223,17 +223,27 @@
     - health_checks_cloud_metrics is defined
     - health_checks_cloud_metrics.health_checks_cpu_utilization > cpu_threshold
 
-- name: Determine CPU alert severity
-  ansible.builtin.set_fact:
-    health_checks_cpu_alert_severity: >-
-      {% if health_checks_cloud_metrics.health_checks_cpu_utilization >= cpu_critical_threshold %}
-      Critical
-      {% elif health_checks_cloud_metrics.health_checks_cpu_utilization >= cpu_major_threshold %}
-      Major
-      {% else %}
-      Warning
-      {% endif %}
+- name: Send High CPU Alert
+  ansible.builtin.include_tasks: send_monitoring_alert.yml
+  vars:
+    alert_title: "HIGH CPU UTILIZATION"
+    alert_severity: "{{ health_checks_cpu_alert_severity | trim }}"
+    alert_message: |
+      Alert Type : CPU Utilization
+      Status     : Threshold Exceeded
+      Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
+
+      Provider   : {{ health_checks_cloud_metrics.provider }}
+      Host       : {{ inventory_hostname }}
+
+      CPU Usage  : {{ health_checks_cloud_metrics.health_checks_cpu_utilization }}%
+      Threshold  : {{ cpu_threshold }}%
+      Exceeded By: {{
+        health_checks_cloud_metrics.health_checks_cpu_utilization
+        - cpu_threshold
+      }}%
   when:
+    - enable_cpu_alerts
     - health_checks_cloud_metrics is defined
     - health_checks_cloud_metrics.health_checks_cpu_utilization > cpu_threshold
 
