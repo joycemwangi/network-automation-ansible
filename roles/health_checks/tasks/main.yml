@@ -131,7 +131,7 @@
               'Cisco Network' if ('routers' in group_names or 'switches' in group_names) else
               'Unknown'
             }}
-
+            
          cpu_utilization: >-
             {{
               health_checks_cpu_utilization
