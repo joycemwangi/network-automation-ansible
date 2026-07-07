@@ -214,7 +214,7 @@
     health_checks_cpu_alert_severity: >-
       {% if health_checks_cloud_metrics.health_checks_cpu_utilization >= cpu_critical_threshold %}
       Critical
-      {% elif health_checks_cloud_metrics.cpu_utilization >= cpu_major_threshold %}
+      {% elif health_checks_cloud_metrics.health_checks_cpu_utilization >= cpu_major_threshold %}
       Major
       {% else %}
       Warning
@@ -235,7 +235,7 @@
   when:
     - enable_cpu_alerts
     - health_checks_cloud_metrics is defined
-    - health_checks_cloud_metrics.cpu_utilization > cpu_threshold
+    - health_checks_cloud_metrics.health_checks_cpu_utilization > cpu_threshold
 
 # -----------------------------
 # MEMORY ALERT
