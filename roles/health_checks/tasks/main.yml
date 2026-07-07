@@ -239,6 +239,12 @@
       CPU Usage  : {{ health_checks_cloud_metrics.health_checks_cpu_utilization }}%
       Threshold  : {{ cpu_threshold }}%
       Exceeded By: {{ health_checks_cloud_metrics.health_checks_cpu_utilization - cpu_threshold }}%
+
+      Recommended Action:
+      • Check running processes
+      • Verify routing protocol stability
+      • Review interface traffic
+      • Investigate recent configuration changes
   when:
     - enable_cpu_alerts
     - health_checks_cloud_metrics is defined
