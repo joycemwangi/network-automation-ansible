@@ -60,9 +60,7 @@ network-automation-ansible/
 ├── README.md                        # Project documentation
 ├── LICENSE                          # MIT License
 ├── .gitattributes                   # GitHub language detection
-├── .gitignore                       # Ignore logs, vault password, temporary files
-├── .vault/
-│   └── vault_pass.txt               # Ansible Vault password (gitignored)
+├── .gitignore                       # Ignore logs, secrets, vault files, temporary files
 ├── assets/
 │   └── ansible-banner.png           # README banner
 ├── inventory/
@@ -79,7 +77,7 @@ network-automation-ansible/
 │   └── health_checks/
 │       ├── tasks/
 │       │   ├── main.yml             # Hybrid monitoring and alerting logic
-│       │   └── send_monitoring_alert.yml # Sends real-time monitoring alerts
+│       │   └── send_monitoring_alert.yml # Sends monitoring alerts
 │       ├── defaults/
 │       │   └── main.yml             # Default monitoring thresholds
 │       ├── vars/
