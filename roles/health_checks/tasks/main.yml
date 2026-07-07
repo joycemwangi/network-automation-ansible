@@ -240,6 +240,12 @@
       Threshold  : {{ cpu_threshold }}%
       Exceeded By: {{ health_checks_cloud_metrics.health_checks_cpu_utilization - cpu_threshold }}%
 
+      Impact:
+      • Slower routing protocol convergence
+      • Increased packet processing delays
+      • Reduced control plane responsiveness
+      • Possible service degradation
+
       Possible Causes:
       • High routing protocol activity
       • CPU-intensive processes
@@ -292,6 +298,12 @@
       Memory Usage : {{ health_checks_cloud_metrics.memory_utilization }}%
       Threshold    : {{ memory_threshold }}%
       Exceeded By  : {{ health_checks_cloud_metrics.memory_utilization - memory_threshold }}%
+
+      Impact:
+      • Reduced device stability
+      • Slower application or control plane performance
+      • Risk of process restarts or failures
+      • Possible service interruption if memory exhaustion occurs
 
       Possible Causes:
       • Memory-intensive processes
@@ -346,10 +358,16 @@ when:
       Threshold   : {{ latency_threshold }} ms
       Exceeded By : {{ health_checks_cloud_metrics.network_latency_ms - latency_threshold }} ms
 
+      Impact:
+      • Increased application response times
+      • Voice and video quality degradation
+      • Packet retransmissions and reduced throughput
+      • Slower access to network services
+
       Possible Causes:
       • WAN congestion
       • ISP degradation
-      • Routing convergence
+      • Routing convergence or path changes
       • Interface saturation
       • Cloud provider latency
 
@@ -381,7 +399,20 @@ when:
       Device     : {{ inventory_hostname }}
       Groups     : {{ group_names | join(', ') }}
 
-      Condition  : Interface anomaly detected
+      Condition : Interface health anomaly detected
+
+      Impact:
+      • Reduced network throughput
+      • Packet loss or intermittent connectivity
+      • Increased error rates
+      • Potential service disruption
+
+      Possible Causes:
+      • Interface errors or CRC failures
+      • Speed or duplex mismatch
+      • Faulty cable or transceiver
+      • Hardware failure
+      • Recent configuration changes
 
       Recommended Action:
       • Verify interface operational status
