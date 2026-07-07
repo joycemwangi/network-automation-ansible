@@ -3,7 +3,7 @@
 # ALERT HANDLERS
 # =============================
 
-- name: trigger network alert
+- name: Trigger network alert
   ansible.builtin.debug:
     msg: |
       ==========================================
@@ -14,7 +14,7 @@
       Action      : Network Operations notified
       Status      : Escalation triggered
 
-- name: trigger cloud alert
+- name: Trigger cloud alert
   ansible.builtin.debug:
     msg: |
       ==========================================
@@ -26,7 +26,7 @@
       Action      : Cloud Operations notified
       Status      : Incident workflow started
 
-- name: generate incident report
+- name: Generate incident report
   ansible.builtin.debug:
     msg: |
       ==========================================
@@ -37,7 +37,7 @@
       Status      : Report generated
       Destination : Local audit log (logs/ansible.log)
 
-- name: send discord notification
+- name: Send discord notification
   ansible.builtin.uri:
     url: "{{ discord_webhook_url }}"
     method: POST
