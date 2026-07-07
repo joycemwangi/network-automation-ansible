@@ -1,5 +1,5 @@
 ---
-name: Network Health Monitoring
+- name: Network Health Monitoring
 
 on:
   workflow_dispatch:
