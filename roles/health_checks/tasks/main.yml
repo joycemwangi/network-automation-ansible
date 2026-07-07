@@ -350,12 +350,24 @@
 - name: Send Network Device Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: "NETWORK DEVICE ALERT"
+    alert_title: "CRITICAL - NETWORK DEVICE ALERT"
     alert_severity: "Critical"
     alert_message: |
-      Device : {{ inventory_hostname }}
+      Alert Type : Network Device
+      Status     : Device Health Issue
+      Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
 
-      Interface anomaly detected.
+      Device     : {{ inventory_hostname }}
+      Groups     : {{ group_names | join(', ') }}
+
+      Condition  : Interface anomaly detected
+
+      Recommended Action:
+      • Verify interface operational status
+      • Check interface error, CRC and drop counters
+      • Verify interface speed and duplex settings
+      • Confirm cable or transceiver health
+      • Review recent configuration changes
   when:
     - enable_network_alerts
     - "'routers' in group_names or 'switches' in group_names"
