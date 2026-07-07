@@ -51,6 +51,12 @@ jobs:
           echo "===== $f ====="
           file "$f"
           done
+
+      - name: Verify line endings after checkout
+        run: |
+          echo "===== handlers ====="
+          file roles/health_checks/handlers/main.yml
+          cat -A roles/health_checks/handlers/main.yml | head
     
       - name: Run YAML Lint
         run: |
