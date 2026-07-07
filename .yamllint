@@ -1,7 +1,13 @@
 ---
 extends: default
 
+ignore: |
+  .github/workflows/
+
 rules:
+  new-lines:
+    type: unix
+
   line-length:
     max: 120
     level: warning
@@ -10,6 +16,4 @@ rules:
     min-spaces-from-content: 1
 
   truthy:
-    allowed-values:
-      - "true"
-      - "false"
+    check-keys: false
