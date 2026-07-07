@@ -109,18 +109,18 @@
           • Connection timeout
 
 # =============================
-# CLOUD / DEMO METRICS
+# MONITORING METRICS
 # =============================
 
 - name: Build monitoring metrics
   when:
-    - enable_cloud_checks
+    - enable_monitoring_checks
 
   block:
 
     - name: Build monitoring metrics
       ansible.builtin.set_fact:
-        health_checks_cloud_metrics:
+        health_checks_monitoring_metrics:
           provider: >-
             {{
               'AWS' if 'aws_cloud' in group_names else
@@ -158,10 +158,10 @@
           ==============================
           INFRASTRUCTURE HEALTH REPORT
           ==============================
-          Provider : {{ health_checks_cloud_metrics.provider }}
-          CPU      : {{ health_checks_cloud_metrics.health_checks_cpu_utilization }}%
-          Memory   : {{ health_checks_cloud_metrics.memory_utilization }}%
-          Latency  : {{ health_checks_cloud_metrics.network_latency_ms }} ms
+          Provider : {{ health_checks_monitoring_metrics.provider }}
+          CPU      : {{ health_checks_monitoring_metrics.health_checks_cpu_utilization }}%
+          Memory   : {{ health_checks_monitoring_metrics.memory_utilization }}%
+          Latency  : {{ health_checks_monitoring_metrics.network_latency_ms }} ms
 
     - name: Build connectivity status
       ansible.builtin.set_fact:
@@ -207,16 +207,16 @@
 - name: Determine CPU alert severity
   ansible.builtin.set_fact:
     health_checks_cpu_alert_severity: >-
-      {% if health_checks_cloud_metrics.health_checks_cpu_utilization >= cpu_critical_threshold %}
+      {% if health_checks_monitoring_metrics.health_checks_cpu_utilization >= cpu_critical_threshold %}
       Critical
-      {% elif health_checks_cloud_metrics.health_checks_cpu_utilization >= cpu_major_threshold %}
+      {% elif health_checks_monitoring_metrics.health_checks_cpu_utilization >= cpu_major_threshold %}
       Major
       {% else %}
       Warning
       {% endif %}
   when:
-    - health_checks_cloud_metrics is defined
-    - health_checks_cloud_metrics.health_checks_cpu_utilization > cpu_threshold
+    - health_checks_monitoring_metrics is defined
+    - health_checks_monitoring_metrics.health_checks_cpu_utilization > cpu_threshold
 
 - name: Send High CPU Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
@@ -228,12 +228,12 @@
       Status     : Threshold Exceeded
       Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
 
-      Provider   : {{ health_checks_cloud_metrics.provider }}
+      Provider   : {{ health_checks_monitoring_metrics.provider }}
       Host       : {{ inventory_hostname }}
 
-      CPU Usage  : {{ health_checks_cloud_metrics.health_checks_cpu_utilization }}%
+      CPU Usage  : {{ health_checks_monitoring_metrics.health_checks_cpu_utilization }}%
       Threshold  : {{ cpu_threshold }}%
-      Exceeded By: {{ health_checks_cloud_metrics.health_checks_cpu_utilization - cpu_threshold }}%
+      Exceeded By: {{ health_checks_monitoring_metrics.health_checks_cpu_utilization - cpu_threshold }}%
 
       Impact:
       • Slower routing protocol convergence
@@ -256,8 +256,8 @@
       • Review recent configuration changes or deployments
   when:
     - enable_cpu_alerts
-    - health_checks_cloud_metrics is defined
-    - health_checks_cloud_metrics.health_checks_cpu_utilization > cpu_threshold
+    - health_checks_monitoring_metrics is defined
+    - health_checks_monitoring_metrics.health_checks_cpu_utilization > cpu_threshold
 
 # -----------------------------
 # MEMORY ALERT
@@ -266,16 +266,16 @@
 - name: Determine Memory alert severity
   ansible.builtin.set_fact:
     health_checks_memory_alert_severity: >-
-      {% if health_checks_cloud_metrics.memory_utilization >= memory_critical_threshold %}
+      {% if health_checks_monitoring_metrics.memory_utilization >= memory_critical_threshold %}
       Critical
-      {% elif health_checks_cloud_metrics.memory_utilization >= memory_major_threshold %}
+      {% elif health_checks_monitoring_metrics.memory_utilization >= memory_major_threshold %}
       Major
       {% else %}
       Warning
       {% endif %}
   when:
-    - health_checks_cloud_metrics is defined
-    - health_checks_cloud_metrics.memory_utilization > memory_threshold
+    - health_checks_monitoring_metrics is defined
+    - health_checks_monitoring_metrics.memory_utilization > memory_threshold
 
 - name: Send High Memory Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
@@ -287,12 +287,12 @@
       Status     : Threshold Exceeded
       Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
 
-      Provider   : {{ health_checks_cloud_metrics.provider }}
+      Provider   : {{ health_checks_monitoring_metrics.provider }}
       Host       : {{ inventory_hostname }}
 
-      Memory Usage : {{ health_checks_cloud_metrics.memory_utilization }}%
+      Memory Usage : {{ health_checks_monitoring_metrics.memory_utilization }}%
       Threshold    : {{ memory_threshold }}%
-      Exceeded By  : {{ health_checks_cloud_metrics.memory_utilization - memory_threshold }}%
+      Exceeded By  : {{health_checks_monitoring_metrics.memory_utilization - memory_threshold }}%
 
       Impact:
       • Reduced device stability
@@ -315,8 +315,8 @@
       • Consider capacity expansion if utilization remains high
   when:
     - enable_memory_alerts
-    - health_checks_cloud_metrics is defined
-    - health_checks_cloud_metrics.memory_utilization > memory_threshold
+    - health_checks_monitoring_metrics is defined
+    - health_checks_monitoring_metrics.memory_utilization > memory_threshold
 
 # -----------------------------
 # LATENCY ALERT
@@ -325,16 +325,16 @@
 - name: Determine Latency alert severity
   ansible.builtin.set_fact:
     health_checks_latency_alert_severity: >-
-      {% if health_checks_cloud_metrics.network_latency_ms >= latency_critical_threshold %}
+      {% if health_checks_monitoring_metrics.network_latency_ms >= latency_critical_threshold %}
       Critical
-      {% elif health_checks_cloud_metrics.network_latency_ms >= latency_major_threshold %}
+      {% elif health_checks_monitoring_metrics.network_latency_ms >= latency_major_threshold %}
       Major
       {% else %}
       Warning
       {% endif %}
   when:
-    - health_checks_cloud_metrics is defined
-    - health_checks_cloud_metrics.network_latency_ms > latency_threshold
+    - health_checks_monitoring_metrics is defined
+    - health_checks_monitoring_metrics.network_latency_ms > latency_threshold
 
 - name: Send High Latency Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
@@ -346,12 +346,12 @@
       Status     : Threshold Exceeded
       Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
 
-      Provider   : {{ health_checks_cloud_metrics.provider }}
+      Provider   : {{ health_checks_monitoring_metrics.provider }}
       Host       : {{ inventory_hostname }}
 
-      Latency     : {{ health_checks_cloud_metrics.network_latency_ms }} ms
+      Latency     : {{ health_checks_monitoring_metrics.network_latency_ms }} ms
       Threshold   : {{ latency_threshold }} ms
-      Exceeded By : {{ health_checks_cloud_metrics.network_latency_ms - latency_threshold }} ms
+      Exceeded By : {{ health_checks_monitoring_metrics.network_latency_ms - latency_threshold }} ms
 
       Impact:
       • Increased application response times
@@ -374,8 +374,8 @@
       • Check latency, jitter and packet loss across the network path
   when:
     - enable_latency_alerts
-    - health_checks_cloud_metrics is defined
-    - health_checks_cloud_metrics.network_latency_ms > latency_threshold
+    - health_checks_monitoring_metrics is defined
+    - health_checks_monitoring_metrics.network_latency_ms > latency_threshold
 
 # -----------------------------
 # NETWORK DEVICE ALERT
