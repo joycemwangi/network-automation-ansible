@@ -154,8 +154,8 @@
           else 120
         }}
 
-- name: Display monitoring metrics
-  ansible.builtin.debug:
+    - name: Display monitoring metrics
+      ansible.builtin.debug:
         msg: |
           ==============================
           INFRASTRUCTURE HEALTH REPORT
