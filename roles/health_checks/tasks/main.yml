@@ -318,7 +318,7 @@
       • Verify system buffer and cache utilization
       • Review recent configuration changes or deployments
       • Consider capacity expansion if utilization remains high
-when:
+      when:
     - enable_memory_alerts
     - health_checks_cloud_metrics is defined
     - health_checks_cloud_metrics.memory_utilization > memory_threshold
