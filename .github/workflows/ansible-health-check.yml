@@ -44,6 +44,13 @@ jobs:
         run: |
           file roles/health_checks/defaults/main.yml
           xxd roles/health_checks/defaults/main.yml | head
+
+      - name: Check all YAML line endings
+        run: |
+          find . -name "*.yml" -o -name "*.yaml" | while read f; do
+          echo "===== $f ====="
+          file "$f"
+          done
     
       - name: Run YAML Lint
         run: |
