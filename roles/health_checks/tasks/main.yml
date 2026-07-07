@@ -11,8 +11,9 @@
 #    - Requires no production infrastructure.
 #
 # 2. Production Mode
-#    - Uses live Cisco IOS devices.
-#    - Collects real CPU, memory and interface data.
+#    - Uses live infrastructure metrics.
+#    - Supports Cisco network devices and cloud platforms.
+#    - Collects real CPU, memory, latency and connectivity data.
 #    - Enable by setting:
 #
 #         use_live_monitoring: true
@@ -37,7 +38,7 @@
 #
 # Disabled by default.
 #
-# When real Cisco routers/switches are available,
+# When live infrastructure is available,
 # enable:
 #
 # use_live_monitoring: true
