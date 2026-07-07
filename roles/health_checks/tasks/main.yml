@@ -15,7 +15,7 @@
 #    - Collects real CPU, memory and interface data.
 #    - Enable by setting:
 #
-#         use_live_cisco_metrics: true
+#         use_live_monitoring: true
 #
 # ==========================================================
 
@@ -40,7 +40,7 @@
 # When real Cisco routers/switches are available,
 # enable:
 #
-# use_live_cisco_metrics: true
+# use_live_monitoring: true
 #
 # ==========================================================
 
@@ -50,7 +50,7 @@
       - show processes cpu | include CPU utilization
   register: health_checks_cisco_cpu
   when:
-    - use_live_cisco_metrics | default(false)
+    - use_live_monitoring | default(false)
     - "'routers' in group_names or 'switches' in group_names"
 
 - name: Extract Cisco CPU utilization
@@ -63,7 +63,7 @@
         | int
       }}
   when:
-    - use_live_cisco_metrics | default(false)
+    - use_live_monitoring | default(false)
     - health_checks_cisco_cpu is defined
 
 # =============================
@@ -135,21 +135,21 @@
         cpu_utilization: >-
             {{
               health_checks_cpu_utilization
-              if use_live_cisco_metrics | default(false)
+              if use_live_monitoring | default(false)
               else 95
             }}
 
         memory_utilization: >-
             {{
               55
-              if use_live_cisco_metrics | default(false)
+              if use_live_monitoring | default(false)
               else 88
             }}
 
         network_latency_ms: >-
             {{
               15
-              if use_live_cisco_metrics | default(false)
+              if use_live_monitoring | default(false)
               else 120
             }}
 
