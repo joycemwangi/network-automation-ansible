@@ -62,7 +62,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y dos2unix
-           find roles -name "*.yml" -exec dos2unix {} \;
+          find roles -name "*.yml" -exec dos2unix {} \;
     
       - name: Run YAML Lint
         run: |
