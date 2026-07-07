@@ -1,10 +1,12 @@
 ---
 # ==========================================
-# GLOBAL MONITORING POLICY
+# MONITORING MODE
 # ==========================================
 
-use_live_cisco_metrics: false
-# enable_live_metrics: true
+# false = simulated/demo metrics
+# true  = collect live metrics from supported platforms
+
+use_live_monitoring: false
 
 # Base alert thresholds
 cpu_threshold: 65
