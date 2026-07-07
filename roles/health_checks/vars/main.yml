@@ -1,16 +1,17 @@
 ---
 # Role-specific variables (higher priority than defaults)
 
-monitoring_environment: "hybrid"
+health_checks_monitoring_environment: "hybrid"
 
-network_domain: "cisco-ios"
-cloud_domains:
+health_checks_network_domain: "cisco-ios"
+
+health_checks_cloud_domains:
   - aws
   - azure
   - gcp
   - oci
   - private_cloud
 
-alert_mode: "debug"   # can later become slack/email/webhook
+health_checks_alert_mode: "debug"   # can later become slack/email/webhook
 
-log_level: "info"
+health_checks_log_level: "info"
