@@ -72,6 +72,12 @@ jobs:
         run: |
           ansible-lint
 
+      - name: Create Vault Password File
+        run: |
+          mkdir -p .vault
+          echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > .vault/vault_pass.txt
+          chmod 600 .vault/vault_pass.txt
+    
       - name: Run Ansible Playbook
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
