@@ -328,9 +328,9 @@
       Provider   : {{ health_checks_cloud_metrics.provider }}
       Host       : {{ inventory_hostname }}
 
-      Latency    : {{ health_checks_cloud_metrics.network_latency_ms }} ms
-      Threshold  : {{ latency_threshold }} ms
-      Exceeded By: {{ health_checks_cloud_metrics.network_latency_ms - latency_threshold }} ms
+      Latency     : {{ health_checks_cloud_metrics.network_latency_ms }} ms
+      Threshold   : {{ latency_threshold }} ms
+      Exceeded By : {{ health_checks_cloud_metrics.network_latency_ms - latency_threshold }} ms
 
       Recommended Action:
       • Verify WAN and ISP connectivity
