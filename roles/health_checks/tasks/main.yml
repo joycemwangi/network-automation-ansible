@@ -119,7 +119,7 @@
 
   block:
 
-  - name: Create monitoring metrics
+- name: Create monitoring metrics
   ansible.builtin.set_fact:
     health_checks_monitoring_metrics:
       provider: >-
@@ -154,7 +154,7 @@
           else 120
         }}
         
-    - name: Display monitoring metrics
+- name: Display monitoring metrics
       ansible.builtin.debug:
         msg: |
           ==============================
