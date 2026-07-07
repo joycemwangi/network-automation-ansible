@@ -1,5 +1,5 @@
 ---
-- name: Network Health Monitoring
+name: Network Health Monitoring
 
 on:
   workflow_dispatch:
@@ -30,12 +30,21 @@ jobs:
       - name: Install Cisco Collection
         run: |
           ansible-galaxy collection install cisco.ios
+       
+      - name: Show yamllint version
+        run: |
+          yamllint --version
+          python --version
 
+      - name: Inspect defaults file
+        run: |
+           cat -A roles/health_checks/defaults/main.yml
+    
       - name: Run YAML Lint
         run: |
           yamllint .
 
-      - name: Run Ansible Lint
+      - name: Run Ansible Lint 
         run: |
           ansible-lint
 
