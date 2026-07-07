@@ -89,6 +89,29 @@ Each alert follows a consistent structure that helps network engineers quickly a
 
 This approach helps reduce mean time to detect (MTTD) and supports faster incident response by providing actionable context with every alert.
 
+## Supported Alerts
+
+The monitoring role currently detects and classifies:
+
+- CPU Utilization
+- Memory Utilization
+- Network Latency
+- Network Device Health
+- Connectivity Failures
+- Monitoring Platform Failures
+
+Each alert includes:
+
+- Severity classification
+- Configurable thresholds
+- Amount exceeded
+- Operational impact
+- Possible causes
+- Recommended remediation
+- Timestamp
+- Host information
+- Monitoring mode
+
 ## Project Structure
 ```
 network-automation-ansible/
