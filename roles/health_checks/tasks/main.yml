@@ -165,7 +165,7 @@
 
     - name: Build connectivity status
       ansible.builtin.set_fact:
-        health_checks_cloud_connectivity:
+        health_checks_connectivity:
           api_reachable: true
           dns_reachable: true
           internet_gateway: up
@@ -176,9 +176,9 @@
           ==============================
           CONNECTIVITY STATUS
           ==============================
-          API       : {{ health_checks_cloud_connectivity.api_reachable }}
-          DNS       : {{ health_checks_cloud_connectivity.dns_reachable }}
-          Gateway   : {{ health_checks_cloud_connectivity.internet_gateway }}
+          API       : {{ health_checks_connectivity.api_reachable }}
+          DNS       : {{ health_checks_connectivity.dns_reachable }}
+          Gateway   : {{ health_checks_connectivity.internet_gateway }}
 
   rescue:
 
