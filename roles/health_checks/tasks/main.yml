@@ -183,7 +183,7 @@
 
   rescue:
 
-    - name: - name: Send Monitoring Failure Alert
+    - name: Send Monitoring Failure Alert
       ansible.builtin.include_tasks: send_monitoring_alert.yml
       vars:
         alert_title: "MONITORING PLATFORM FAILURE"
