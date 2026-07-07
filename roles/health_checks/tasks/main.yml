@@ -118,7 +118,7 @@
 
   block:
 
-    - name: Build monitoring metrics
+    - name: Create monitoring metrics
       ansible.builtin.set_fact:
         health_checks_monitoring_metrics:
           provider: >-
@@ -128,7 +128,8 @@
               'GCP' if 'gcp_cloud' in group_names else
               'OCI' if 'oci_cloud' in group_names else
               'Private Cloud' if 'private_cloud' in group_names else
-              'Cisco Network'
+              'Cisco Network' if ('routers' in group_names or 'switches' in group_names) else
+              'Unknown'
             }}
 
          cpu_utilization: >-
