@@ -83,13 +83,13 @@ Each alert follows a consistent structure that helps network engineers quickly a
 
 | Stage | Purpose |
 |--------|---------|
-| **What happened?** | Identifies the monitored resource and the metric that exceeded its threshold. |
-| **How severe is it?** | Classifies the alert as **Warning**, **Major**, or **Critical** using configurable thresholds. |
-| **What is the impact?** | Explains the potential operational or business impact if the issue persists. |
-| **What might have caused it?** | Lists common causes to assist with initial diagnosis. |
-| **What should the operator do?** | Provides recommended investigation and remediation steps based on operational best practices. |
+| **What happened?** | Identify the affected metric. |
+| **How severe is it?** | Classify the alert severity. |
+| **What is the impact?** | Describe the operational impact. |
+| **What caused it?** | Highlight likely root causes. |
+| **What should be done?** | Recommend investigation and remediation steps. |
 
-This approach helps reduce mean time to detect (MTTD) and supports faster incident response by providing actionable context with every alert.
+This approach helps reduce Mean Time to Detect (MTTD) and supports faster incident response by providing actionable context with every alert.
 
 ## Supported Alerts
 
