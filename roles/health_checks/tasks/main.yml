@@ -293,13 +293,20 @@
       Threshold    : {{ memory_threshold }}%
       Exceeded By  : {{ health_checks_cloud_metrics.memory_utilization - memory_threshold }}%
 
+      Possible Causes:
+      • Memory-intensive processes
+      • Memory leaks
+      • Insufficient system resources
+      • Large routing or forwarding tables
+      • Recent software deployment
+
       Recommended Action:
       • Review memory utilization by active processes
       • Check for memory leaks or abnormal consumption
       • Verify system buffer and cache utilization
       • Review recent configuration changes or deployments
       • Consider capacity expansion if utilization remains high
-  when:
+when:
     - enable_memory_alerts
     - health_checks_cloud_metrics is defined
     - health_checks_cloud_metrics.memory_utilization > memory_threshold
