@@ -238,10 +238,7 @@
 
       CPU Usage  : {{ health_checks_cloud_metrics.health_checks_cpu_utilization }}%
       Threshold  : {{ cpu_threshold }}%
-      Exceeded By: {{
-        health_checks_cloud_metrics.health_checks_cpu_utilization
-        - cpu_threshold
-      }}%
+      Exceeded By: {{ health_checks_cloud_metrics.health_checks_cpu_utilization - cpu_threshold }}%
   when:
     - enable_cpu_alerts
     - health_checks_cloud_metrics is defined
