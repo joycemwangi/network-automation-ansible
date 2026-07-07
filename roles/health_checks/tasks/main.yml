@@ -123,17 +123,12 @@
         health_checks_cloud_metrics:
           provider: >-
             {{
-              'Demo Lab'
-              if not use_live_cisco_metrics | default(false)
-              else
-              (
-                'AWS' if 'aws_cloud' in group_names else
-                'Azure' if 'azure_cloud' in group_names else
-                'GCP' if 'gcp_cloud' in group_names else
-                'OCI' if 'oci_cloud' in group_names else
-                'Private Cloud' if 'private_cloud' in group_names else
-                'Cisco Network'
-              )
+              'AWS' if 'aws_cloud' in group_names else
+              'Azure' if 'azure_cloud' in group_names else
+              'GCP' if 'gcp_cloud' in group_names else
+              'OCI' if 'oci_cloud' in group_names else
+              'Private Cloud' if 'private_cloud' in group_names else
+              'Cisco Network'
             }}
 
           health_checks_cpu_utilization: >-
