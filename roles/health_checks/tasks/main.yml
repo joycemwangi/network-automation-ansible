@@ -153,9 +153,9 @@
           if use_live_monitoring | default(false)
           else 120
         }}
-        
+
 - name: Display monitoring metrics
-      ansible.builtin.debug:
+  ansible.builtin.debug:
         msg: |
           ==============================
           INFRASTRUCTURE HEALTH REPORT
