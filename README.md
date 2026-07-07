@@ -24,9 +24,9 @@
 
 Ansible-based hybrid infrastructure monitoring framework for enterprise and ISP environments.
 
-The project automates health checks across network devices and cloud infrastructure by collecting operational metrics, evaluating configurable thresholds, and generating structured alerts with severity classification, operational impact, possible causes, and recommended remediation actions.
+The project automates health checks for Cisco network devices while providing an extensible framework for cloud infrastructure monitoring. It collects operational metrics, evaluates configurable thresholds, and generates structured alerts with severity classification, operational impact, possible causes, and recommended remediation actions.
 
-Designed with a modular role-based architecture, it supports demonstration mode for GitHub Actions and production mode for Cisco IOS devices, making it suitable for learning, testing, and real-world network automation.
+Designed with a modular role-based architecture, it supports demonstration mode for GitHub Actions using simulated metrics and production mode for Cisco IOS devices using live operational data. The monitoring framework is also structured for future integration with public and private cloud platforms, including AWS, Azure, GCP, OCI, and private cloud environments.
 
 ---
 
