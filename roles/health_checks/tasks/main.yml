@@ -240,6 +240,13 @@
       Threshold  : {{ cpu_threshold }}%
       Exceeded By: {{ health_checks_cloud_metrics.health_checks_cpu_utilization - cpu_threshold }}%
 
+      Possible Causes:
+      • High routing protocol activity
+      • CPU-intensive processes
+      • Traffic spikes or DDoS events
+      • Control plane overload
+      • Recent configuration deployment
+
       Recommended Action:
       • Review CPU-intensive processes
       • Verify BGP/OSPF neighbor stability
