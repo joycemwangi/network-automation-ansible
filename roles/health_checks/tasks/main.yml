@@ -55,7 +55,7 @@
 
 - name: Extract Cisco CPU utilization
   ansible.builtin.set_fact:
-    cpu_utilization: >-
+    health_checks_cpu_utilization: >-
       {{
         health_checks_cisco_cpu.stdout[0]
         | regex_search('CPU utilization for five seconds: ([0-9]+)%', '\1')
