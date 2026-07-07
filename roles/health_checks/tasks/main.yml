@@ -332,12 +332,19 @@
       Threshold   : {{ latency_threshold }} ms
       Exceeded By : {{ health_checks_cloud_metrics.network_latency_ms - latency_threshold }} ms
 
+      Possible Causes:
+      • WAN congestion
+      • ISP degradation
+      • Routing convergence
+      • Interface saturation
+      • Cloud provider latency
+
       Recommended Action:
       • Verify WAN and ISP connectivity
-      • Check interface congestion and packet drops
-      • Review routing path changes
+      • Check interface congestion, packet drops and errors
+      • Verify routing convergence (BGP/OSPF)
       • Verify QoS policies are operating correctly
-      • Investigate upstream network or cloud service latency
+      • Check latency, jitter and packet loss across the network path
   when:
     - enable_latency_alerts
     - health_checks_cloud_metrics is defined
