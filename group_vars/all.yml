@@ -22,7 +22,7 @@ latency_major_threshold: 100
 latency_critical_threshold: 200
 
 # Monitoring configuration
-enable_cloud_checks: true
+enable_monitoring_checks: true
 enable_network_checks: true
 enable_alerting: true
 
