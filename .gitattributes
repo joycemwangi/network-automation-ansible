@@ -13,3 +13,8 @@ ansible.cfg linguist-detectable=false
 
 # Documentation
 *.md linguist-documentation=true
+
+* text=auto eol=lf
+
+*.yml text eol=lf
+*.yaml text eol=lf
