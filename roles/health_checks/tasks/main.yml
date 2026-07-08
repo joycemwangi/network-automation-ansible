@@ -110,7 +110,61 @@
           • Authentication failure
           • Device offline
           • Connection timeout
+# =============================
+# CLOUD INFRASTRUCTURE
+# =============================
+- name: Monitor Cloud Infrastructure
+  when:
+    - enable_monitoring_checks
+    - >
+      'aws_cloud' in group_names or
+      'azure_cloud' in group_names or
+      'gcp_cloud' in group_names or
+      'oci_cloud' in group_names or
+      'private_cloud' in group_names
 
+  block:
+
+    - name: Simulate Cloud Infrastructure Monitoring
+      ansible.builtin.debug:
+        msg: |
+          ==============================
+          CLOUD INFRASTRUCTURE HEALTH
+          ==============================
+          Provider : {{
+            'AWS' if 'aws_cloud' in group_names else
+            'Azure' if 'azure_cloud' in group_names else
+            'GCP' if 'gcp_cloud' in group_names else
+            'OCI' if 'oci_cloud' in group_names else
+            'Private Cloud'
+          }}
+          Host     : {{ inventory_hostname }}
+          Mode     : Demonstration (Simulated Metrics)
+      when:
+        - not use_live_monitoring | default(false)
+      
+    - name: Collect Live Cloud Metrics (Production)
+      ansible.builtin.debug:
+        msg: "Production cloud monitoring will collect live cloud metrics."
+      when:
+        - use_live_monitoring | default(false)
+
+  rescue:
+
+    - name: Send Cloud Platform Failure Alert
+      ansible.builtin.include_tasks: send_monitoring_alert.yml
+      vars:
+        alert_title: "CLOUD PLATFORM UNREACHABLE"
+        alert_severity: "Critical"
+        alert_message: |
+          Unable to connect to cloud platform.
+
+          Possible causes:
+          • Cloud API unavailable
+          • Authentication failure
+          • Network connectivity issue
+          • Cloud provider outage
+          
 # =============================
 # MONITORING METRICS
 # =============================
