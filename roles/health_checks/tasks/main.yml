@@ -136,10 +136,11 @@
           cpu_utilization: >-
             {{
               health_checks_cpu_utilization
+              | default(95)
               if use_live_monitoring | default(false)
               else 95
             }}
-
+            
           memory_utilization: >-
             {{
               55
