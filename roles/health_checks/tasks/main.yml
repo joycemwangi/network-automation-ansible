@@ -463,10 +463,10 @@
   when:
     - enable_alerting
     - "'aws_cloud' in group_names"
-  #  - "'azure_cloud' in group_names"
-  #  - "'gcp_cloud' in group_names"
-  #  - "'oci_cloud' in group_names"
-  #  - "'private_cloud' in group_names"
+   # - "'azure_cloud' in group_names"
+   # - "'gcp_cloud' in group_names"
+   # - "'oci_cloud' in group_names"
+   # - "'private_cloud' in group_names"
 
 # -----------------------------
 # NETWORK DEVICE ALERT
