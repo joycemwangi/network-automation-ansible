@@ -12,8 +12,10 @@
 #
 # 2. Production Mode
 #    - Uses live infrastructure metrics.
-#    - Supports Cisco network devices and cloud platforms.
-#    - Collects real CPU, memory, latency and connectivity data.
+#    - Supports hybrid infrastructure environments.
+#    - Monitors on-premises network devices, private cloud,
+#      and public cloud platforms (AWS, Azure, GCP and OCI).
+#    - Collects real CPU, memory, latency and connectivity metrics.
 #    - Enable by setting:
 #
 #         use_live_monitoring: true
@@ -129,7 +131,7 @@
               'GCP' if 'gcp_cloud' in group_names else
               'OCI' if 'oci_cloud' in group_names else
               'Private Cloud' if 'private_cloud' in group_names else
-              'Cisco Network' if ('routers' in group_names or 'switches' in group_names) else
+              'On-Prem Network' if ('routers' in group_names or 'switches' in group_names) else
               'Unknown'
             }}
 
