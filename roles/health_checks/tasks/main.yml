@@ -121,7 +121,7 @@
 
     - name: Create monitoring metrics
       ansible.builtin.set_fact:
-       health_checks_monitoring_metrics:
+        health_checks_monitoring_metrics:
        provider: >-
         {{
           'AWS' if 'aws_cloud' in group_names else
