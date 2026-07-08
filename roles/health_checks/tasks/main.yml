@@ -389,7 +389,7 @@
 - name: Send Cloud Infrastructure Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: "{{ health_checks_monitoring_metrics.provider | upper }} INFRASTRUCTURE ALERT"
+    alert_title: "CRITICAL - {{ health_checks_monitoring_metrics.provider | upper }} INFRASTRUCTURE ALERT"
     alert_severity: "Critical"
     alert_message: |
       Alert Type : {{ health_checks_monitoring_metrics.provider }} Infrastructure
@@ -463,10 +463,10 @@
   when:
     - enable_alerting
     - "'aws_cloud' in group_names"
-   # - "'azure_cloud' in group_names"
-   # - "'gcp_cloud' in group_names"
-   # - "'oci_cloud' in group_names"
-   # - "'private_cloud' in group_names"
+    - "'azure_cloud' in group_names"
+    - "'gcp_cloud' in group_names"
+    - "'oci_cloud' in group_names"
+    - "'private_cloud' in group_names"
 
 # -----------------------------
 # NETWORK DEVICE ALERT
