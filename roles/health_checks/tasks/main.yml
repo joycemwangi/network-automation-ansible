@@ -47,7 +47,7 @@
 #
 # ==========================================================
 
-- name: Collect Cisco CPU utilization (Production)
+- name: Collect On-Premises Network CPU Utilization (Production)
   cisco.ios.ios_command:
     commands:
       - show processes cpu | include CPU utilization
@@ -56,7 +56,7 @@
     - use_live_monitoring | default(false)
     - "'routers' in group_names or 'switches' in group_names"
 
-- name: Extract Cisco CPU utilization
+- name: Extract On-Premises Network CPU Utilization
   ansible.builtin.set_fact:
     health_checks_cpu_utilization: >-
       {{
@@ -70,25 +70,25 @@
     - health_checks_cisco_cpu is defined
 
 # =============================
-# CISCO NETWORK DEVICES
+# ON-PREMISES NETWORK DEVICES
 # =============================
 
-- name: Monitor Cisco network devices
+- name: Monitor On-Premises Network Devices
   when:
     - enable_network_checks
     - "'routers' in group_names or 'switches' in group_names"
 
   block:
 
-    - name: Gather Cisco IOS facts
+    - name: Gather On-Premises Device Facts
       cisco.ios.ios_facts:
       register: health_checks_device_facts
 
-    - name: Display network device health
+    - name: Display On-Premises network device health
       ansible.builtin.debug:
         msg: |
           ==============================
-          NETWORK DEVICE HEALTH
+          ON-PREMISES NETWORK DEVICE HEALTH
           ==============================
           Hostname      : {{ ansible_net_hostname }}
           OS Version    : {{ ansible_net_version }}
@@ -131,7 +131,7 @@
               'GCP' if 'gcp_cloud' in group_names else
               'OCI' if 'oci_cloud' in group_names else
               'Private Cloud' if 'private_cloud' in group_names else
-              'On-Prem Network' if ('routers' in group_names or 'switches' in group_names) else
+              'On-Premises Network' if ('routers' in group_names or 'switches' in group_names) else
               'Unknown'
             }}
 
@@ -475,7 +475,7 @@
 - name: Send Network Device Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: "CRITICAL - NETWORK DEVICE ALERT"
+    alert_title: "CRITICAL - ON-PREMISES NETWORK DEVICE ALERT"
     alert_severity: "Critical"
     alert_message: |
       Alert Type : Network Device
