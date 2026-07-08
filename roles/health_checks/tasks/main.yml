@@ -419,6 +419,22 @@
     - health_checks_monitoring_metrics.network_latency_ms > latency_threshold
 
 # -----------------------------
+# CLOUD HEALTH EVALUATION
+# -----------------------------
+
+- name: Determine Cloud Infrastructure Health
+  ansible.builtin.set_fact:
+    health_checks_cloud_alert: >-
+      {{
+        health_checks_monitoring_metrics.cloud_service_status != 'Healthy'
+        or health_checks_monitoring_metrics.resource_health != 'Healthy'
+        or health_checks_monitoring_metrics.api_status != 'Reachable'
+      }}
+  when:
+    - health_checks_monitoring_metrics.provider != 'On-Premises Network'
+    - health_checks_monitoring_metrics.provider != 'Unknown'
+    
+# -----------------------------
 # CLOUD INFRASTRUCTURE ALERT
 # -----------------------------
 
