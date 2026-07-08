@@ -133,26 +133,26 @@
               'Unknown'
             }}
 
-      cpu_utilization: >-
-        {{
-          health_checks_cpu_utilization
-          if use_live_monitoring | default(false)
-          else 95
-        }}
+          cpu_utilization: >-
+            {{
+              health_checks_cpu_utilization
+              if use_live_monitoring | default(false)
+              else 95
+            }}
 
-      memory_utilization: >-
-        {{
-          55
-          if use_live_monitoring | default(false)
-          else 88
-        }}
+          memory_utilization: >-
+            {{
+              55
+              if use_live_monitoring | default(false)
+              else 88
+            }}
 
-      network_latency_ms: >-
-        {{
-          15
-          if use_live_monitoring | default(false)
-          else 120
-        }}
+          network_latency_ms: >-
+            {{
+              15
+              if use_live_monitoring | default(false)
+              else 120
+            }}
 
     - name: Display monitoring metrics
       ansible.builtin.debug:
