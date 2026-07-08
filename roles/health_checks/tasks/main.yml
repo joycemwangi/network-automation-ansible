@@ -131,13 +131,7 @@
           ==============================
           CLOUD INFRASTRUCTURE HEALTH
           ==============================
-          Provider : {{
-            'AWS' if 'aws_cloud' in group_names else
-            'Azure' if 'azure_cloud' in group_names else
-            'GCP' if 'gcp_cloud' in group_names else
-            'OCI' if 'oci_cloud' in group_names else
-            'Private Cloud'
-          }}
+          Provider : {{ cloud_provider }}
           Host     : {{ inventory_hostname }}
           Mode     : Demonstration (Simulated Metrics)
       when:
