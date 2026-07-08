@@ -1,5 +1,7 @@
 ---
-cloud_provider: aws
+# group_vars/aws_cloud.yml
+
+cloud_provider: AWS
 connection_type: simulated
 
 monitoring_enabled: true
