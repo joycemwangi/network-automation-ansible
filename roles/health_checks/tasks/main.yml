@@ -348,7 +348,7 @@
 - name: Send High Memory Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: "{{ health_checks_memory_alert_severity | upper }} - HIGH MEMORY UTILIZATION"
+    alert_title: "{{ health_checks_memory_alert_severity | upper }} - {{ health_checks_monitoring_metrics.provider | upper }} HIGH MEMORY UTILIZATION"
     alert_severity: "{{ health_checks_memory_alert_severity | trim }}"
     alert_message: |
       Alert Type : Memory Utilization
@@ -407,7 +407,7 @@
 - name: Send High Latency Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: "{{ health_checks_latency_alert_severity | upper }} - HIGH NETWORK LATENCY"
+    alert_title: "{{ health_checks_latency_alert_severity | upper }} - {{ health_checks_monitoring_metrics.provider | upper }} HIGH NETWORK LATENCY"
     alert_severity: "{{ health_checks_latency_alert_severity | trim }}"
     alert_message: |
       Alert Type : Network Latency
