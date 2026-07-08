@@ -142,7 +142,7 @@
           Mode     : Demonstration (Simulated Metrics)
       when:
         - not use_live_monitoring | default(false)
-      
+
     - name: Collect Live Cloud Metrics (Production)
       ansible.builtin.debug:
         msg: "Production cloud monitoring will collect live cloud metrics."
@@ -164,7 +164,7 @@
           • Authentication failure
           • Network connectivity issue
           • Cloud provider outage
-          
+
 # =============================
 # MONITORING METRICS
 # =============================
