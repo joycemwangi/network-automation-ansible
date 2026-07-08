@@ -15,3 +15,5 @@ ansible_password: !vault |
 
 ansible_become: true
 ansible_become_method: enable
+
+cloud_provider: On-Premises Network
