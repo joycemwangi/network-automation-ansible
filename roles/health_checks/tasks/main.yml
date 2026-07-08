@@ -156,7 +156,7 @@
 
 - name: Display monitoring metrics
   ansible.builtin.debug:
-     msg: |
+    msg: |
           ==============================
           INFRASTRUCTURE HEALTH REPORT
           ==============================
