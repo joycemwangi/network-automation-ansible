@@ -433,6 +433,15 @@
   when:
     - health_checks_monitoring_metrics.provider != 'On-Premises Network'
     - health_checks_monitoring_metrics.provider != 'Unknown'
+    
+  - name: Debug Cloud Alert Evaluation
+  ansible.builtin.debug:
+    msg: |
+      Provider              : {{ health_checks_monitoring_metrics.provider }}
+      Cloud Service Status  : {{ health_checks_monitoring_metrics.cloud_service_status }}
+      API Status            : {{ health_checks_monitoring_metrics.api_status }}
+      Resource Health       : {{ health_checks_monitoring_metrics.resource_health }}
+      Cloud Alert           : {{ health_checks_cloud_alert | default('NOT SET') }}
 
 # -----------------------------
 # CLOUD INFRASTRUCTURE ALERT
