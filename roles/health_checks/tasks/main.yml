@@ -119,10 +119,10 @@
 
   block:
 
-- name: Create monitoring metrics
-  ansible.builtin.set_fact:
-    health_checks_monitoring_metrics:
-      provider: >-
+    - name: Create monitoring metrics
+      ansible.builtin.set_fact:
+       health_checks_monitoring_metrics:
+       provider: >-
         {{
           'AWS' if 'aws_cloud' in group_names else
           'Azure' if 'azure_cloud' in group_names else
@@ -154,9 +154,9 @@
           else 120
         }}
 
-- name: Display monitoring metrics
-  ansible.builtin.debug:
-    msg: |
+    - name: Display monitoring metrics
+      ansible.builtin.debug:
+      msg: |
           ==============================
           INFRASTRUCTURE HEALTH REPORT
           ==============================
@@ -165,14 +165,14 @@
           Memory   : {{ health_checks_monitoring_metrics.memory_utilization }}%
           Latency  : {{ health_checks_monitoring_metrics.network_latency_ms }} ms
 
-  - name: Build connectivity status
+    - name: Build connectivity status
       ansible.builtin.set_fact:
         health_checks_connectivity:
           api_reachable: true
           dns_reachable: true
           internet_gateway: up
 
-  - name: Display connectivity status
+    - name: Display connectivity status
       ansible.builtin.debug:
         msg: |
           ==============================
