@@ -1,4 +1,7 @@
 ---
+# group_vars/network.yml
+cloud_provider: On-Premises Network
+
 # Cisco IOS connection settings
 
 ansible_connection: network_cli
