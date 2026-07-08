@@ -2,6 +2,7 @@
 # group_vars/aws_cloud.yml
 
 cloud_provider: AWS
-connection_type: simulated
+#connection_type: simulated
+ansible_connection: local
 
 monitoring_enabled: true
