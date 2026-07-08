@@ -462,11 +462,8 @@
       {% endif %}
   when:
     - enable_alerting
-    - "'aws_cloud' in group_names"
-    - "'azure_cloud' in group_names"
-    - "'gcp_cloud' in group_names"
-    - "'oci_cloud' in group_names"
-    - "'private_cloud' in group_names"
+    - health_checks_monitoring_metrics.provider != 'On-Premises Network'
+    - health_checks_monitoring_metrics.provider != 'Unknown'
 
 # -----------------------------
 # NETWORK DEVICE ALERT
