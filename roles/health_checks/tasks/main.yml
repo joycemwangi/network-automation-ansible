@@ -140,7 +140,7 @@
               if use_live_monitoring | default(false)
               else 95
             }}
- 
+
           memory_utilization: >-
             {{
               55
