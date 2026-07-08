@@ -131,7 +131,7 @@
           ==============================
           CLOUD INFRASTRUCTURE HEALTH
           ==============================
-          Provider : {{ cloud_provider }}
+          Provider : {{ cloud_provider | default('Unknown') }}
           Host     : {{ inventory_hostname }}
           Mode     : Demonstration (Simulated Metrics)
       when:
