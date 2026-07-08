@@ -218,20 +218,7 @@
               else 'Warning'
             }}
 
-          availability_zone: >-
-            {{
-              'eu-west-1a'
-              if 'aws_cloud' in group_names else
-              'westeurope-1'
-              if 'azure_cloud' in group_names else
-              'europe-west1-b'
-              if 'gcp_cloud' in group_names else
-              'eu-frankfurt-1-AD-1'
-              if 'oci_cloud' in group_names else
-              'DC1'
-              if 'private_cloud' in group_names else
-              'N/A'
-            }}
+          availability_zone: "{{ availability_zone | default('N/A') }}"
 
     - name: Display monitoring metrics
       ansible.builtin.debug:
