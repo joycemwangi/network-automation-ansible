@@ -514,8 +514,7 @@
       {% endif %}
   when:
     - enable_alerting
-    - health_checks_monitoring_metrics.provider != 'On-Premises Network'
-    - health_checks_monitoring_metrics.provider != 'Unknown'
+    - health_checks_cloud_alert | default(false)
 
 # -----------------------------
 # NETWORK DEVICE ALERT
