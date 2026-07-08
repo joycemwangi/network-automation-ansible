@@ -1,5 +1,7 @@
 ---
-cloud_provider: gcp
+# group_vars/gcp_cloud.yml
+
+cloud_provider: GCP
 connection_type: simulated
 
 monitoring_enabled: true
