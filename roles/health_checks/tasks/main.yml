@@ -433,8 +433,8 @@
   when:
     - health_checks_monitoring_metrics.provider != 'On-Premises Network'
     - health_checks_monitoring_metrics.provider != 'Unknown'
-    
-  - name: Debug Cloud Alert Evaluation
+
+- name: Debug Cloud Alert Evaluation
   ansible.builtin.debug:
     msg: |
       Provider              : {{ health_checks_monitoring_metrics.provider }}
