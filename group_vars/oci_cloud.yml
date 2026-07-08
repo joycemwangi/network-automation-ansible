@@ -1,6 +1,7 @@
 ---
-cloud_provider: oracle
+# group_vars/oci_cloud.yml
 
+cloud_provider: OCI
 connection_type: simulated
 
 monitoring_enabled: true
