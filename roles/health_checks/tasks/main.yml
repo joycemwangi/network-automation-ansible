@@ -433,7 +433,7 @@
   when:
     - health_checks_monitoring_metrics.provider != 'On-Premises Network'
     - health_checks_monitoring_metrics.provider != 'Unknown'
-    
+
 # -----------------------------
 # CLOUD INFRASTRUCTURE ALERT
 # -----------------------------
