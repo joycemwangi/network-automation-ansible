@@ -1,5 +1,7 @@
 ---
-cloud_provider: azure
+# group_vars/azure_cloud.yml
+
+cloud_provider: Azure
 connection_type: simulated
 
 monitoring_enabled: true
