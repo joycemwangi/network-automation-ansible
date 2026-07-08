@@ -1,6 +1,7 @@
 ---
-cloud_provider: private
+# group_vars/private_cloud.yml
 
+cloud_provider: Private Cloud
 connection_type: simulated
 
 monitoring_enabled: true
