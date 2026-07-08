@@ -459,9 +459,13 @@
       • Check network infrastructure
       {% endif %}
   when:
-    - enable_alerting
-    - health_checks_monitoring_metrics.provider != 'Cisco Network'
-    
+  - enable_alerting
+  - "'aws_cloud' in group_names
+     or 'azure_cloud' in group_names
+     or 'gcp_cloud' in group_names
+     or 'oci_cloud' in group_names
+     or 'private_cloud' in group_names"
+
 # -----------------------------
 # NETWORK DEVICE ALERT
 # -----------------------------
