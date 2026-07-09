@@ -232,9 +232,9 @@
     - name: Display monitoring metrics
       ansible.builtin.debug:
         msg: |
-         ==============================
+          ==============================
           INFRASTRUCTURE HEALTH REPORT
-         ==============================
+          ==============================
           Provider : {{ health_checks_monitoring_metrics.provider }}
           CPU      : {{ health_checks_monitoring_metrics.cpu_utilization }}%
           Memory   : {{ health_checks_monitoring_metrics.memory_utilization }}%
