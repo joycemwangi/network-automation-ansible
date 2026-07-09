@@ -2,7 +2,6 @@
 # group_vars/aws_cloud.yml
 
 cloud_provider: AWS
-
 ansible_connection: local
 
 monitoring_enabled: true
