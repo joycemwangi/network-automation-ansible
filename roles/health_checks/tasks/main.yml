@@ -222,30 +222,30 @@
 
     - name: Debug provider variables
       ansible.builtin.debug:
-       msg:
-        provider: "{{ cloud_provider | default('NOT SET') }}"
-        cpu_defined: "{{ cpu_impact is defined }}"
-        memory_defined: "{{ memory_impact is defined }}"
-        latency_defined: "{{ latency_impact is defined }}"
-        cloud_defined: "{{ cloud_impact is defined }}"
+        msg:
+         provider: "{{ cloud_provider | default('NOT SET') }}"
+         cpu_defined: "{{ cpu_impact is defined }}"
+         memory_defined: "{{ memory_impact is defined }}"
+         latency_defined: "{{ latency_impact is defined }}"
+         cloud_defined: "{{ cloud_impact is defined }}"
 
     - name: Display monitoring metrics
       ansible.builtin.debug:
-       msg: |
-        ==============================
-         INFRASTRUCTURE HEALTH REPORT
-        ==============================
+        msg: |
+         ==============================
+          INFRASTRUCTURE HEALTH REPORT
+         ==============================
           Provider : {{ health_checks_monitoring_metrics.provider }}
           CPU      : {{ health_checks_monitoring_metrics.cpu_utilization }}%
           Memory   : {{ health_checks_monitoring_metrics.memory_utilization }}%
           Latency  : {{ health_checks_monitoring_metrics.network_latency_ms }} ms
 
-  - name: Build connectivity status
-    ansible.builtin.set_fact:
+- name: Build connectivity status
+  ansible.builtin.set_fact:
        health_checks_connectivity:
-          api_reachable: true
-          dns_reachable: true
-          internet_gateway: up
+         api_reachable: true
+         dns_reachable: true
+         internet_gateway: up
 
     - name: Display connectivity status
       ansible.builtin.debug:
