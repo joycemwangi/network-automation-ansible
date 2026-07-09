@@ -249,7 +249,7 @@
 
 - name: Display connectivity status
   ansible.builtin.debug:
-   msg: |
+    msg: |
         ==============================
          CONNECTIVITY STATUS
         ==============================
