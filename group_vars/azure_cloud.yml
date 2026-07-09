@@ -21,6 +21,27 @@ cloud_recommended_action: |
   • Review Azure Monitor metrics
   • Review Virtual Machine Scale Set health if applicable
 
+cpu_impact: |
+  • Increased Virtual Machine CPU utilization
+  • Slower application response times
+  • Reduced workload performance
+  • Possible service degradation
+
+cpu_possible_causes: |
+  • High application workload
+  • CPU-intensive processes
+  • Recent deployment
+  • Traffic spike
+  • Insufficient VM size
+
+cpu_recommended_action: |
+  • Review Azure Monitor CPU metrics
+  • Identify high CPU processes
+  • Review recent deployments
+  • Verify Virtual Machine Scale Set activity
+  • Resize the Virtual Machine if necessary
+  • Investigate workload distribution
+
 memory_impact: |
   • Virtual machine performance degradation
   • Increased application response time
