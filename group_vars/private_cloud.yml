@@ -40,4 +40,26 @@ memory_recommended_action: |
   • Review virtualization platform logs
   • Consider adding host memory
 
+latency_impact: |
+  • Increased application response times
+  • Slower communication between virtual machines
+  • Storage and application access delays
+  • Reduced infrastructure performance
+
+latency_possible_causes: |
+  • Virtual switch congestion
+  • Hypervisor network contention
+  • East-west traffic saturation
+  • Storage network latency
+  • Overlay network (VXLAN/Geneve) congestion
+  • Physical uplink saturation
+
+latency_recommended_action: |
+  • Review hypervisor network utilization
+  • Verify virtual switch health
+  • Check storage network latency
+  • Review physical uplink utilization
+  • Investigate east-west traffic congestion
+  • Verify overlay network performance
+
 monitoring_enabled: true
