@@ -645,10 +645,10 @@
 
 - name: Send Cloud Infrastructure Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
-     vars:
-     alert_title: "CRITICAL - {{ health_checks_monitoring_metrics.provider | upper }} INFRASTRUCTURE ALERT"
-     alert_severity: "Critical"
-     alert_message: |
+  vars:
+  alert_title: "CRITICAL - {{ health_checks_monitoring_metrics.provider | upper }} INFRASTRUCTURE ALERT"
+  alert_severity: "Critical"
+  alert_message: |
       Alert Type : {{ health_checks_monitoring_metrics.provider }} Infrastructure
       Status     : Service Health Issue
       Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
