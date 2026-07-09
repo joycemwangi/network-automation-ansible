@@ -20,4 +20,24 @@ cloud_recommended_action: |
   • Review virtualization platform logs
   • Check network infrastructure
 
+memory_impact: |
+  • Virtual machine performance degradation
+  • Increased workload response time
+  • Reduced infrastructure capacity
+  • Possible service interruption
+
+memory_possible_causes: |
+  • Memory overcommitment
+  • Hypervisor memory contention
+  • Memory leak
+  • Recent virtual machine deployment
+  • Insufficient host memory
+
+memory_recommended_action: |
+  • Review hypervisor memory utilization
+  • Check virtual machine memory allocation
+  • Investigate memory leaks
+  • Review virtualization platform logs
+  • Consider adding host memory
+
 monitoring_enabled: true
