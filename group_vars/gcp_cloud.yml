@@ -15,10 +15,11 @@ cloud_possible_causes: |
   • Google Cloud service disruption
 
 cloud_recommended_action: |
-  • Check Compute Engine health
-  • Review Firewall Rules
+  • Check Compute Engine instance health
+  • Review VPC Firewall Rules
   • Verify Cloud Router status
-  • Review Cloud Monitoring
+  • Review Cloud Monitoring metrics
+  • Review Managed Instance Group health if applicable
 
 memory_impact: |
   • Compute Engine performance degradation
@@ -38,6 +39,27 @@ memory_recommended_action: |
   • Check running processes
   • Investigate memory leaks
   • Restart affected services if required
-  • Consider resizing the instance
+  • Consider vertical scaling (resize the Compute Engine machine type)
+  • Verify Managed Instance Group autoscaling configuration
+
+latency_impact: |
+  • Increased application response times
+  • Compute Engine communication delays
+  • Reduced workload performance
+  • Slower API responses
+
+latency_possible_causes: |
+  • VPC network congestion
+  • Cloud Router routing issue
+  • Cloud NAT latency
+  • Cross-region traffic
+  • Google Cloud regional service degradation
+
+latency_recommended_action: |
+  • Review Cloud Monitoring network metrics
+  • Verify Cloud Router status
+  • Check Cloud NAT performance
+  • Review VPC Flow Logs
+  • Review Google Cloud Service Health
 
 monitoring_enabled: true
