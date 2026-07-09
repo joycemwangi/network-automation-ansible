@@ -1,7 +1,23 @@
 ---
-# group_vars/gcp_cloud.yml
-
 cloud_provider: GCP
 ansible_connection: local
 
+cloud_impact: |
+  • Service availability degradation
+  • Increased application latency
+  • Network connectivity interruptions
+  • Possible workload failures
+
+cloud_possible_causes: |
+  • Compute Engine instance unhealthy
+  • VPC firewall rule issue
+  • Cloud Router connectivity problem
+  • Google Cloud service disruption
+
+cloud_recommended_action: |
+  • Check Compute Engine health
+  • Review Firewall Rules
+  • Verify Cloud Router status
+  • Review Cloud Monitoring
+  
 monitoring_enabled: true
