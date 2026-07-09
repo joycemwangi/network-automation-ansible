@@ -3,8 +3,8 @@
 
 cloud_provider: AWS
 
-#connection_type: simulated
+ #connection_type: simulated
 
- ansible_connection: local
+ansible_connection: local
 
- monitoring_enabled: true
+monitoring_enabled: true
