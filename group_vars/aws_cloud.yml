@@ -18,7 +18,8 @@ cloud_recommended_action: |
   • Check EC2 instance health
   • Verify VPC route tables
   • Review Security Groups
-  • Review CloudWatch metrics
+  • Review Amazon CloudWatch metrics
+  • Review Auto Scaling Group health if applicable
 
 memory_impact: |
   • Application response time degradation
@@ -38,6 +39,27 @@ memory_recommended_action: |
   • Check running processes
   • Investigate memory leaks
   • Restart affected services if required
-  • Consider resizing the EC2 instance
+  • Consider vertical scaling (increase EC2 instance size)
+  • Verify Auto Scaling Group configuration for horizontal scaling
+
+latency_impact: |
+  • Increased application response times
+  • API request delays
+  • Higher network round-trip times
+  • Reduced workload performance
+
+latency_possible_causes: |
+  • VPC networking congestion
+  • Cross-Availability Zone or Cross-Region traffic
+  • Transit Gateway routing issue
+  • Internet Gateway latency
+  • AWS regional service degradation
+
+latency_recommended_action: |
+  • Review Amazon CloudWatch network metrics
+  • Verify VPC Flow Logs
+  • Check Transit Gateway health
+  • Review AWS Health Dashboard
+  • Investigate application network traffic
 
 monitoring_enabled: true
