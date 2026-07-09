@@ -40,4 +40,26 @@ memory_recommended_action: |
   • Restart affected services if required
   • Consider increasing compute resources
 
+latency_impact: |
+  • Increased application response times
+  • Slower communication between OCI resources
+  • Delayed database and application transactions
+  • Reduced workload performance
+
+latency_possible_causes: |
+  • VCN routing issue
+  • Dynamic Routing Gateway (DRG) congestion
+  • FastConnect or IPSec VPN degradation
+  • Network Security Group or Security List configuration issue
+  • Regional service latency
+  • Cross-region traffic congestion
+
+latency_recommended_action: |
+  • Review OCI Monitoring network metrics
+  • Verify VCN route tables
+  • Check FastConnect or VPN health
+  • Review DRG route distribution
+  • Verify Network Security Groups and Security Lists
+  • Investigate regional service health
+
 monitoring_enabled: true
