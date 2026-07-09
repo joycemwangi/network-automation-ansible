@@ -41,3 +41,11 @@
   when:
     - enable_discord_alerts
     - enable_alerting
+
+# ==========================================================
+# WRITE ALERT MARKER FOR SUMMARY PARSER
+# ==========================================================
+
+- name: Write alert marker for summary parser
+  ansible.builtin.debug:
+    msg: "{{ alert_severity | upper }} - {{ alert_title }}"
