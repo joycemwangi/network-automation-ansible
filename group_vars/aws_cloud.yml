@@ -1,7 +1,23 @@
 ---
-# group_vars/aws_cloud.yml
-
 cloud_provider: AWS
 ansible_connection: local
+
+cloud_impact: |
+  • Service availability degradation
+  • Increased application latency
+  • Network connectivity interruptions
+  • Possible workload failures
+
+cloud_possible_causes: |
+  • EC2 instance unhealthy
+  • VPC routing issue
+  • Security Group or NACL misconfiguration
+  • CloudWatch reported degraded health
+
+cloud_recommended_action: |
+  • Check EC2 instance health
+  • Verify VPC route tables
+  • Review Security Groups
+  • Review CloudWatch metrics
 
 monitoring_enabled: true
