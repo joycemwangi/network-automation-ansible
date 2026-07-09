@@ -20,4 +20,24 @@ cloud_recommended_action: |
   • Verify Virtual Network routes
   • Review Azure Monitor alerts
 
+memory_impact: |
+  • Virtual machine performance degradation
+  • Increased application response time
+  • Reduced workload capacity
+  • Possible service interruption
+
+memory_possible_causes: |
+  • High VM memory utilization
+  • Memory leak
+  • Large application cache
+  • Recent deployment
+  • Insufficient VM memory
+
+memory_recommended_action: |
+  • Review Azure Monitor memory metrics
+  • Check running processes
+  • Investigate memory leaks
+  • Restart affected services if required
+  • Consider resizing the VM
+
 monitoring_enabled: true
