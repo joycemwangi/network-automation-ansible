@@ -20,4 +20,24 @@ cloud_recommended_action: |
   • Review Security Lists
   • Review OCI Monitoring
 
+memory_impact: |
+  • Compute instance performance degradation
+  • Increased application response time
+  • Reduced workload capacity
+  • Possible service interruption
+
+memory_possible_causes: |
+  • High memory utilization
+  • Memory leak
+  • Large application cache
+  • Recent deployment
+  • Insufficient instance memory
+
+memory_recommended_action: |
+  • Review OCI Monitoring metrics
+  • Check running processes
+  • Investigate memory leaks
+  • Restart affected services if required
+  • Consider increasing compute resources
+
 monitoring_enabled: true
