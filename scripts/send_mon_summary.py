@@ -34,6 +34,25 @@ if not os.path.exists(OUTPUT_FILE):
 with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
     lines = f.readlines()
 
+# ==========================================================
+# Count alert severities
+# ==========================================================
+
+for line in lines:
+
+    if re.search(r"CRITICAL\s*-", line, re.IGNORECASE):
+        critical_alerts += 1
+
+    elif re.search(r"MAJOR\s*-", line, re.IGNORECASE):
+        major_alerts += 1
+
+    elif re.search(r"WARNING\s*-", line, re.IGNORECASE):
+        warning_alerts += 1
+
+# ==========================================================
+# Parse PLAY RECAP
+# ==========================================================
+
 play_recap = False
 
 for line in lines:
@@ -64,18 +83,11 @@ for line in lines:
     else:
         successful.append(host)
 
-for line in lines:
-    text = line.upper()
-
-    if "CRITICAL -" in text:
-        critical_alerts += 1
-    elif "MAJOR -" in text:
-        major_alerts += 1
-    elif "WARNING -" in text:
-        warning_alerts += 1
+# ==========================================================
+# Summary Statistics
+# ==========================================================
 
 total = len(failed) + len(unreachable) + len(successful)
-
 total_alerts = critical_alerts + major_alerts + warning_alerts
 
 repo = os.getenv("GITHUB_REPOSITORY", "Local Run")
@@ -86,6 +98,10 @@ if run_id:
     workflow_url = f"https://github.com/{repo}/actions/runs/{run_id}"
 else:
     workflow_url = "Local Execution"
+
+# ==========================================================
+# Build Discord Message
+# ==========================================================
 
 message = f"""🚨 **INFRASTRUCTURE MONITORING REPORT**
 
