@@ -108,6 +108,8 @@ message = f"""🚨 **INFRASTRUCTURE MONITORING REPORT**
 
 📊 **Alert Severity Summary**
 
+🚨 Total Alerts: {total_alerts}
+
 🔴 Critical: {critical_alerts}
 🟠 Major: {major_alerts}
 🟡 Warning: {warning_alerts}
