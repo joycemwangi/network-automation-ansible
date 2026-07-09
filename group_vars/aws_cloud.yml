@@ -21,6 +21,27 @@ cloud_recommended_action: |
   • Review Amazon CloudWatch metrics
   • Review Auto Scaling Group health if applicable
 
+cpu_impact: |
+  • Increased EC2 CPU utilization
+  • Application response time degradation
+  • Delayed processing of workloads
+  • Possible Auto Scaling events
+
+cpu_possible_causes: |
+  • High application workload
+  • Runaway process
+  • Traffic spike
+  • CPU-intensive background task
+  • Recent application deployment
+
+cpu_recommended_action: |
+  • Review Amazon CloudWatch CPU metrics
+  • Identify high CPU processes
+  • Verify Auto Scaling Group activity
+  • Review recent deployments
+  • Consider scaling the EC2 instance
+  • Investigate abnormal workload patterns
+
 memory_impact: |
   • Application response time degradation
   • Increased swap utilization
