@@ -594,69 +594,13 @@
       Host       : {{ inventory_hostname }}
 
       Impact:
-      • Service availability degradation
-      • Increased application latency
-      • Network connectivity interruptions
-      • Possible workload failures
+         {{ cloud_impact }}
 
       Possible Causes:
-      {% if health_checks_monitoring_metrics.provider == 'AWS' %}
-      • EC2 instance unhealthy
-      • VPC routing issue
-      • Security Group or NACL misconfiguration
-      • CloudWatch reported degraded health
-      {% elif health_checks_monitoring_metrics.provider == 'Azure' %}
-      • Virtual Machine unavailable
-      • Network Security Group issue
-      • Virtual Network routing problem
-      • Azure platform service degradation
-      {% elif health_checks_monitoring_metrics.provider == 'GCP' %}
-      • Compute Engine instance unhealthy
-      • VPC firewall rule issue
-      • Cloud Router connectivity problem
-      • Google Cloud service disruption
-      {% elif health_checks_monitoring_metrics.provider == 'OCI' %}
-      • Compute instance unhealthy
-      • VCN routing issue
-      • Security List misconfiguration
-      • OCI regional service degradation
-      {% elif health_checks_monitoring_metrics.provider == 'Private Cloud' %}
-      • Hypervisor failure
-      • Storage connectivity issue
-      • Virtual network disruption
-      • Internal infrastructure outage
-      {% endif %}
+        {{ cloud_possible_causes }}
 
       Recommended Action:
-      {% if health_checks_monitoring_metrics.provider == 'AWS' %}
-      • Check EC2 instance health
-      • Verify VPC route tables
-      • Review Security Groups
-      • Review CloudWatch metrics
-      {% elif health_checks_monitoring_metrics.provider == 'Azure' %}
-      • Check VM health
-      • Review NSG rules
-      • Verify Virtual Network routes
-      • Review Azure Monitor alerts
-      {% elif health_checks_monitoring_metrics.provider == 'GCP' %}
-      • Check Compute Engine health
-      • Review Firewall Rules
-      • Verify Cloud Router status
-      • Review Cloud Monitoring
-      {% elif health_checks_monitoring_metrics.provider == 'OCI' %}
-      • Check Compute instance status
-      • Verify VCN route tables
-      • Review Security Lists
-      • Review OCI Monitoring
-      {% elif health_checks_monitoring_metrics.provider == 'Private Cloud' %}
-      • Check hypervisor health
-      • Verify storage systems
-      • Review virtualization platform logs
-      • Check network infrastructure
-      {% endif %}
-  when:
-    - enable_alerting
-    - health_checks_cloud_alert | default(false)
+        {{ cloud_recommended_action }}
 
 # -----------------------------
 # NETWORK DEVICE ALERT
