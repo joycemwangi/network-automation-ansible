@@ -474,7 +474,7 @@
 
       Recommended Action:
       {{ memory_recommended_action }}
-when:
+  when:
     - enable_memory_alerts
     - health_checks_monitoring_metrics is defined
     - health_checks_monitoring_metrics.memory_utilization > memory_threshold
