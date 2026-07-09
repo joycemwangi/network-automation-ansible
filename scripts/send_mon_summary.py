@@ -24,12 +24,28 @@ failed = []
 unreachable = []
 successful = []
 
+critical_alerts = 0
+major_alerts = 0
+warning_alerts = 0
+
 if not os.path.exists(OUTPUT_FILE):
     raise SystemExit(f"{OUTPUT_FILE} not found.")
 
 with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
     lines = f.readlines()
 
+for i, line in enumerate(lines):
+    if line.strip() == "Severity":
+        if i + 1 < len(lines):
+            severity = lines[i + 1].strip().lower()
+
+            if severity == "critical":
+                critical_alerts += 1
+            elif severity == "major":
+                major_alerts += 1
+            elif severity == "warning":
+                warning_alerts += 1
+                
 play_recap = False
 
 for line in lines:
@@ -87,6 +103,13 @@ message = f"""🚨 **INFRASTRUCTURE MONITORING REPORT**
 ⚠️ Unreachable: {len(unreachable)}
 
 """
+----------------------------------------
+
+📊 **Alert Severity Summary**
+
+🔴 Critical: {critical_alerts}
+🟠 Major: {major_alerts}
+🟡 Warning: {warning_alerts}
 
 if failed:
     message += "**❌ Failed Hosts**\n"
