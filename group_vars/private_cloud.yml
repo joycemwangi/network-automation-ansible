@@ -1,7 +1,23 @@
 ---
-# group_vars/private_cloud.yml
-
 cloud_provider: Private Cloud
 ansible_connection: local
+
+cloud_impact: |
+  • Service availability degradation
+  • Increased application latency
+  • Network connectivity interruptions
+  • Possible workload failures
+
+cloud_possible_causes: |
+  • Hypervisor failure
+  • Storage connectivity issue
+  • Virtual network disruption
+  • Internal infrastructure outage
+
+cloud_recommended_action: |
+  • Check hypervisor health
+  • Verify storage systems
+  • Review virtualization platform logs
+  • Check network infrastructure
 
 monitoring_enabled: true
