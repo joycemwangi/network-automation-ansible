@@ -15,10 +15,11 @@ cloud_possible_causes: |
   • Azure platform service degradation
 
 cloud_recommended_action: |
-  • Check VM health
-  • Review NSG rules
-  • Verify Virtual Network routes
-  • Review Azure Monitor alerts
+  • Check Virtual Machine health
+  • Review Network Security Group rules
+  • Verify Virtual Network route tables
+  • Review Azure Monitor metrics
+  • Review Virtual Machine Scale Set health if applicable
 
 memory_impact: |
   • Virtual machine performance degradation
@@ -38,6 +39,27 @@ memory_recommended_action: |
   • Check running processes
   • Investigate memory leaks
   • Restart affected services if required
-  • Consider resizing the VM
+  • Consider vertical scaling (resize the Virtual Machine)
+  • Verify Virtual Machine Scale Set configuration for horizontal scaling
+
+latency_impact: |
+  • Increased application response times
+  • Virtual Machine communication delays
+  • Slower workload execution
+  • Reduced service availability
+
+latency_possible_causes: |
+  • Virtual Network congestion
+  • Network Security Group processing delays
+  • Azure Load Balancer latency
+  • ExpressRoute or VPN Gateway issue
+  • Azure regional service degradation
+
+latency_recommended_action: |
+  • Review Azure Monitor network metrics
+  • Check Azure Network Watcher
+  • Verify Virtual Network connectivity
+  • Review Azure Service Health
+  • Validate ExpressRoute or VPN Gateway status
 
 monitoring_enabled: true
