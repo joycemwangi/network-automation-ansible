@@ -20,4 +20,24 @@ cloud_recommended_action: |
   • Review Security Groups
   • Review CloudWatch metrics
 
+memory_impact: |
+  • Application response time degradation
+  • Increased swap utilization
+  • Reduced EC2 performance
+  • Possible application failures
+
+memory_possible_causes: |
+  • High application memory consumption
+  • Memory leak
+  • Large in-memory caches
+  • Recent application deployment
+  • Insufficient instance memory
+
+memory_recommended_action: |
+  • Review Amazon CloudWatch memory metrics
+  • Check running processes
+  • Investigate memory leaks
+  • Restart affected services if required
+  • Consider resizing the EC2 instance
+
 monitoring_enabled: true
