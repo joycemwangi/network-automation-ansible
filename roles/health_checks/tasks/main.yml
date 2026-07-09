@@ -305,130 +305,19 @@
       Threshold  : {{ cpu_threshold }}%
       Exceeded By: {{ health_checks_monitoring_metrics.cpu_utilization - cpu_threshold }}%
 
-            Impact:
-      {% if health_checks_monitoring_metrics.provider == 'On-Premises Network' %}
-      • Slower routing protocol convergence
-      • Increased packet processing delays
-      • Reduced control plane responsiveness
-      • Possible service degradation
+     Impact:
+     {{ cpu_impact }}
 
-      Possible Causes:
-      • High routing protocol activity
-      • CPU-intensive processes
-      • Traffic spikes or DDoS events
-      • Control plane overload
-      • Recent configuration deployment
+     Possible Causes:
+     {{ cpu_possible_causes }}
 
-      Recommended Action:
-      • Review CPU-intensive processes
-      • Verify BGP/OSPF neighbor stability
-      • Check interface utilization, drops and error counters
-      • Verify MTU consistency to avoid fragmentation
-      • Review recent configuration changes or deployments
-
-      {% elif health_checks_monitoring_metrics.provider == 'AWS' %}
-
-      • Increased application response times
-      • EC2 performance degradation
-      • Delayed workload processing
-      • Auto Scaling events may occur
-
-      Possible Causes:
-      • High application workload
-      • EC2 CPU saturation
-      • Background processes consuming CPU
-      • Burstable instance CPU credit depletion
-      • Recent deployment or software update
-
-      Recommended Action:
-      • Review Amazon CloudWatch CPU metrics
-      • Verify EC2 instance health
-      • Check Auto Scaling activity
-      • Review running processes
-      • Consider resizing the instance
-
-      {% elif health_checks_monitoring_metrics.provider == 'Azure' %}
-
-      • Increased application response times
-      • Virtual Machine performance degradation
-      • Slower workload execution
-      • Possible service interruption
-
-      Possible Causes:
-      • High VM CPU utilization
-      • Application workload spike
-      • Azure platform maintenance
-      • Recent deployment or update
-
-      Recommended Action:
-      • Review Azure Monitor metrics
-      • Check VM Insights
-      • Review running processes
-      • Verify Load Balancer health
-      • Consider resizing the VM
-
-      {% elif health_checks_monitoring_metrics.provider == 'GCP' %}
-
-      • Increased application latency
-      • Compute Engine performance degradation
-      • Slower workload execution
-      • Autoscaling may be triggered
-
-      Possible Causes:
-      • Compute Engine CPU saturation
-      • High application workload
-      • Background services consuming CPU
-      • Recent deployment
-
-      Recommended Action:
-      • Review Cloud Monitoring metrics
-      • Verify Compute Engine health
-      • Check Managed Instance Groups
-      • Review Cloud Logging
-      • Consider resizing the instance
-
-      {% elif health_checks_monitoring_metrics.provider == 'OCI' %}
-
-      • Increased application response times
-      • Compute instance performance degradation
-      • Slower workload execution
-      • Possible service impact
-
-      Possible Causes:
-      • Compute instance CPU saturation
-      • High workload demand
-      • Background processes
-      • Recent deployment
-
-      Recommended Action:
-      • Review OCI Monitoring metrics
-      • Verify Compute instance health
-      • Check workload utilization
-      • Review running processes
-      • Consider increasing compute resources
-
-      {% elif health_checks_monitoring_metrics.provider == 'Private Cloud' %}
-
-      • Virtual machine performance degradation
-      • Increased workload response time
-      • Reduced infrastructure capacity
-      • Possible impact to hosted services
-
-      Possible Causes:
-      • Hypervisor CPU contention
-      • Virtual machine CPU saturation
-      • Excessive resource overcommitment
-      • Background workloads
-
-      Recommended Action:
-      • Review hypervisor utilization
-      • Check virtual machine CPU usage
-      • Verify resource allocation
-      • Review virtualization platform logs
-      • Consider adding compute capacity
-
-      {% endif %}
-
+     Recommended Action:
+     {{ cpu_recommended_action }}
+  when:
+    - enable_cpu_alerts
+    - health_checks_monitoring_metrics is defined
+    - health_checks_monitoring_metrics.cpu_utilization > cpu_threshold
+    
 # -----------------------------
 # MEMORY ALERT
 # -----------------------------
@@ -517,24 +406,13 @@
       Exceeded By : {{ health_checks_monitoring_metrics.network_latency_ms - latency_threshold }} ms
 
       Impact:
-      • Increased application response times
-      • Voice and video quality degradation
-      • Packet retransmissions and reduced throughput
-      • Slower access to network services
+      {{ latency_impact }}
 
       Possible Causes:
-      • WAN congestion
-      • ISP degradation
-      • Routing convergence or path changes
-      • Interface saturation
-      • Cloud provider latency
+      {{ latency_possible_causes }}
 
       Recommended Action:
-      • Verify WAN and ISP connectivity
-      • Check interface congestion, packet drops and errors
-      • Verify routing convergence (BGP/OSPF)
-      • Verify QoS policies are operating correctly
-      • Check latency, jitter and packet loss across the network path
+      {{ latency_recommended_action }}
   when:
     - enable_latency_alerts
     - health_checks_monitoring_metrics is defined
