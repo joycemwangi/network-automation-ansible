@@ -102,7 +102,6 @@ message = f"""🚨 **INFRASTRUCTURE MONITORING REPORT**
 ❌ Failed: {len(failed)}
 ⚠️ Unreachable: {len(unreachable)}
 
-"""
 ----------------------------------------
 
 📊 **Alert Severity Summary**
@@ -110,6 +109,8 @@ message = f"""🚨 **INFRASTRUCTURE MONITORING REPORT**
 🔴 Critical: {critical_alerts}
 🟠 Major: {major_alerts}
 🟡 Warning: {warning_alerts}
+
+"""
 
 if failed:
     message += "**❌ Failed Hosts**\n"
