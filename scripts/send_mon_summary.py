@@ -78,6 +78,8 @@ for line in lines:
 
 total = len(failed) + len(unreachable) + len(successful)
 
+total_alerts = critical_alerts + major_alerts + warning_alerts
+
 repo = os.getenv("GITHUB_REPOSITORY", "Local Run")
 workflow = os.getenv("GITHUB_WORKFLOW", "Ansible Health Monitoring")
 run_id = os.getenv("GITHUB_RUN_ID")
