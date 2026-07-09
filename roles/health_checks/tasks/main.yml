@@ -231,7 +231,7 @@
 
 - name: Display monitoring metrics
   ansible.builtin.debug:
-       msg: |
+    msg: |
           ==============================
           INFRASTRUCTURE HEALTH REPORT
           ==============================
@@ -240,9 +240,9 @@
           Memory   : {{ health_checks_monitoring_metrics.memory_utilization }}%
           Latency  : {{ health_checks_monitoring_metrics.network_latency_ms }} ms
 
-    - name: Build connectivity status
-      ansible.builtin.set_fact:
-        health_checks_connectivity:
+  - name: Build connectivity status
+    ansible.builtin.set_fact:
+       health_checks_connectivity:
           api_reachable: true
           dns_reachable: true
           internet_gateway: up
