@@ -34,6 +34,10 @@ if not os.path.exists(OUTPUT_FILE):
 with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
     lines = f.readlines()
 
+for line in lines:
+    if "CRITICAL" in line.upper():
+        print(line)
+
 # ==========================================================
 # Count alert severities
 # ==========================================================
