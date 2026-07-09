@@ -17,6 +17,7 @@
   ansible.builtin.lineinfile:
     path: monitoring_logs/alerts.jsonl
     create: true
+    mode: "0644"
     insertafter: EOF
     line: >-
       {{
