@@ -305,7 +305,8 @@
       Threshold  : {{ cpu_threshold }}%
       Exceeded By: {{ health_checks_monitoring_metrics.cpu_utilization - cpu_threshold }}%
 
-      Impact:
+            Impact:
+      {% if health_checks_monitoring_metrics.provider == 'On-Premises Network' %}
       • Slower routing protocol convergence
       • Increased packet processing delays
       • Reduced control plane responsiveness
@@ -324,10 +325,109 @@
       • Check interface utilization, drops and error counters
       • Verify MTU consistency to avoid fragmentation
       • Review recent configuration changes or deployments
-  when:
-    - enable_cpu_alerts
-    - health_checks_monitoring_metrics is defined
-    - health_checks_monitoring_metrics.cpu_utilization > cpu_threshold
+
+      {% elif health_checks_monitoring_metrics.provider == 'AWS' %}
+
+      • Increased application response times
+      • EC2 performance degradation
+      • Delayed workload processing
+      • Auto Scaling events may occur
+
+      Possible Causes:
+      • High application workload
+      • EC2 CPU saturation
+      • Background processes consuming CPU
+      • Burstable instance CPU credit depletion
+      • Recent deployment or software update
+
+      Recommended Action:
+      • Review Amazon CloudWatch CPU metrics
+      • Verify EC2 instance health
+      • Check Auto Scaling activity
+      • Review running processes
+      • Consider resizing the instance
+
+      {% elif health_checks_monitoring_metrics.provider == 'Azure' %}
+
+      • Increased application response times
+      • Virtual Machine performance degradation
+      • Slower workload execution
+      • Possible service interruption
+
+      Possible Causes:
+      • High VM CPU utilization
+      • Application workload spike
+      • Azure platform maintenance
+      • Recent deployment or update
+
+      Recommended Action:
+      • Review Azure Monitor metrics
+      • Check VM Insights
+      • Review running processes
+      • Verify Load Balancer health
+      • Consider resizing the VM
+
+      {% elif health_checks_monitoring_metrics.provider == 'GCP' %}
+
+      • Increased application latency
+      • Compute Engine performance degradation
+      • Slower workload execution
+      • Autoscaling may be triggered
+
+      Possible Causes:
+      • Compute Engine CPU saturation
+      • High application workload
+      • Background services consuming CPU
+      • Recent deployment
+
+      Recommended Action:
+      • Review Cloud Monitoring metrics
+      • Verify Compute Engine health
+      • Check Managed Instance Groups
+      • Review Cloud Logging
+      • Consider resizing the instance
+
+      {% elif health_checks_monitoring_metrics.provider == 'OCI' %}
+
+      • Increased application response times
+      • Compute instance performance degradation
+      • Slower workload execution
+      • Possible service impact
+
+      Possible Causes:
+      • Compute instance CPU saturation
+      • High workload demand
+      • Background processes
+      • Recent deployment
+
+      Recommended Action:
+      • Review OCI Monitoring metrics
+      • Verify Compute instance health
+      • Check workload utilization
+      • Review running processes
+      • Consider increasing compute resources
+
+      {% elif health_checks_monitoring_metrics.provider == 'Private Cloud' %}
+
+      • Virtual machine performance degradation
+      • Increased workload response time
+      • Reduced infrastructure capacity
+      • Possible impact to hosted services
+
+      Possible Causes:
+      • Hypervisor CPU contention
+      • Virtual machine CPU saturation
+      • Excessive resource overcommitment
+      • Background workloads
+
+      Recommended Action:
+      • Review hypervisor utilization
+      • Check virtual machine CPU usage
+      • Verify resource allocation
+      • Review virtualization platform logs
+      • Consider adding compute capacity
+
+      {% endif %}
 
 # -----------------------------
 # MEMORY ALERT
