@@ -1,0 +1,32 @@
+---
+# ==========================================================
+# LOG ALERT TO JSON FILE
+# ==========================================================
+
+- name: Ensure monitoring log directory exists
+  delegate_to: localhost
+  become: false
+  ansible.builtin.file:
+    path: monitoring_logs
+    state: directory
+    mode: "0755"
+
+- name: Append monitoring alert to JSON log
+  delegate_to: localhost
+  become: false
+  ansible.builtin.lineinfile:
+    path: monitoring_logs/alerts.jsonl
+    create: true
+    insertafter: EOF
+    line: >-
+      {{
+        {
+          "timestamp": now(utc=true).strftime("%Y-%m-%dT%H:%M:%SZ"),
+          "host": inventory_hostname,
+          "provider": health_checks_monitoring_metrics.provider | default("On-Premises Network"),
+          "environment": group_names,
+          "severity": alert_severity,
+          "title": alert_title,
+          "mode": monitoring_mode | default("hybrid")
+        } | to_json
+      }}
