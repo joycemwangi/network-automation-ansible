@@ -12,8 +12,73 @@ ansible_password: !vault |
           36653638336331646266326237363664303139646130626630653836346633663930386230643035
           3931613036383763340a383434343665353438336333343063303136366631636638666662306539
           6635
+  ...
 
 ansible_become: true
 ansible_become_method: enable
 
 cloud_provider: On-Premises Network
+
+cpu_impact: |
+  • Slower routing protocol convergence
+  • Increased packet processing delays
+  • Reduced control plane responsiveness
+  • Possible service degradation
+
+cpu_possible_causes: |
+  • High routing protocol activity
+  • CPU-intensive processes
+  • Traffic spikes or DDoS events
+  • Control plane overload
+  • Recent configuration deployment
+
+cpu_recommended_action: |
+  • Review CPU-intensive processes
+  • Verify BGP/OSPF neighbor stability
+  • Check interface utilization, drops and error counters
+  • Verify MTU consistency
+  • Review recent configuration changes
+
+memory_impact: |
+  • Reduced routing performance
+  • Control plane instability
+  • Slower packet processing
+  • Possible routing protocol instability
+
+memory_possible_causes: |
+  • Memory leak
+  • Large routing tables
+  • High protocol churn
+  • Excessive logging
+  • Software defect
+
+memory_recommended_action: |
+  • Review memory utilization
+  • Check routing table size
+  • Verify routing protocol stability
+  • Review system logs
+  • Consider software upgrade if memory leak is suspected
+
+latency_impact: |
+  • Increased packet forwarding delay
+  • Routing convergence delays
+  • Voice and video quality degradation
+  • Reduced application performance
+
+latency_possible_causes: |
+  • WAN congestion
+  • Interface saturation
+  • CRC or packet errors
+  • Routing convergence
+  • QoS policy misconfiguration
+  • MTU mismatch
+
+latency_recommended_action: |
+  • Verify WAN utilization
+  • Check interface errors and drops
+  • Verify QoS operation
+  • Review routing convergence
+  • Verify MTU consistency
+  • Measure latency, jitter and packet loss
+
+monitoring_enabled: true
