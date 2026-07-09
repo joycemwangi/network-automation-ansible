@@ -20,6 +20,27 @@ cloud_recommended_action: |
   • Review virtualization platform logs
   • Check network infrastructure
 
+cpu_impact: |
+  • Increased virtual machine CPU utilization
+  • Reduced infrastructure performance
+  • Slower application response
+  • Possible service degradation
+
+cpu_possible_causes: |
+  • Hypervisor resource contention
+  • High application workload
+  • CPU-intensive virtual machines
+  • Resource overcommitment
+  • Recent deployment
+
+cpu_recommended_action: |
+  • Review hypervisor CPU utilization
+  • Identify high CPU virtual machines
+  • Verify resource allocation
+  • Investigate workload distribution
+  • Consider scaling compute resources
+  • Review infrastructure monitoring dashboards
+
 memory_impact: |
   • Virtual machine performance degradation
   • Increased workload response time
