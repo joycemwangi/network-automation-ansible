@@ -34,19 +34,6 @@ if not os.path.exists(OUTPUT_FILE):
 with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
     lines = f.readlines()
 
-for line in lines:
-    text = line.lower()
-
-    if "severity" not in text:
-        continue
-
-    if "critical" in text:
-        critical_alerts += 1
-    elif "major" in text:
-        major_alerts += 1
-    elif "warning" in text:
-        warning_alerts += 1
-
 play_recap = False
 
 for line in lines:
