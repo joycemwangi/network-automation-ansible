@@ -298,9 +298,7 @@
 - name: Send High CPU Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: >-
-      {{ health_checks_cpu_alert_severity | upper }}
-      - HIGH CPU UTILIZATION
+    alert_title: "{{ health_checks_cpu_alert_severity | trim | upper }} - HIGH CPU UTILIZATION"
     alert_severity: "{{ health_checks_cpu_alert_severity | trim }}"
     alert_message: |
       Alert Type : CPU Utilization
@@ -348,9 +346,7 @@
 - name: Send High Memory Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: >-
-      {{ health_checks_memory_alert_severity | upper }}
-      - HIGH MEMORY UTILIZATION
+    alert_title: "{{ health_checks_memory_alert_severity | trim | upper }} - HIGH MEMORY UTILIZATION"  
     alert_severity: "{{ health_checks_memory_alert_severity | trim }}"
     alert_message: |
       Alert Type : Memory Utilization
@@ -398,9 +394,7 @@
 - name: Send High Latency Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-    alert_title: >-
-      {{ health_checks_latency_alert_severity | upper }}
-      - HIGH NETWORK LATENCY
+    alert_title: "{{ health_checks_latency_alert_severity | trim | upper }} - HIGH NETWORK LATENCY" 
     alert_severity: "{{ health_checks_latency_alert_severity | trim }}"
     alert_message: |
       Alert Type : Network Latency
