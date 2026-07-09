@@ -472,7 +472,7 @@
 
       Impact:
       {{ cloud_impact }}
-      
+
       Possible Causes:
       {{ cloud_possible_causes }}
 
