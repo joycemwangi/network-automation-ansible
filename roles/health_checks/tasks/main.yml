@@ -467,25 +467,14 @@
       Exceeded By  : {{ health_checks_monitoring_metrics.memory_utilization - memory_threshold }}%
 
       Impact:
-      • Reduced device stability
-      • Slower application or control plane performance
-      • Risk of process restarts or failures
-      • Possible service interruption if memory exhaustion occurs
+      {{ memory_impact }}
 
       Possible Causes:
-      • Memory-intensive processes
-      • Memory leaks
-      • Insufficient system resources
-      • Large routing or forwarding tables
-      • Recent software deployment
+      {{ memory_possible_causes }}
 
       Recommended Action:
-      • Review memory utilization by active processes
-      • Check for memory leaks or abnormal consumption
-      • Verify system buffer and cache utilization
-      • Review recent configuration changes or deployments
-      • Consider capacity expansion if utilization remains high
-  when:
+      {{ memory_recommended_action }}
+when:
     - enable_memory_alerts
     - health_checks_monitoring_metrics is defined
     - health_checks_monitoring_metrics.memory_utilization > memory_threshold
