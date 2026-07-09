@@ -243,16 +243,16 @@
 - name: Build connectivity status
   ansible.builtin.set_fact:
     health_checks_connectivity:
-     api_reachable: true
-     dns_reachable: true
-     internet_gateway: up
+      api_reachable: true
+      dns_reachable: true
+      internet_gateway: up
 
 - name: Display connectivity status
-      ansible.builtin.debug:
-        msg: |
-          ==============================
-          CONNECTIVITY STATUS
-          ==============================
+  ansible.builtin.debug:
+   msg: |
+        ==============================
+         CONNECTIVITY STATUS
+        ==============================
           API       : {{ health_checks_connectivity.api_reachable }}
           DNS       : {{ health_checks_connectivity.dns_reachable }}
           Gateway   : {{ health_checks_connectivity.internet_gateway }}
