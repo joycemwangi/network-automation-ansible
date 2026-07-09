@@ -2,5 +2,6 @@
 # group_vars/oci_cloud.yml
 
 cloud_provider: OCI
-connection_type: simulated
+ansible_connection: local
+
 monitoring_enabled: true
