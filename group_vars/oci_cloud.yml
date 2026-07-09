@@ -1,7 +1,23 @@
 ---
-# group_vars/oci_cloud.yml
-
 cloud_provider: OCI
 ansible_connection: local
+
+cloud_impact: |
+  • Service availability degradation
+  • Increased application latency
+  • Network connectivity interruptions
+  • Possible workload failures
+
+cloud_possible_causes: |
+  • Compute instance unhealthy
+  • VCN routing issue
+  • Security List misconfiguration
+  • OCI regional service degradation
+
+cloud_recommended_action: |
+  • Check Compute instance status
+  • Verify VCN route tables
+  • Review Security Lists
+  • Review OCI Monitoring
 
 monitoring_enabled: true
