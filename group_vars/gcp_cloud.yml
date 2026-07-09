@@ -20,4 +20,24 @@ cloud_recommended_action: |
   • Verify Cloud Router status
   • Review Cloud Monitoring
 
+memory_impact: |
+  • Compute Engine performance degradation
+  • Increased application latency
+  • Reduced workload capacity
+  • Possible service interruption
+
+memory_possible_causes: |
+  • High memory utilization
+  • Memory leak
+  • Large application cache
+  • Recent deployment
+  • Insufficient instance memory
+
+memory_recommended_action: |
+  • Review Cloud Monitoring memory metrics
+  • Check running processes
+  • Investigate memory leaks
+  • Restart affected services if required
+  • Consider resizing the instance
+
 monitoring_enabled: true
