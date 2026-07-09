@@ -1,7 +1,23 @@
 ---
-# group_vars/azure_cloud.yml
-
 cloud_provider: Azure
 ansible_connection: local
 
+cloud_impact: |
+  • Service availability degradation
+  • Increased application latency
+  • Network connectivity interruptions
+  • Possible workload failures
+
+cloud_possible_causes: |
+  • Virtual Machine unavailable
+  • Network Security Group issue
+  • Virtual Network routing problem
+  • Azure platform service degradation
+
+cloud_recommended_action: |
+  • Check VM health
+  • Review NSG rules
+  • Verify Virtual Network routes
+  • Review Azure Monitor alerts
+  
 monitoring_enabled: true
