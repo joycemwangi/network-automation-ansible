@@ -19,5 +19,5 @@ cloud_recommended_action: |
   • Review Firewall Rules
   • Verify Cloud Router status
   • Review Cloud Monitoring
-  
+
 monitoring_enabled: true
