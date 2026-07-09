@@ -22,25 +22,25 @@ cloud_recommended_action: |
   • Review Managed Instance Group health if applicable
 
 cpu_impact: |
-  • Increased application response times
-  • Compute Engine performance degradation
-  • Slower workload execution
-  • Managed Instance Group autoscaling may be triggered
+  • Increased Compute Engine CPU utilization
+  • Reduced application performance
+  • Higher request latency
+  • Possible workload degradation
 
 cpu_possible_causes: |
-  • High Compute Engine CPU utilization
-  • Application workload spike
-  • Background services consuming CPU
+  • High application workload
+  • CPU-intensive processes
   • Recent deployment
-  • Inefficient application processing
+  • Traffic spike
+  • Insufficient machine type
 
 cpu_recommended_action: |
   • Review Cloud Monitoring CPU metrics
-  • Verify Compute Engine instance health
-  • Review Managed Instance Group autoscaling events
-  • Check running processes
-  • Consider vertical scaling (resize the machine type)
-  • Verify Managed Instance Group autoscaling configuration
+  • Check Compute Engine processes
+  • Verify Managed Instance Group autoscaling
+  • Review recent deployments
+  • Resize the Compute Engine instance if required
+  • Investigate workload distribution
 
 memory_impact: |
   • Compute Engine performance degradation
