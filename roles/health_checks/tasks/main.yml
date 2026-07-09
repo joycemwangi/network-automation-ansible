@@ -332,13 +332,13 @@
 - name: Determine Memory alert severity
   ansible.builtin.set_fact:
     health_checks_memory_alert_severity: >-
-      {% if health_checks_monitoring_metrics.memory_utilization >= memory_critical_threshold %}
-      Critical
-      {% elif health_checks_monitoring_metrics.memory_utilization >= memory_major_threshold %}
-      Major
-      {% else %}
-      Warning
-      {% endif %}
+      {{
+        'Critical'
+        if health_checks_monitoring_metrics.memory_utilization >= memory_critical_threshold
+        else 'Major'
+        if health_checks_monitoring_metrics.memory_utilization >= memory_major_threshold
+        else 'Warning'
+      }}
   when:
     - health_checks_monitoring_metrics is defined
     - health_checks_monitoring_metrics.memory_utilization > memory_threshold
@@ -380,13 +380,13 @@
 - name: Determine Latency alert severity
   ansible.builtin.set_fact:
     health_checks_latency_alert_severity: >-
-      {% if health_checks_monitoring_metrics.network_latency_ms >= latency_critical_threshold %}
-      Critical
-      {% elif health_checks_monitoring_metrics.network_latency_ms >= latency_major_threshold %}
-      Major
-      {% else %}
-      Warning
-      {% endif %}
+      {{
+        'Critical'
+        if health_checks_monitoring_metrics.network_latency_ms >= latency_critical_threshold
+        else 'Major'
+        if health_checks_monitoring_metrics.network_latency_ms >= latency_major_threshold
+        else 'Warning'
+      }}
   when:
     - health_checks_monitoring_metrics is defined
     - health_checks_monitoring_metrics.network_latency_ms > latency_threshold
