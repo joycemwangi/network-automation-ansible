@@ -57,6 +57,13 @@ for line in lines:
     unreachable_count = int(m.group(4))
     failed_count = int(m.group(5))
 
+    if failed_count > 0:
+        failed.append(host)
+    elif unreachable_count > 0:
+        unreachable.append(host)
+    else:
+        successful.append(host)
+
 for line in lines:
     text = line.upper()
 
