@@ -70,12 +70,15 @@ for line in lines:
     unreachable_count = int(m.group(4))
     failed_count = int(m.group(5))
 
-    if failed_count > 0:
-        failed.append(host)
-    elif unreachable_count > 0:
-        unreachable.append(host)
-    else:
-        successful.append(host)
+for line in lines:
+    text = line.upper()
+
+    if "CRITICAL -" in text:
+        critical_alerts += 1
+    elif "MAJOR -" in text:
+        major_alerts += 1
+    elif "WARNING -" in text:
+        warning_alerts += 1
 
 total = len(failed) + len(unreachable) + len(successful)
 
