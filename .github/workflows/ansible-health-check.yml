@@ -87,6 +87,7 @@ jobs:
            health_check.yml | tee ansible-output.txt
            
       # TEMPORARY - Verify alerts.jsonl is created
+      
       - name: Show monitoring log
         if: always()
         run: |
@@ -104,6 +105,13 @@ jobs:
           name: ansible-output
           path: ansible-output.txt
 
+      - name: Upload Monitoring Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monitoring-logs
+          path: monitoring_logs/    
+          
       - name: Send Monitoring Summary
         if: always()
         env:
