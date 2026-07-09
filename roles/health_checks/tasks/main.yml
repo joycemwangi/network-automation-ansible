@@ -229,9 +229,9 @@
       latency_defined: "{{ latency_impact is defined }}"
       cloud_defined: "{{ cloud_impact is defined }}"
 
-    - name: Display monitoring metrics
-      ansible.builtin.debug:
-        msg: |
+- name: Display monitoring metrics
+  ansible.builtin.debug:
+       msg: |
           ==============================
           INFRASTRUCTURE HEALTH REPORT
           ==============================
