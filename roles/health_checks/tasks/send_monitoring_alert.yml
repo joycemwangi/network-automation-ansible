@@ -51,4 +51,4 @@
     msg: "{{ alert_severity | upper }} - {{ alert_title }}"
 
 - name: Save alert to monitoring log
-  ansible.builtin.include_tasks: log_monitoring_alert.yml    
+  ansible.builtin.include_tasks: log_monitoring_alert.yml
