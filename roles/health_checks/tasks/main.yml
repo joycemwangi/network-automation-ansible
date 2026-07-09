@@ -601,6 +601,9 @@
 
       Recommended Action:
         {{ cloud_recommended_action }}
+  when:
+    - enable_alerting
+    - health_checks_cloud_alert | default(false)
 
 # -----------------------------
 # NETWORK DEVICE ALERT
