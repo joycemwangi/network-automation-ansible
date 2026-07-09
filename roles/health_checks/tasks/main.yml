@@ -284,13 +284,13 @@
 - name: Determine CPU alert severity
   ansible.builtin.set_fact:
     health_checks_cpu_alert_severity: >-
-      {% if health_checks_monitoring_metrics.cpu_utilization >= cpu_critical_threshold %}
-      Critical
-      {% elif health_checks_monitoring_metrics.cpu_utilization >= cpu_major_threshold %}
-      Major
-      {% else %}
-      Warning
-      {% endif %}
+      {{
+        'Critical'
+        if health_checks_monitoring_metrics.cpu_utilization >= cpu_critical_threshold
+        else 'Major'
+        if health_checks_monitoring_metrics.cpu_utilization >= cpu_major_threshold
+        else 'Warning'
+      }}
   when:
     - health_checks_monitoring_metrics is defined
     - health_checks_monitoring_metrics.cpu_utilization > cpu_threshold
