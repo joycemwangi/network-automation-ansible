@@ -579,8 +579,71 @@
 # -----------------------------
 # CLOUD INFRASTRUCTURE ALERT
 # -----------------------------
+- name: Build cloud alert guidance
+  ansible.builtin.set_fact:
+    health_checks_cloud_impact: >-
+      Service availability degradation
+      • Increased application latency
+      • Network connectivity interruptions
+      • Possible workload failures
 
-- name: Send Cloud Infrastructure Alert
+    health_checks_cloud_causes: >-
+      {% if cloud_provider == 'AWS' %}
+      • EC2 instance unhealthy
+      • VPC routing issue
+      • Security Group or NACL misconfiguration
+      • CloudWatch reported degraded health
+      {% elif cloud_provider == 'Azure' %}
+      • Virtual Machine unavailable
+      • Network Security Group issue
+      • Virtual Network routing problem
+      • Azure platform service degradation
+      {% elif cloud_provider == 'GCP' %}
+      • Compute Engine instance unhealthy
+      • VPC firewall rule issue
+      • Cloud Router connectivity problem
+      • Google Cloud service disruption
+      {% elif cloud_provider == 'OCI' %}
+      • Compute instance unhealthy
+      • VCN routing issue
+      • Security List misconfiguration
+      • OCI regional service degradation
+      {% elif cloud_provider == 'Private Cloud' %}
+      • Hypervisor failure
+      • Storage connectivity issue
+      • Virtual network disruption
+      • Internal infrastructure outage
+      {% endif %}
+
+    health_checks_cloud_recommendation: >-
+      {% if cloud_provider == 'AWS' %}
+      • Check EC2 instance health
+      • Verify VPC route tables
+      • Review Security Groups
+      • Review CloudWatch metrics
+      {% elif cloud_provider == 'Azure' %}
+      • Check VM health
+      • Review NSG rules
+      • Verify Virtual Network routes
+      • Review Azure Monitor alerts
+      {% elif cloud_provider == 'GCP' %}
+      • Check Compute Engine health
+      • Review Firewall Rules
+      • Verify Cloud Router status
+      • Review Cloud Monitoring
+      {% elif cloud_provider == 'OCI' %}
+      • Check Compute instance status
+      • Verify VCN route tables
+      • Review Security Lists
+      • Review OCI Monitoring
+      {% elif cloud_provider == 'Private Cloud' %}
+      • Check hypervisor health
+      • Verify storage systems
+      • Review virtualization platform logs
+      • Check network infrastructure
+      {% endif %}
+  
+  - name: Send Cloud Infrastructure Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
     alert_title: "CRITICAL - {{ health_checks_monitoring_metrics.provider | upper }} INFRASTRUCTURE ALERT"
