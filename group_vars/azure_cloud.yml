@@ -2,6 +2,6 @@
 # group_vars/azure_cloud.yml
 
 cloud_provider: Azure
-connection_type: simulated
+ansible_connection: local
 
 monitoring_enabled: true
