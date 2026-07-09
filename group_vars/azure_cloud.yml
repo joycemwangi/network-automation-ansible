@@ -19,5 +19,5 @@ cloud_recommended_action: |
   • Review NSG rules
   • Verify Virtual Network routes
   • Review Azure Monitor alerts
-  
+
 monitoring_enabled: true
