@@ -117,43 +117,43 @@ Each alert includes:
 ## Project Structure
 ```
 network-automation-ansible/
-│
 ├── .github/
 │   └── workflows/
-│       └── ansible-health-check.yml # GitHub Actions CI monitoring workflow
-├── health_check.yml                 # Main orchestrator playbook (hybrid monitoring)
-├── ansible.cfg                      # Ansible configuration
-├── README.md                        # Project documentation
-├── LICENSE                          # MIT License
-├── .gitattributes                   # GitHub language detection
-├── .gitignore                       # Ignore logs, secrets, vault files, temporary files
+│       └── ansible-health-check.yml      # GitHub Actions CI monitoring workflow
+├── health_check.yml                      # Main orchestrator playbook (hybrid monitoring)
+├── ansible.cfg                           # Ansible configuration
+├── README.md                             # Project documentation
+├── LICENSE                               # MIT License
+├── .gitattributes                        # GitHub language detection
+├── .gitignore                            # Ignore logs, secrets, vault files and temporary files
 ├── assets/
-│   └── ansible-banner.png           # README banner
+│   └── ansible-banner.png                # README banner
 ├── inventory/
-│   └── hosts.ini                    # Infrastructure inventory (hosts & groups)
+│   └── hosts.ini                         # Infrastructure inventory (hosts & groups)
 ├── group_vars/
-│   ├── all.yml                      # Global monitoring policy
-│   ├── network.yml                  # Cisco IOS connection settings
-│   ├── aws_cloud.yml                # AWS monitoring configuration
-│   ├── azure_cloud.yml              # Azure monitoring configuration
-│   ├── gcp_cloud.yml                # Google Cloud monitoring configuration
-│   ├── oci_cloud.yml                # Oracle Cloud monitoring configuration
-│   └── private_cloud.yml            # Private cloud monitoring configuration
+│   ├── all.yml                           # Global monitoring policy
+│   ├── network.yml                       # Cisco IOS monitoring configuration
+│   ├── aws_cloud.yml                     # AWS monitoring configuration
+│   ├── azure_cloud.yml                   # Azure monitoring configuration
+│   ├── gcp_cloud.yml                     # Google Cloud monitoring configuration
+│   ├── oci_cloud.yml                     # Oracle Cloud monitoring configuration
+│   └── private_cloud.yml                 # Private cloud monitoring configuration
 ├── roles/
 │   └── health_checks/
 │       ├── tasks/
-│       │   ├── main.yml             # Hybrid monitoring and alerting logic
-│       │   └── send_monitoring_alert.yml # Sends monitoring alerts
+│       │   ├── main.yml                  # Main hybrid monitoring workflow
+│       │   ├── log_monitoring_alert.yml  # Generates monitoring alerts from detected events
+│       │   └── send_monitoring_alert.yml # Publishes monitoring alerts
 │       ├── defaults/
-│       │   └── main.yml             # Default monitoring thresholds
+│       │   └── main.yml                  # Default monitoring thresholds
 │       ├── vars/
-│       │   └── main.yml             # Role-specific variables
+│       │   └── main.yml                  # Role-specific variables
 │       └── handlers/
-│           └── main.yml             # Event-driven alert handlers
+│           └── main.yml                  # Event-driven handlers
 ├── scripts/
-│   └── send_mon_summary.py          # Sends monitoring execution summary
-├── templates/                       # Future report and notification templates
-└── logs/                            # Runtime execution logs
+│   └── send_mon_summary.py               # Sends monitoring execution summary
+├── templates/                            # Future notification and report templates
+└── logs/
     ├── .gitkeep
     └── .gitignore
 ```
