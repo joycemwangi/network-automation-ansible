@@ -394,9 +394,9 @@
 - name: Send High Latency Alert
   ansible.builtin.include_tasks: send_monitoring_alert.yml
   vars:
-      alert_title: "{{ health_checks_latency_alert_severity | upper }} - HIGH NETWORK LATENCY"
-      alert_severity: "{{ health_checks_latency_alert_severity }}"
-      alert_message: |
+    alert_title: "{{ health_checks_latency_alert_severity | upper }} - HIGH NETWORK LATENCY"
+    alert_severity: "{{ health_checks_latency_alert_severity }}"
+    alert_message: |
       Alert Type : Network Latency
       Status     : Threshold Exceeded
       Time       : {{ now(utc=true).strftime('%Y-%m-%d %H:%M:%S UTC') }}
