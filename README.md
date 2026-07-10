@@ -118,7 +118,7 @@ Each alert includes:
 
 ## Project Structure
 ```
-network-automation-ansible/
+hybrid-infrastructure-monitoring-ansible/
 ├── .github/
 │   └── workflows/
 │       └── ansible-health-check.yml      # GitHub Actions CI monitoring workflow
