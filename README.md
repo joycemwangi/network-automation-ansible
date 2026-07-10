@@ -1,4 +1,4 @@
-# Network Automation with Ansible
+# Hybrid Infrastructure Health Monitoring with Ansible
 
 <p align="center">
   <img src="assets/ansible-banner.png" alt="Network Automation with Ansible">
@@ -22,30 +22,29 @@
 
 ## Overview
 
-Ansible-based hybrid infrastructure monitoring framework for enterprise and ISP environments.
+Ansible-based hybrid infrastructure monitoring framework that automates health checks across enterprise networks and multi-cloud environments.
 
-The project automates health checks for Cisco network devices while providing an extensible framework for cloud infrastructure monitoring. It collects operational metrics, evaluates configurable thresholds, and generates structured alerts with severity classification, operational impact, possible causes, and recommended remediation actions.
-
-Designed with a modular role-based architecture, it supports demonstration mode for GitHub Actions using simulated metrics and production mode for Cisco IOS devices using live operational data. The monitoring framework is also structured for future integration with public and private cloud platforms, including AWS, Azure, GCP, OCI, and private cloud environments.
+The framework collects operational metrics, evaluates configurable thresholds, and generates structured alerts with severity classification, operational impact, possible causes, and recommended remediation actions.
 
 ---
 
 ## Key Features
 
+- Hybrid infrastructure health monitoring
 - Automated health checks for Cisco routers and switches
-- Hybrid infrastructure monitoring
-- Multi-cloud observability (AWS, Azure, GCP, OCI, Private Cloud)
+- Multi-cloud monitoring (AWS, Azure, GCP, OCI, Private Cloud)
 - Connectivity validation and health reporting
-- Intelligent threshold-based alerting with severity classification
-- Structured operational reporting with actionable remediation guidance
-- Role-based Ansible architecture
-- Extensible for enterprise and ISP environments
+- Threshold-based alerting with severity classification
+- Actionable operational guidance and remediation recommendations
+- Modular role-based Ansible architecture
 - Enterprise-style observability alerts
-- Production-ready monitoring workflow
+- Production and demonstration monitoring modes
+- Extensible framework for enterprise and ISP environments
 
 ---
 
-## Architecture
+## Core Components
+
 - Ansible Playbooks for orchestration
 - Ansible Roles for reusable automation logic
 - Cisco IOS modules for network data collection
@@ -57,8 +56,7 @@ Designed with a modular role-based architecture, it supports demonstration mode 
 
 The monitoring workflow follows a structured operational pipeline:
 
-```text
-Collect Metrics
+```Collect Metrics
       │
       ▼
 Evaluate Thresholds
@@ -68,6 +66,9 @@ Determine Severity
       │
       ▼
 Generate Alert
+      │
+      ▼
+Publish Alert
       │
       ▼
 Provide Operational Guidance
@@ -95,11 +96,11 @@ This approach helps reduce Mean Time to Detect (MTTD) and supports faster incide
 
 The monitoring role currently detects and classifies:
 
+- Connectivity Failures
+- Network Device Health
 - CPU Utilization
 - Memory Utilization
 - Network Latency
-- Network Device Health
-- Connectivity Failures
 - Monitoring Platform Failures
 
 Each alert includes:
@@ -171,31 +172,48 @@ Automated health check workflow:
    - OS version
    - Hardware model
    - Serial number  
-4. Display structured output for validation and monitoring  
-
+4. Evaluate operational thresholds
+5. Generate structured monitoring alerts
+6. Publish alerts to the configured notification platform
 ---
 
 ## Sample Output
 
-Router: R1-EDGE-01
-OS Version: IOS-XE 17.x
-Model: Cisco ISR 4451-X
-Serial Number: FGL2345ABC
+🚨 CRITICAL – HIGH CPU UTILIZATION
+
+Host: R1-EDGE-01
+CPU Usage: 95%
+Threshold: 65%
+
+Impact:
+• Reduced control plane responsiveness
+
+Possible Causes:
+• High routing protocol activity
+
+Recommended Action:
+• Verify BGP/OSPF neighbor stability
 
 ---
 
 ## Technologies Used
+
 - Ansible
+- Python
 - YAML
-- Cisco IOS Automation Modules
-- Network Engineering (L2/L3)
-- Infrastructure Automation
+- Cisco IOS Automation
+- GitHub Actions (CI/CD)
+- Discord Webhooks
+- Ansible Vault
+- Infrastructure Monitoring
+- Network Automation
 
 ---
 
 ## Security
 
 This project follows infrastructure automation security best practices by supporting **Ansible Vault** for protecting sensitive credentials.
+Sensitive credentials are encrypted using Ansible Vault and excluded from version control through .gitignore to support secure infrastructure automation.
 
 ### Protected Configuration
 - Cisco device credentials
@@ -221,17 +239,16 @@ ansible-vault encrypt group_vars/network.yml
 
 ## Future Enhancements
 
-- Integration with SIEM platforms for centralized security monitoring and alert correlation
-- Export monitoring metrics to Prometheus with visualization in Grafana dashboards
-- Multi-vendor support for Juniper, Arista, Fortinet, and Nokia network devices
-- Slack, Microsoft Teams, and Email notification channels
-- CI/CD pipeline integration for automated network validation and compliance checks
-- SNMP and streaming telemetry support for real-time observability
+- Slack, Microsoft Teams and Email notification channels
+- Multi-vendor support (Juniper, Arista, Fortinet and Nokia)
+- Prometheus and Grafana integration
+- SNMP and streaming telemetry
 - Historical metric storage and trend analysis
-- Automated incident creation with ServiceNow and Jira
-- AI-assisted anomaly detection and predictive alerting
-- Interactive operational dashboards and reporting
-
+- ServiceNow and Jira integration
+- SIEM integration
+- AI-assisted anomaly detection
+- Interactive operational dashboards
+- Compliance and configuration validation pipelines
 ---
 
 ## Author
@@ -239,5 +256,3 @@ ansible-vault encrypt group_vars/network.yml
 Network & Cloud Infrastructure Engineer  
 GitHub: https://github.com/joycemwangi  
 LinkedIn: https://linkedin.com/in/wanjajoyce
-
-
