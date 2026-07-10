@@ -1,20 +1,67 @@
-# Ansible playbooks and roles
-*.yml linguist-language=YAML
-*.yaml linguist-language=YAML
+###############################################################################
+# GitHub Linguist Configuration
+###############################################################################
+
+# Count all Ansible playbooks, roles and variables as YAML
+*.yml linguist-language=YAML linguist-detectable=true
+*.yaml linguist-language=YAML linguist-detectable=true
 
 # GitHub Actions workflows
 .github/workflows/*.yml linguist-language=YAML
 
+# Explicitly classify Ansible directories
+roles/** linguist-language=YAML
+group_vars/** linguist-language=YAML
+
 # Inventory
-*.ini linguist-detectable=false
+inventory/** linguist-language=INI
+*.ini linguist-language=INI
 
-# Ansible config
+# Python helper scripts
+*.py linguist-language=Python
+
+###############################################################################
+# Ignore documentation
+###############################################################################
+
+docs/** linguist-documentation
+*.md linguist-documentation
+
+###############################################################################
+# Ignore images
+###############################################################################
+
+*.png linguist-documentation
+*.jpg linguist-documentation
+*.jpeg linguist-documentation
+*.svg linguist-documentation
+
+###############################################################################
+# Ignore generated files
+###############################################################################
+
+logs/** linguist-generated
+reports/** linguist-generated
+
+###############################################################################
+# Ignore templates
+###############################################################################
+
+roles/**/templates/** linguist-detectable=false
+*.j2 linguist-detectable=false
+
+###############################################################################
+# Ignore configuration files
+###############################################################################
+
 ansible.cfg linguist-detectable=false
+.gitignore linguist-detectable=false
+.gitattributes linguist-detectable=false
 
-# Documentation
-*.md linguist-documentation=true
+###############################################################################
+# Normalize line endings
+###############################################################################
 
 * text=auto eol=lf
-
 *.yml text eol=lf
 *.yaml text eol=lf
