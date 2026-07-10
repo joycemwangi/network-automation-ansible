@@ -56,7 +56,8 @@ The framework collects operational metrics, evaluates configurable thresholds, a
 
 The monitoring workflow follows a structured operational pipeline:
 
-```Collect Metrics
+```
+Collect Metrics
       │
       ▼
 Evaluate Thresholds
